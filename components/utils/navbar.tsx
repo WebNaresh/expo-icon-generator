@@ -32,6 +32,13 @@ export function Navbar() {
             </span>
           </Link>
 
+          {/* Greeting Message */}
+          <div className="hidden lg:flex items-center">
+            <span className="text-gray-600 text-sm font-medium px-3 py-1 bg-sky-50 rounded-full border border-sky-100">
+              👋 Hello, Developer!
+            </span>
+          </div>
+
           {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
             {isClient ? (
@@ -43,38 +50,25 @@ export function Navbar() {
                   Home
                 </Link>
                 <Link
-                  href="/generator"
+                  href="/contributors"
                   className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
                 >
-                  Generator
+                  Contributors
                 </Link>
                 <Link
-                  href="/docs"
+                  href="https://github.com/WebNaresh/expo-icon-generator"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
                 >
-                  Documentation
-                </Link>
-                <Link
-                  href="/getting-started"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
-                >
-                  Getting Started
-                </Link>
-                <Link
-                  href="/opensource"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
-                >
-                  Open Source
+                  GitHub
                 </Link>
               </>
             ) : (
               <>
                 <span className="text-gray-600 font-medium">Home</span>
-                <span className="text-gray-600 font-medium">Generator</span>
-                <span className="text-gray-600 font-medium">Documentation</span>
-                <span className="text-gray-600 font-medium">
-                  Getting Started
-                </span>
+                <span className="text-gray-600 font-medium">Contributors</span>
+                <span className="text-gray-600 font-medium">GitHub</span>
               </>
             )}
           </div>
