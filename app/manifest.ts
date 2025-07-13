@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Expo Icon Generator - Automate Your App Icons',
     short_name: 'Expo Icons',
     description: 'A modern tool designed to automate and simplify icon generation for Expo-based React Native apps. Generate platform-specific icons (iOS, Android, web) from a single source image with one command.',
-    start_url: 'https://expo-icon-generator.vercel.app/',
+    start_url: 'https://expo-assets-generator.vercel.app/',
     display: 'standalone',
     background_color: '#f8fafc',
     theme_color: '#0ea5e9',

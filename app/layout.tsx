@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://expo-icon-generator.vercel.app"),
+  metadataBase: new URL("https://expo-assets-generator.vercel.app"),
   alternates: {
     canonical: "/",
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "Expo Icon Generator - Automate Your App Icons",
     description:
       "Automate and simplify icon generation for Expo-based React Native apps. Generate platform-specific icons from a single source image with one command.",
-    url: "https://expo-icon-generator.vercel.app",
+    url: "https://expo-assets-generator.vercel.app",
     siteName: "Expo Icon Generator",
     images: [
       {

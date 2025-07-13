@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ['sharp', 'jszip'],
+    // optimizePackageImports: ['sharp', 'jszip'],
   },
 };
 
