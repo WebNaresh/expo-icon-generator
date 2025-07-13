@@ -5,7 +5,7 @@ import type { MetadataRoute } from 'next'
  * Optimized for SEO with proper priorities and change frequencies
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://expo-icon-generator.vercel.app'
+  const baseUrl = 'https://expo-assets-generator.vercel.app'
   const currentDate = new Date()
 
   return [
