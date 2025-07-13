@@ -64,34 +64,54 @@ Expo Icon Generator is a powerful web-based tool that streamlines the process of
 - **Usage Instructions**: Clear step-by-step guidance for users
 - **Expo Integration**: Perfect compatibility with Expo development workflow
 
-## 🔄 How It Works - Practical Example
+## 🔄 How It Works - Step by Step
 
-**Meet Sarah and Mike:**
+**Simple 3-Step Process:**
 
-**Sarah's Profile:**
+### Step 1: Upload Your Source Image
 
-- **Offers**: Photoshop expertise (5+ years of graphic design experience)
-- **Wants to Learn**: Advanced Excel functions and data analysis
-- **Availability**: Weekends, 2-3 hours per session
+- **Prepare**: Create or select a high-quality image (recommended: 1024×1024px or larger)
+- **Upload**: Drag and drop your image file or click to browse
+- **Preview**: Instantly see your uploaded image with file details
+- **Validate**: Automatic validation ensures your image meets requirements
 
-**Mike's Profile:**
+### Step 2: Generate Icons
 
-- **Offers**: Excel mastery (financial analyst with advanced spreadsheet skills)
-- **Wants to Learn**: Photoshop for personal photography projects
-- **Availability**: Weekends, flexible timing
+- **Process**: Click "Generate Icons" to start the automated processing
+- **Wait**: Watch the progress as Sharp processes your image
+- **Quality**: Advanced algorithms ensure optimal scaling and sharpness
+- **Speed**: Complete generation typically takes 5-10 seconds
 
-**The Exchange Process:**
+### Step 3: Download and Use
 
-1. **Discovery**: Sarah searches for "Excel" and finds Mike's profile
-2. **Connection**: Sarah sends a swap request proposing to teach Photoshop in exchange for Excel lessons
-3. **Agreement**: Mike accepts the request and they coordinate schedules
-4. **Learning Sessions**: They meet for 4 sessions over 2 months:
-   - Session 1: Sarah teaches Photoshop basics, Mike covers Excel fundamentals
-   - Session 2: Advanced Photoshop techniques, Excel formulas and functions
-   - Session 3: Photo editing workflows, Data analysis and pivot tables
-   - Session 4: Creative projects, Advanced Excel automation
-5. **Feedback**: Both leave positive reviews highlighting their learning experience
-6. **Community Growth**: Their successful exchange builds trust and encourages others
+- **Preview**: Review all generated icons in the results grid
+- **Download**: Get individual icons or download all as a ZIP file
+- **Integrate**: Add the icons to your Expo project's assets folder
+- **Configure**: Update your app.json with the new icon paths
+
+**Real Example - React Native App:**
+
+````json
+// app.json configuration
+{
+  "expo": {
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png"
+    },
+    "ios": {
+      "icon": "./assets/icon.png"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
 
 ## 🚀 Getting Started
 
@@ -105,18 +125,18 @@ Expo Icon Generator is a powerful web-based tool that streamlines the process of
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd skill_swap
+git clone https://github.com/WebNaresh/expo-icon-generator.git
+cd expo-icon-generator
 ```
 
 2. Install dependencies:
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 # or
 yarn install
 # or
-pnpm install
+pnpm install --legacy-peer-deps
 ```
 
 3. Run the development server:
@@ -127,15 +147,13 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:8888](http://localhost:8888) in your browser
 
 ### Development Commands
 
-- `npm run dev` - Start development server with Turbopack
+- `npm run dev` - Start development server with Turbopack (port 8888)
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint for code quality
@@ -146,20 +164,27 @@ bun dev
 
 - **Framework**: Next.js 15+ (App Router)
 - **Language**: TypeScript 5+
-- **Database**: MongoDB with Prisma ORM
-- **Authentication**: NextAuth.js with Google OAuth
+- **Image Processing**: Sharp for high-quality image manipulation
+- **File Handling**: JSZip for creating downloadable ZIP archives
 - **Styling**: TailwindCSS with custom sky blue theme
 - **UI Components**: Shadcn/ui components
-- **State Management**: TanStack Query (React Query)
 - **Icons**: Lucide React
 - **Deployment**: Vercel
+
+### Image Processing Features
+
+- **Sharp Library**: High-performance image resizing and optimization
+- **Format Support**: PNG, JPG, JPEG, SVG input formats
+- **Quality Scaling**: Advanced algorithms for crisp icon generation
+- **Batch Processing**: Generate multiple icon sizes simultaneously
+- **Memory Efficient**: Optimized for handling large image files
 
 ### Development Tools
 
 - **Build Tool**: Turbopack for fast development
 - **Code Quality**: ESLint with TypeScript rules
 - **Package Manager**: npm/yarn/pnpm support
-- **Database Studio**: Prisma Studio for database management
+- **Type Safety**: Full TypeScript coverage for reliability
 
 ## 📋 Prerequisites
 
@@ -167,67 +192,32 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: Version 18.0 or higher
 - **npm**, **yarn**, or **pnpm**: Latest version
-- **MongoDB**: Local instance or MongoDB Atlas account
 - **Git**: For version control
-- **Google Cloud Account**: For OAuth authentication
+- **Modern Browser**: Chrome, Firefox, Safari, or Edge
 
 ## 🚀 Installation & Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/WebNaresh/skill_swap.git
-cd skill_swap
+git clone https://github.com/WebNaresh/expo-icon-generator.git
+cd expo-icon-generator
 ```
 
 ### 2. Install Dependencies
 
 ```bash
-# Using npm
-npm install
+# Using npm (recommended)
+npm install --legacy-peer-deps
 
 # Using yarn
 yarn install
 
 # Using pnpm
-pnpm install
+pnpm install --legacy-peer-deps
 ```
 
-### 3. Environment Configuration
-
-Create a `.env.local` file in the project root:
-
-```env
-# Database Configuration
-DATABASE_URL="mongodb://localhost:27017/skillcircle"
-# For MongoDB Atlas: "mongodb+srv://username:password@cluster.mongodb.net/skillcircle"
-
-# NextAuth.js Configuration
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-nextauth-secret-key-here"
-
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-# Optional: Additional Configuration
-NODE_ENV="development"
-```
-
-### 4. Database Setup
-
-```bash
-# Generate Prisma client
-npx prisma generate
-
-# Push database schema (for development)
-npx prisma db push
-
-# Optional: View database in Prisma Studio
-npx prisma studio
-```
-
-### 5. Start Development Server
+### 3. Start Development Server
 
 ```bash
 npm run dev
@@ -237,7 +227,32 @@ yarn dev
 pnpm dev
 ```
 
-The application will be available at `http://localhost:3000`
+The application will be available at `http://localhost:8888`
+
+### 4. Build for Production
+
+```bash
+# Build the application
+npm run build
+
+# Start production server
+npm run start
+```
+
+## 📁 Generated Icon Specifications
+
+The tool generates the following icon files with exact specifications:
+
+| File Name | Dimensions | Purpose | Description |
+|-----------|------------|---------|-------------|
+| `adaptive-icon.png` | 1024×1024px | Android | Adaptive icon for Android apps |
+| `favicon.png` | 48×48px | Web | Browser favicon |
+| `icon.png` | 1024×1024px | Main | Primary app icon |
+| `partial-react-logo.png` | 518×316px | Custom | Cropped top-right section |
+| `react-logo.png` | 100×100px | 1x | Standard density icon |
+| `react-logo@2x.png` | 200×200px | 2x | High density icon |
+| `react-logo@3x.png` | 300×300px | 3x | Extra high density icon |
+| `splash-icon.png` | 1024×1024px | Splash | Centered icon for splash screens |
 
 ## 🔧 Environment Variables
 
@@ -383,3 +398,4 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **SkillCircle** - Empowering communities through skill exchange 🌟
+````
