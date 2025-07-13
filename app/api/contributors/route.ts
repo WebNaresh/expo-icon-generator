@@ -92,16 +92,16 @@ const rateLimitTracker = new Map<string, { count: number; resetTime: number }>()
 function checkRateLimit(clientId: string): boolean {
   const now = Date.now()
   const tracker = rateLimitTracker.get(clientId)
-  
+
   if (!tracker || now > tracker.resetTime) {
     rateLimitTracker.set(clientId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
     return true
   }
-  
+
   if (tracker.count >= RATE_LIMIT_MAX_REQUESTS) {
     return false
   }
-  
+
   tracker.count++
   return true
 }
@@ -110,13 +110,13 @@ function checkRateLimit(clientId: string): boolean {
 function getCachedData(key: string): any | null {
   const cached = cache.get(key)
   if (!cached) return null
-  
+
   const now = Date.now()
   if (now - cached.timestamp > CACHE_DURATION * 1000) {
     cache.delete(key)
     return null
   }
-  
+
   return cached.data
 }
 
@@ -128,7 +128,7 @@ function setCachedData(key: string, data: any): void {
 // Helper function to fetch GitHub API with error handling
 async function fetchGitHubAPI(endpoint: string): Promise<any> {
   const url = `${GITHUB_API_BASE}${endpoint}`
-  
+
   try {
     const response = await fetch(url, {
       headers: {
@@ -162,7 +162,7 @@ async function fetchGitHubAPI(endpoint: string): Promise<any> {
 // Main function to fetch and process contributors
 async function fetchContributors(): Promise<ProcessedContributor[]> {
   const cacheKey = `contributors-${REPO_OWNER}-${REPO_NAME}`
-  
+
   // Check cache first
   const cachedData = getCachedData(cacheKey)
   if (cachedData) {
@@ -180,7 +180,7 @@ async function fetchContributors(): Promise<ProcessedContributor[]> {
       contributors.map(async (contributor) => {
         try {
           const userDetails: GitHubUser = await fetchGitHubAPI(`/users/${contributor.login}`)
-          
+
           return {
             username: contributor.login,
             name: userDetails.name,
@@ -234,16 +234,18 @@ async function fetchContributors(): Promise<ProcessedContributor[]> {
 export async function GET(request: NextRequest) {
   try {
     // Get client IP for rate limiting
-    const clientIP = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
-    
+    const forwarded = request.headers.get('x-forwarded-for')
+    const realIP = request.headers.get('x-real-ip')
+    const clientIP = forwarded?.split(',')[0] || realIP || 'unknown'
+
     // Check rate limits
     if (!checkRateLimit(clientIP)) {
       return NextResponse.json(
-        { 
+        {
           error: 'Rate limit exceeded',
           message: 'Too many requests. Please try again later.'
         },
-        { 
+        {
           status: 429,
           headers: {
             'Retry-After': '60'
@@ -256,7 +258,7 @@ export async function GET(request: NextRequest) {
     const contributors = await fetchContributors()
 
     return NextResponse.json(
-      { 
+      {
         contributors,
         total: contributors.length,
         cached: true // This will be true if data came from cache
@@ -272,22 +274,22 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     console.error('Contributors API error:', error)
-    
+
     // Return appropriate error response
     if (error instanceof Error) {
       if (error.message.includes('rate limit')) {
         return NextResponse.json(
-          { 
+          {
             error: 'GitHub API rate limit exceeded',
             message: 'Please try again later. Consider adding a GitHub token for higher limits.'
           },
           { status: 429 }
         )
       }
-      
+
       if (error.message.includes('not found')) {
         return NextResponse.json(
-          { 
+          {
             error: 'Repository not found',
             message: 'The specified repository could not be found.'
           },
@@ -297,7 +299,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { 
+      {
         error: 'Internal server error',
         message: 'Failed to fetch contributors. Please try again later.'
       },

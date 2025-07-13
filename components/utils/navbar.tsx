@@ -32,6 +32,13 @@ export function Navbar() {
             </span>
           </Link>
 
+          {/* Greeting Message */}
+          <div className="hidden lg:flex items-center">
+            <span className="text-gray-600 text-sm font-medium px-3 py-1 bg-sky-50 rounded-full border border-sky-100">
+              👋 Hello, Developer!
+            </span>
+          </div>
+
           {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
             {isClient ? (
