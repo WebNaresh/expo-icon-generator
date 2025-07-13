@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ExternalLink,
-  Heart,
   GitFork,
   Loader2,
   AlertCircle,
@@ -33,20 +32,6 @@ interface ContributorsResponse {
   contributors: APIContributor[];
   total: number;
   cached?: boolean;
-}
-
-// Note: Metadata is handled by layout.tsx since this is now a Client Component
-
-// Social link icon component
-function SocialIcon({ platform }: { platform: string }) {
-  switch (platform) {
-    case "github":
-      return <ExternalLink className="w-5 h-5" />;
-    case "linkedin":
-      return <ExternalLink className="w-5 h-5" />;
-    default:
-      return <ExternalLink className="w-5 h-5" />;
-  }
 }
 
 // Contributor card component
@@ -240,7 +225,7 @@ export default function ContributorsPage() {
               No contributors found
             </h3>
             <p className="text-gray-500 mb-6">
-              We couldn't find any contributors at the moment.
+              We couldn&apos;t find any contributors at the moment.
             </p>
             <button
               onClick={fetchContributors}

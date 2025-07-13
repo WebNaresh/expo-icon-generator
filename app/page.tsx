@@ -13,8 +13,6 @@ import {
   Image as ImageIcon,
   Users,
   ExternalLink,
-  Zap,
-  Shield,
 } from "lucide-react";
 
 // Types for our icon generation
