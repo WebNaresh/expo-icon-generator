@@ -14,7 +14,7 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: '#f8fafc',
     theme_color: '#0ea5e9',
     orientation: 'portrait-primary',
-    scope: 'https://expo-icon-generator.vercel.app/',
+    scope: 'https://expo-assets-generator.vercel.app/',
     lang: 'en-US',
     categories: ['developer-tools', 'productivity', 'utilities', 'graphics'],
     icons: [
