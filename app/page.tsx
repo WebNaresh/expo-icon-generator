@@ -243,10 +243,12 @@ export default function HomePage() {
               {uploadedFile ? (
                 <div className="space-y-4">
                   <div className="flex justify-center">
-                    <img
+                    <Image
                       src={uploadedFile.preview}
                       alt="Preview"
-                      className="max-w-32 max-h-32 rounded-lg shadow-md"
+                      width={128}
+                      height={128}
+                      className="max-w-32 max-h-32 rounded-lg shadow-md object-contain"
                     />
                   </div>
                   <div>
@@ -352,6 +354,7 @@ export default function HomePage() {
                     className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
                   >
                     <div className="flex items-center justify-center h-24 bg-gray-50 rounded-lg mb-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={icon.url}
                         alt={icon.name}
