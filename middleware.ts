@@ -2,23 +2,23 @@ import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Next.js Middleware for Expo Icon Generator
- * 
- * Handles PWA manifest compatibility by redirecting requests from
- * /manifest.json to /manifest.webmanifest to ensure compatibility
- * across different PWA implementations and browsers.
+ *
+ * Handles PWA manifest compatibility by rewriting requests from
+ * /manifest.json to serve content from /manifest.webmanifest
+ * while keeping the URL as /manifest.json for better compatibility.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Handle manifest.json redirect for PWA compatibility
+  // Handle manifest.json rewrite for PWA compatibility
   if (pathname === '/manifest.json') {
-    // Create a permanent redirect (301) to the correct manifest path
+    // Rewrite to serve manifest.webmanifest content while keeping the URL as manifest.json
     const url = request.nextUrl.clone()
     url.pathname = '/manifest.webmanifest'
-    
-    return NextResponse.redirect(url, {
-      status: 301, // Permanent redirect
+
+    return NextResponse.rewrite(url, {
       headers: {
+        'Content-Type': 'application/manifest+json',
         'Cache-Control': 'public, max-age=31536000, immutable', // Cache for 1 year
       },
     })
