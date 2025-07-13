@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 SkillCircle Platform
+Copyright (c) 2024 Expo Icon Generator
 Developed by NaviByte Innovation (http://navibyte.in/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,15 +25,20 @@ SOFTWARE.
 
 ## Additional Acknowledgments
 
-This project is proudly developed by NaviByte Innovation, a forward-thinking 
-technology company committed to creating innovative solutions that empower 
-communities and foster collaborative learning.
+This project is proudly developed by NaviByte Innovation, a forward-thinking
+technology company committed to creating innovative solutions that empower
+developers and streamline the app development process.
+
+The Expo Icon Generator is designed to automate and simplify icon generation
+for Expo-based React Native applications, helping developers save time and
+ensure consistent, high-quality icons across all platforms.
 
 For more information about NaviByte Innovation:
+
 - Website: http://navibyte.in/
 - Email: Contact through website
 
 ## Contributing
 
-By contributing to this project, you agree that your contributions will be 
+By contributing to this project, you agree that your contributions will be
 licensed under the same MIT License that covers the project.
