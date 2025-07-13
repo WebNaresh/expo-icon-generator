@@ -4,6 +4,8 @@ import type { MetadataRoute } from 'next'
  * Sitemap configuration for Expo Icon Generator
  * Optimized for SEO with proper priorities and change frequencies
  * Follows Google XML Sitemap Protocol and Next.js MetadataRoute.Sitemap specification
+ *
+ * Only includes URLs that correspond to actual pages in the app directory structure
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://expo-assets-generator.vercel.app'
@@ -13,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date('2024-12-15T00:00:00.000Z')
 
   return [
-    // Home page - Highest priority
+    // Home page - The main Expo Icon Generator tool page
     {
       url: `${baseUrl}/`,
       lastModified,
@@ -21,54 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
 
-    // Core tool features - High priority
+    // Contributors page - Information about project contributors
     {
-      url: `${baseUrl}/generator/`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/docs/`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-
-    // Getting started and guides
-    {
-      url: `${baseUrl}/getting-started/`,
+      url: `${baseUrl}/contributors/`,
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/examples/`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-
-    // Open source and community pages
-    {
-      url: `${baseUrl}/opensource/`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-
-    // Legal and policy pages - Lower priority, infrequent changes
-    {
-      url: `${baseUrl}/terms/`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/privacy/`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
     },
   ]
 }

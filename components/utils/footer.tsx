@@ -30,9 +30,9 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Tool Links */}
+          {/* Navigation Links */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Tool</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">Navigation</h3>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -44,57 +44,47 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/generator"
+                  href="/contributors"
                   className="text-gray-600 hover:text-sky-600 transition-colors"
                 >
-                  Icon Generator
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs"
-                  className="text-gray-600 hover:text-sky-600 transition-colors"
-                >
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/getting-started"
-                  className="text-gray-600 hover:text-sky-600 transition-colors"
-                >
-                  Getting Started
+                  Contributors
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal Links */}
+          {/* Community Links */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">Community</h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/terms"
+                  href="https://github.com/WebNaresh/expo-icon-generator"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-sky-600 transition-colors"
                 >
-                  Terms & Conditions
+                  GitHub Repository
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/privacy"
+                  href="https://github.com/WebNaresh/expo-icon-generator/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-sky-600 transition-colors"
                 >
-                  Privacy Policy
+                  Report Issues
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/refund"
+                  href="https://github.com/WebNaresh/expo-icon-generator/discussions"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-sky-600 transition-colors"
                 >
-                  Refund Policy
+                  Discussions
                 </Link>
               </li>
             </ul>
