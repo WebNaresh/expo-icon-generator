@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 
 import {
@@ -40,7 +40,9 @@ export default function HomePage() {
   const [generatedIcons, setGeneratedIcons] = useState<GeneratedIcon[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isPasteReady, setIsPasteReady] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadAreaRef = useRef<HTMLDivElement>(null);
 
   // File validation
   const validateFile = (file: File): string | null => {
@@ -101,6 +103,132 @@ export default function HomePage() {
     },
     [handleFileUpload]
   );
+
+  // Handle clipboard paste
+  const handlePaste = useCallback(
+    async (e: ClipboardEvent) => {
+      e.preventDefault();
+
+      if (!e.clipboardData) {
+        setError("Clipboard access not available");
+        return;
+      }
+
+      const items = Array.from(e.clipboardData.items);
+      const imageItem = items.find((item) => item.type.startsWith("image/"));
+
+      if (!imageItem) {
+        setError(
+          "No image found in clipboard. Please copy an image and try again."
+        );
+        return;
+      }
+
+      const file = imageItem.getAsFile();
+      if (!file) {
+        setError("Failed to read image from clipboard");
+        return;
+      }
+
+      // Create a proper File object with a name
+      const properFile = new File(
+        [file],
+        `pasted-image.${file.type.split("/")[1]}`,
+        {
+          type: file.type,
+          lastModified: Date.now(),
+        }
+      );
+
+      handleFileUpload(properFile);
+    },
+    [handleFileUpload]
+  );
+
+  // Handle keyboard events for paste
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      // Check for Ctrl+V (Windows/Linux) or Cmd+V (Mac)
+      if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        // Only handle paste if no input is focused
+        const activeElement = document.activeElement;
+        const isInputFocused =
+          activeElement &&
+          (activeElement.tagName === "INPUT" ||
+            activeElement.tagName === "TEXTAREA" ||
+            (activeElement as HTMLElement).contentEditable === "true");
+
+        if (!isInputFocused) {
+          e.preventDefault();
+          // Trigger paste event manually using modern Clipboard API
+          navigator.clipboard
+            .read()
+            .then(async (clipboardItems) => {
+              for (const clipboardItem of clipboardItems) {
+                for (const type of clipboardItem.types) {
+                  if (type.startsWith("image/")) {
+                    const blob = await clipboardItem.getType(type);
+                    const file = new File(
+                      [blob],
+                      `pasted-image.${type.split("/")[1]}`,
+                      {
+                        type: type,
+                        lastModified: Date.now(),
+                      }
+                    );
+                    handleFileUpload(file);
+                    return;
+                  }
+                }
+              }
+              setError(
+                "No image found in clipboard. Please copy an image and try again."
+              );
+            })
+            .catch(() => {
+              setError(
+                "Failed to access clipboard. Please try drag and drop instead."
+              );
+            });
+        }
+      }
+    },
+    [handleFileUpload]
+  );
+
+  // Focus management for paste functionality
+  const handleUploadAreaFocus = useCallback(() => {
+    setIsPasteReady(true);
+  }, []);
+
+  const handleUploadAreaBlur = useCallback(() => {
+    setIsPasteReady(false);
+  }, []);
+
+  // Set up event listeners
+  useEffect(() => {
+    const uploadArea = uploadAreaRef.current;
+
+    // Create wrapper function for paste event
+    const pasteHandler = (e: Event) => {
+      if (e instanceof ClipboardEvent) {
+        handlePaste(e);
+      }
+    };
+
+    if (uploadArea) {
+      uploadArea.addEventListener("paste", pasteHandler);
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      if (uploadArea) {
+        uploadArea.removeEventListener("paste", pasteHandler);
+      }
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePaste, handleKeyDown]);
 
   // Generate icons
   const generateIcons = async () => {
@@ -221,16 +349,24 @@ export default function HomePage() {
 
             {/* File Upload Area */}
             <div
+              ref={uploadAreaRef}
               className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
                 isDragOver
                   ? "border-sky-500 bg-sky-50"
                   : uploadedFile
                   ? "border-green-500 bg-green-50"
+                  : isPasteReady
+                  ? "border-sky-400 bg-sky-25"
                   : "border-gray-300 hover:border-sky-400 hover:bg-sky-50"
               }`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
+              onFocus={handleUploadAreaFocus}
+              onBlur={handleUploadAreaBlur}
+              tabIndex={0}
+              role="button"
+              aria-label="Upload area - drag and drop files or press Ctrl+V to paste"
             >
               <input
                 ref={fileInputRef}
@@ -282,7 +418,11 @@ export default function HomePage() {
                       Drag and drop your image here
                     </p>
                     <p className="text-sm text-gray-500 mb-4">
-                      or click to browse files
+                      or click to browse files, or press{" "}
+                      <kbd className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded">
+                        Ctrl+V
+                      </kbd>{" "}
+                      to paste
                     </p>
                     <button
                       onClick={() => fileInputRef.current?.click()}
@@ -293,7 +433,8 @@ export default function HomePage() {
                     </button>
                   </div>
                   <p className="text-xs text-gray-400">
-                    Supports PNG, JPG, JPEG, SVG • Max 10MB
+                    Supports PNG, JPG, JPEG, SVG • Max 10MB • Paste from
+                    clipboard
                   </p>
                 </div>
               )}
