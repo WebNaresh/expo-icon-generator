@@ -24,9 +24,19 @@ interface ContributorsResponse {
 
 // Fetch contributors for sitemap generation
 async function fetchContributors(): Promise<Contributor[]> {
+  // During build time, return empty array to avoid fetch errors
+  if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL) {
+    console.log('Build time: Skipping contributor fetch for sitemap')
+    return []
+  }
+
   try {
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/contributors`,
+      `${baseUrl}/api/contributors`,
       {
         next: { revalidate: 3600 } // Revalidate every hour
       }

@@ -39,15 +39,20 @@ interface ContributorsResponse {
 
 // Fetch contributors from our API
 async function fetchContributors(): Promise<Contributor[]> {
+  // During build time, return empty array to avoid fetch errors
+  if (process.env.NODE_ENV === "production" && !process.env.VERCEL_URL) {
+    console.log("Build time: Skipping contributor fetch");
+    return [];
+  }
+
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/contributors`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
-      }
-    );
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+    const response = await fetch(`${baseUrl}/api/contributors`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch contributors");
