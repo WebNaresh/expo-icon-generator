@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Upload,
@@ -10,6 +11,10 @@ import {
   CheckCircle,
   AlertCircle,
   Image as ImageIcon,
+  Users,
+  ExternalLink,
+  Zap,
+  Shield,
 } from "lucide-react";
 
 // Types for our icon generation
@@ -23,6 +28,23 @@ interface GeneratedIcon {
 interface UploadedFile {
   file: File;
   preview: string;
+}
+
+// Types for contributors
+interface Contributor {
+  username: string;
+  name: string | null;
+  avatar_url: string;
+  profile_url: string;
+  contributions: number;
+  bio: string | null;
+  location: string | null;
+  company: string | null;
+  blog: string | null;
+  twitter_username: string | null;
+  public_repos: number;
+  followers: number;
+  created_at: string;
 }
 
 // Accepted file types
@@ -41,6 +63,11 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isPasteReady, setIsPasteReady] = useState(false);
+  const [contributors, setContributors] = useState<Contributor[]>([]);
+  const [isLoadingContributors, setIsLoadingContributors] = useState(false);
+  const [contributorsError, setContributorsError] = useState<string | null>(
+    null
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadAreaRef = useRef<HTMLDivElement>(null);
 
@@ -306,6 +333,34 @@ export default function HomePage() {
       setError(err instanceof Error ? err.message : "Failed to download icons");
     }
   };
+
+  // Fetch contributors from API
+  const fetchContributors = useCallback(async () => {
+    setIsLoadingContributors(true);
+    setContributorsError(null);
+
+    try {
+      const response = await fetch("/api/contributors");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch contributors");
+      }
+
+      const data = await response.json();
+      setContributors(data.contributors || []);
+    } catch (err) {
+      setContributorsError(
+        err instanceof Error ? err.message : "Failed to load contributors"
+      );
+    } finally {
+      setIsLoadingContributors(false);
+    }
+  }, []);
+
+  // Fetch contributors on component mount
+  useEffect(() => {
+    fetchContributors();
+  }, [fetchContributors]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
@@ -577,6 +632,135 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Contributors Section */}
+        <div className="max-w-6xl mx-auto mt-16">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Users className="w-8 h-8 text-sky-600" />
+              <h2 className="text-3xl font-bold text-gray-900">
+                Meet Our Contributors
+              </h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              The amazing developers who make Expo Icon Generator possible
+              through their contributions and dedication.
+            </p>
+          </div>
+
+          {isLoadingContributors ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="flex items-center gap-3 text-gray-600">
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span>Loading contributors...</span>
+              </div>
+            </div>
+          ) : contributorsError ? (
+            <div className="text-center py-12">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-3" />
+                <p className="text-red-700 font-medium mb-2">
+                  Failed to load contributors
+                </p>
+                <p className="text-red-600 text-sm mb-4">{contributorsError}</p>
+                <button
+                  onClick={fetchContributors}
+                  className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          ) : contributors.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                {contributors.slice(0, 3).map((contributor) => (
+                  <div
+                    key={contributor.username}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <Image
+                        src={contributor.avatar_url}
+                        alt={`${
+                          contributor.name || contributor.username
+                        } avatar`}
+                        width={64}
+                        height={64}
+                        className="rounded-full border-2 border-sky-100"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "/default-avatar.png";
+                        }}
+                      />
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {contributor.name || contributor.username}
+                        </h3>
+                        <p className="text-sky-600 font-medium">
+                          @{contributor.username}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {contributor.contributions} contribution
+                          {contributor.contributions !== 1 ? "s" : ""}
+                        </p>
+                      </div>
+                    </div>
+
+                    {contributor.bio && (
+                      <p className="text-gray-700 text-sm mb-4 line-clamp-2">
+                        {contributor.bio}
+                      </p>
+                    )}
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        {contributor.location && (
+                          <span>📍 {contributor.location}</span>
+                        )}
+                        {contributor.public_repos > 0 && (
+                          <span>📚 {contributor.public_repos} repos</span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/contributors/${contributor.username}`}
+                          className="px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition-colors text-sm font-medium"
+                        >
+                          View Profile
+                        </Link>
+                        <Link
+                          href={contributor.profile_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 text-gray-400 hover:text-sky-600 transition-colors"
+                          aria-label={`Visit ${contributor.username}'s GitHub profile`}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <Link
+                  href="/contributors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 text-white font-semibold rounded-lg hover:bg-sky-700 transition-colors"
+                >
+                  <Users className="w-5 h-5" />
+                  View All Contributors
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <p className="text-gray-500">No contributors found</p>
+            </div>
+          )}
         </div>
 
         {/* Instructions Section */}
