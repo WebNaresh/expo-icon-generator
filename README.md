@@ -254,47 +254,94 @@ The tool generates the following icon files with exact specifications:
 | `react-logo@3x.png` | 300×300px | 3x | Extra high density icon |
 | `splash-icon.png` | 1024×1024px | Splash | Centered icon for splash screens |
 
-## 🔧 Environment Variables
+## 🔌 API Documentation
 
-| Variable               | Description                      | Required | Example                                 |
-| ---------------------- | -------------------------------- | -------- | --------------------------------------- |
-| `DATABASE_URL`         | MongoDB connection string        | Yes      | `mongodb://localhost:27017/skillcircle` |
-| `NEXTAUTH_URL`         | Application URL for NextAuth     | Yes      | `http://localhost:3000`                 |
-| `NEXTAUTH_SECRET`      | Secret key for NextAuth sessions | Yes      | `your-secret-key`                       |
-| `GOOGLE_CLIENT_ID`     | Google OAuth client ID           | Yes      | `your-google-client-id`                 |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret       | Yes      | `your-google-client-secret`             |
+The Expo Icon Generator provides two main API endpoints for programmatic access:
 
-### Getting Google OAuth Credentials
+### POST `/api/generate-icons`
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Google+ API
-4. Go to Credentials → Create Credentials → OAuth 2.0 Client IDs
-5. Set authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+Processes an uploaded image and generates all required icon variants.
+
+**Request:**
+- Method: `POST`
+- Content-Type: `multipart/form-data`
+- Body: Form data with `image` field containing the source image file
+
+**Response:**
+```json
+{
+  "icons": [
+    {
+      "name": "adaptive-icon.png",
+      "size": "1024×1024px (Android adaptive icon)",
+      "url": "data:image/png;base64,..."
+    },
+    // ... other generated icons
+  ]
+}
+```
+
+**Error Response:**
+```json
+{
+  "error": "Invalid file type. Please upload PNG, JPG, JPEG, or SVG."
+}
+```
+
+### POST `/api/download-icons`
+
+Creates a ZIP file containing all generated icons for bulk download.
+
+**Request:**
+- Method: `POST`
+- Content-Type: `application/json`
+- Body: Array of icon objects with `name` and `url` properties
+
+**Response:**
+- Content-Type: `application/zip`
+- Binary ZIP file containing all icons
+
+**Example Usage:**
+```javascript
+// Generate icons
+const formData = new FormData();
+formData.append('image', imageFile);
+
+const response = await fetch('/api/generate-icons', {
+  method: 'POST',
+  body: formData,
+});
+
+const result = await response.json();
+console.log('Generated icons:', result.icons);
+```
 
 ## 📁 Project Structure
 
 ```
-skill_swap/
-├── app/                    # Next.js App Router pages
+expo-icon-generator/
+├── app/                    # Next.js App Router
 │   ├── api/               # API routes
-│   ├── components/        # Page-specific components
+│   │   ├── generate-icons/ # Icon generation endpoint
+│   │   └── download-icons/ # ZIP download endpoint
 │   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx          # Home page
-│   └── ...
+│   ├── layout.tsx         # Root layout with metadata
+│   ├── page.tsx          # Main icon generator interface
+│   ├── manifest.ts        # PWA manifest
+│   └── sitemap.ts         # SEO sitemap
 ├── components/            # Reusable components
-│   ├── AppInputFields/    # Custom input components
-│   ├── utils/            # Utility components (navbar, footer)
-│   └── ...
+│   ├── ui/               # Shadcn/ui components
+│   └── utils/            # Utility components (navbar, footer)
 ├── lib/                  # Utility libraries
-│   ├── auth.ts           # NextAuth configuration
-│   ├── prisma.ts         # Prisma client
-│   └── ...
-├── prisma/               # Database schema and migrations
-│   └── schema.prisma     # Database schema
+│   └── utils.ts          # Helper functions
 ├── public/               # Static assets
-└── ...
+│   ├── web-app-manifest-192x192.png
+│   ├── web-app-manifest-512x512.png
+│   └── navibyte-logo.png
+├── package.json          # Dependencies and scripts
+├── tailwind.config.js    # Tailwind CSS configuration
+├── tsconfig.json         # TypeScript configuration
+└── next.config.ts        # Next.js configuration
 ```
 
 ## 🔄 Development Workflow
@@ -303,41 +350,36 @@ skill_swap/
 
 ```bash
 # Development
-npm run dev          # Start development server with Turbopack
+npm run dev          # Start development server with Turbopack (port 8888)
 npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint for code quality
-
-# Database Operations
-npx prisma studio    # View database in Prisma Studio
-npx prisma generate  # Generate Prisma client
-npx prisma db push   # Push schema changes to database
-npx prisma migrate reset  # Reset database (development only)
 ```
+
+### Adding New Icon Formats
+
+To add support for additional icon formats:
+
+1. **Update Icon Specifications**: Modify `ICON_SPECS` array in `/api/generate-icons/route.ts`
+2. **Add Processing Logic**: Implement custom processing for special formats
+3. **Update UI**: Add new formats to the generated icons display
+4. **Test**: Verify generation and download functionality
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
-**1. Database Connection Issues**
+**1. Image Processing Errors**
 
 ```bash
-# Check MongoDB is running
-mongod --version
+# Ensure Sharp is properly installed
+npm install sharp --legacy-peer-deps
 
-# Verify connection string in .env.local
-# Ensure database exists and is accessible
+# Check supported image formats
+# Verify file size is under 10MB limit
 ```
 
-**2. NextAuth Configuration Issues**
-
-```bash
-# Verify all OAuth credentials are correct
-# Check NEXTAUTH_URL matches your domain
-# Ensure NEXTAUTH_SECRET is set and secure
-```
-
-**3. Build Errors**
+**2. Build Errors**
 
 ```bash
 # Clear Next.js cache
@@ -345,25 +387,30 @@ rm -rf .next
 
 # Reinstall dependencies
 rm -rf node_modules package-lock.json
-npm install
-
-# Regenerate Prisma client
-npx prisma generate
+npm install --legacy-peer-deps
 ```
 
-**4. TypeScript Errors**
+**3. TypeScript Errors**
 
 ```bash
 # Run type checking
-npm run type-check
+npx tsc --noEmit
 
-# Check for missing dependencies
-npm install @types/node @types/react @types/react-dom
+# Install missing type definitions
+npm install @types/jszip --save-dev
+```
+
+**4. Performance Issues**
+
+```bash
+# Monitor memory usage during image processing
+# Consider implementing image size limits
+# Use image compression for large source files
 ```
 
 ## 🤝 Contributing Guidelines
 
-We welcome contributions to SkillCircle! Please follow these guidelines:
+We welcome contributions to Expo Icon Generator! Please follow these guidelines:
 
 ### 1. Fork and Clone
 
@@ -376,14 +423,24 @@ We welcome contributions to SkillCircle! Please follow these guidelines:
 - Follow TypeScript best practices
 - Use the existing code style and conventions
 - Write meaningful commit messages
-- Test your changes thoroughly
+- Test icon generation with various image formats
+- Ensure responsive design works on all devices
 
 ### 3. Pull Request Process
 
 - Ensure your code passes all linting checks
-- Update documentation if needed
+- Test image processing functionality thoroughly
+- Update documentation if adding new features
 - Create a detailed pull request description
 - Link any related issues
+
+### 4. Areas for Contribution
+
+- **New Icon Formats**: Add support for additional platform-specific icons
+- **Image Processing**: Improve Sharp processing algorithms
+- **UI/UX**: Enhance the user interface and experience
+- **Performance**: Optimize image processing speed and memory usage
+- **Documentation**: Improve guides and API documentation
 
 ## 📄 License
 
@@ -392,10 +449,19 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🙏 Acknowledgments
 
 - **Developed by**: [NaviByte Innovation](http://navibyte.in/)
-- **Community**: Thanks to all contributors and users
+- **Image Processing**: Powered by [Sharp](https://sharp.pixelplumbing.com/)
+- **Framework**: Built with [Next.js](https://nextjs.org/)
+- **Community**: Thanks to all Expo developers and contributors
 - **Technologies**: Built with amazing open source tools
+
+## 🔗 Related Resources
+
+- **Expo Documentation**: [https://docs.expo.dev/](https://docs.expo.dev/)
+- **React Native Icons**: [https://reactnative.dev/docs/images](https://reactnative.dev/docs/images)
+- **Sharp Documentation**: [https://sharp.pixelplumbing.com/](https://sharp.pixelplumbing.com/)
+- **App Icon Guidelines**: [Apple](https://developer.apple.com/design/human-interface-guidelines/app-icons) | [Android](https://developer.android.com/guide/practices/ui_guidelines/icon_design)
 
 ---
 
-**SkillCircle** - Empowering communities through skill exchange 🌟
+**Expo Icon Generator** - Automate your app icons with ease 🚀
 ````
