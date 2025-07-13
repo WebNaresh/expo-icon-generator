@@ -1,109 +1,125 @@
-import { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { 
-  Github, 
-  ExternalLink, 
-  MapPin, 
-  Building, 
-  Calendar, 
-  Users, 
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import {
+  Github,
+  ExternalLink,
+  MapPin,
+  Building,
+  Calendar,
+  Users,
   BookOpen,
   Download,
-  Award
-} from 'lucide-react'
+  Award,
+} from "lucide-react";
+import { downloadCertificate } from "@/lib/certificate-generator";
 
 // TypeScript interfaces
 interface Contributor {
-  username: string
-  name: string | null
-  avatar_url: string
-  profile_url: string
-  contributions: number
-  bio: string | null
-  location: string | null
-  company: string | null
-  blog: string | null
-  twitter_username: string | null
-  public_repos: number
-  followers: number
-  created_at: string
+  username: string;
+  name: string | null;
+  avatar_url: string;
+  profile_url: string;
+  contributions: number;
+  bio: string | null;
+  location: string | null;
+  company: string | null;
+  blog: string | null;
+  twitter_username: string | null;
+  public_repos: number;
+  followers: number;
+  created_at: string;
 }
 
 interface ContributorsResponse {
-  contributors: Contributor[]
-  total: number
+  contributors: Contributor[];
+  total: number;
 }
 
 // Fetch contributors from our API
 async function fetchContributors(): Promise<Contributor[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/contributors`,
+      `${
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+      }/api/contributors`,
       {
-        next: { revalidate: 3600 } // Revalidate every hour
+        next: { revalidate: 3600 }, // Revalidate every hour
       }
-    )
-    
+    );
+
     if (!response.ok) {
-      throw new Error('Failed to fetch contributors')
+      throw new Error("Failed to fetch contributors");
     }
-    
-    const data: ContributorsResponse = await response.json()
-    return data.contributors || []
+
+    const data: ContributorsResponse = await response.json();
+    return data.contributors || [];
   } catch (error) {
-    console.error('Error fetching contributors:', error)
-    return []
+    console.error("Error fetching contributors:", error);
+    return [];
   }
 }
 
 // Find contributor by username
 async function getContributor(username: string): Promise<Contributor | null> {
-  const contributors = await fetchContributors()
-  return contributors.find(c => c.username.toLowerCase() === username.toLowerCase()) || null
+  const contributors = await fetchContributors();
+  return (
+    contributors.find(
+      (c) => c.username.toLowerCase() === username.toLowerCase()
+    ) || null
+  );
 }
 
 // Generate static params for all contributors
 export async function generateStaticParams() {
   try {
-    const contributors = await fetchContributors()
-    
+    const contributors = await fetchContributors();
+
     return contributors.map((contributor) => ({
       username: contributor.username,
-    }))
+    }));
   } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
+    console.error("Error generating static params:", error);
+    return [];
   }
 }
 
 // Generate metadata for each contributor page
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ username: string }> 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> {
-  const { username } = await params
-  const contributor = await getContributor(username)
-  
+  const { username } = await params;
+  const contributor = await getContributor(username);
+
   if (!contributor) {
     return {
-      title: 'Contributor Not Found - Expo Icon Generator',
-      description: 'The requested contributor could not be found.',
-    }
+      title: "Contributor Not Found - Expo Icon Generator",
+      description: "The requested contributor could not be found.",
+    };
   }
-  
-  const displayName = contributor.name || contributor.username
-  
+
+  const displayName = contributor.name || contributor.username;
+
   return {
     title: `${displayName} - Contributor Profile | Expo Icon Generator`,
-    description: `Learn about ${displayName}, a contributor to Expo Icon Generator with ${contributor.contributions} contributions. ${contributor.bio || ''}`,
-    keywords: ['contributor', 'developer', 'open source', 'expo', 'react native', displayName],
+    description: `Learn about ${displayName}, a contributor to Expo Icon Generator with ${
+      contributor.contributions
+    } contributions. ${contributor.bio || ""}`,
+    keywords: [
+      "contributor",
+      "developer",
+      "open source",
+      "expo",
+      "react native",
+      displayName,
+    ],
     openGraph: {
       title: `${displayName} - Contributor Profile`,
       description: `${displayName} has made ${contributor.contributions} contributions to Expo Icon Generator.`,
-      type: 'profile',
+      type: "profile",
       images: [
         {
           url: contributor.avatar_url,
@@ -114,44 +130,55 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      card: 'summary',
+      card: "summary",
       title: `${displayName} - Contributor Profile`,
       description: `${displayName} has made ${contributor.contributions} contributions to Expo Icon Generator.`,
       images: [contributor.avatar_url],
     },
-  }
+  };
 }
 
 // Format date helper
 function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
-// Download certificate function (placeholder for now)
-function downloadCertificate(contributor: Contributor) {
-  // This will be implemented in the certificate generation task
-  alert(`Certificate download for ${contributor.name || contributor.username} will be implemented soon!`)
-}
+// Download certificate function
+function handleDownloadCertificate(contributor: Contributor) {
+  try {
+    const contributorData = {
+      username: contributor.username,
+      name: contributor.name,
+      contributions: contributor.contributions,
+      joinDate: formatDate(contributor.created_at),
+    };
 
-export default async function ContributorPage({ 
-  params 
-}: { 
-  params: Promise<{ username: string }> 
-}) {
-  const { username } = await params
-  const contributor = await getContributor(username)
-  
-  if (!contributor) {
-    notFound()
+    downloadCertificate(contributorData);
+  } catch (error) {
+    console.error("Error downloading certificate:", error);
+    alert("Failed to generate certificate. Please try again.");
   }
-  
-  const displayName = contributor.name || contributor.username
-  const joinDate = formatDate(contributor.created_at)
-  
+}
+
+export default async function ContributorPage({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
+  const contributor = await getContributor(username);
+
+  if (!contributor) {
+    notFound();
+  }
+
+  const displayName = contributor.name || contributor.username;
+  const joinDate = formatDate(contributor.created_at);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
       <div className="container mx-auto px-4 py-12">
@@ -178,8 +205,8 @@ export default async function ContributorPage({
                 className="rounded-full border-4 border-sky-100 shadow-lg"
                 priority
                 onError={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.src = '/default-avatar.png'
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/default-avatar.png";
                 }}
               />
               <div className="absolute -bottom-2 -right-2 bg-sky-500 text-white rounded-full p-2">
@@ -208,7 +235,7 @@ export default async function ContributorPage({
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3 mt-4 sm:mt-0">
                   <Link
                     href={contributor.profile_url}
@@ -220,7 +247,7 @@ export default async function ContributorPage({
                     GitHub Profile
                   </Link>
                   <button
-                    onClick={() => downloadCertificate(contributor)}
+                    onClick={() => handleDownloadCertificate(contributor)}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
                   >
                     <Download className="w-4 h-4" />
@@ -251,7 +278,11 @@ export default async function ContributorPage({
                 )}
                 {contributor.blog && (
                   <Link
-                    href={contributor.blog.startsWith('http') ? contributor.blog : `https://${contributor.blog}`}
+                    href={
+                      contributor.blog.startsWith("http")
+                        ? contributor.blog
+                        : `https://${contributor.blog}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 text-sky-600 hover:text-sky-700"
@@ -275,10 +306,10 @@ export default async function ContributorPage({
               {contributor.contributions}
             </h3>
             <p className="text-gray-600">
-              Contribution{contributor.contributions !== 1 ? 's' : ''}
+              Contribution{contributor.contributions !== 1 ? "s" : ""}
             </p>
           </div>
-          
+
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <BookOpen className="w-6 h-6 text-blue-600" />
@@ -286,11 +317,9 @@ export default async function ContributorPage({
             <h3 className="text-2xl font-bold text-gray-900 mb-1">
               {contributor.public_repos}
             </h3>
-            <p className="text-gray-600">
-              Public Repositories
-            </p>
+            <p className="text-gray-600">Public Repositories</p>
           </div>
-          
+
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <Users className="w-6 h-6 text-purple-600" />
@@ -298,9 +327,7 @@ export default async function ContributorPage({
             <h3 className="text-2xl font-bold text-gray-900 mb-1">
               {contributor.followers}
             </h3>
-            <p className="text-gray-600">
-              GitHub Followers
-            </p>
+            <p className="text-gray-600">GitHub Followers</p>
           </div>
         </div>
 
@@ -309,7 +336,7 @@ export default async function ContributorPage({
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Contribution Details
           </h2>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
               <div>
@@ -327,9 +354,12 @@ export default async function ContributorPage({
                 <p className="text-gray-500 text-sm">commits</p>
               </div>
             </div>
-            
+
             <div className="text-center py-8 text-gray-500">
-              <p>Detailed contribution history and commit information will be available soon.</p>
+              <p>
+                Detailed contribution history and commit information will be
+                available soon.
+              </p>
             </div>
           </div>
         </div>
@@ -346,5 +376,5 @@ export default async function ContributorPage({
         </div>
       </div>
     </div>
-  )
+  );
 }
