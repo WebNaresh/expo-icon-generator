@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
 
+// Type for generated icon data
+interface GeneratedIconData {
+  name: string;
+  size: string;
+  url: string;
+  buffer: Buffer;
+}
+
 // Icon specifications
 const ICON_SPECS = [
   { name: 'adaptive-icon.png', width: 1024, height: 1024, description: '1024×1024px (Android adaptive icon)' },
@@ -37,16 +45,16 @@ export async function POST(request: NextRequest) {
 
     // Convert file to buffer
     const buffer = Buffer.from(await file.arrayBuffer());
-    
+
     // Get original image metadata
     const originalImage = sharp(buffer);
     const metadata = await originalImage.metadata();
-    
+
     if (!metadata.width || !metadata.height) {
       return NextResponse.json({ error: 'Could not read image dimensions' }, { status: 400 });
     }
 
-    const generatedIcons = [];
+    const generatedIcons: GeneratedIconData[] = [];
 
     // Generate standard icons
     for (const spec of ICON_SPECS) {
