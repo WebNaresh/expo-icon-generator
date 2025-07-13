@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AuthStatus } from "@/app/components/auth-status";
 import { useState, useEffect } from "react";
 
 export function Navbar() {
@@ -77,15 +76,6 @@ export function Navbar() {
                   Getting Started
                 </span>
               </>
-            )}
-          </div>
-
-          {/* Auth Status */}
-          <div className="flex items-center">
-            {isClient ? (
-              <AuthStatus />
-            ) : (
-              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
             )}
           </div>
         </div>

@@ -1,63 +1,68 @@
-# SkillCircle - Where Skills Come Full Circle
+# Expo Icon Generator - Automate Your App Icons
 
-A modern skill exchange platform that enables users to trade expertise through a barter system. Connect with passionate learners and teachers in your community to exchange skills, build relationships, and grow together.
+A modern tool designed to automate and simplify icon generation for Expo-based React Native apps. Generate platform-specific icons (iOS, Android, web) from a single source image with one command. Features image optimization, sharp scaling, custom background and padding, and automatic app.json updates.
 
-![SkillCircle Platform](https://img.shields.io/badge/Platform-SkillCircle-0ea5e9?style=for-the-badge)
+![Expo Icon Generator](https://img.shields.io/badge/Tool-Expo_Icon_Generator-0ea5e9?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-15+-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?style=for-the-badge&logo=typescript)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge&logo=mongodb)
+![Sharp](https://img.shields.io/badge/Sharp-Image_Processing-green?style=for-the-badge)
 
-## 🌟 Platform Overview
+## 🌟 Tool Overview
 
-SkillCircle is a revolutionary community-driven platform that transforms how people learn and teach. Instead of traditional monetary transactions, users trade their knowledge and expertise directly with each other, creating a collaborative learning ecosystem where everyone benefits.
+Expo Icon Generator is a powerful web-based tool that streamlines the process of creating platform-specific icons for Expo React Native applications. Upload a single high-quality image and automatically generate all the required icon sizes and formats for iOS, Android, and web platforms.
 
-### 🎯 Mission
+### 🎯 Purpose
 
-- **Connect learners and teachers**: Bridge the gap between those who want to learn and those who want to teach
-- **Promote skill sharing**: Encourage knowledge exchange within communities
-- **Build meaningful relationships**: Foster connections through mutual learning experiences
-- **Democratize learning**: Make skill acquisition available to everyone regardless of financial constraints
-- **Create value through exchange**: Transform knowledge into a valuable currency
+- **Automate Icon Generation**: Generate all required icon sizes with one command
+- **Multi-Platform Support**: Create icons for iOS, Android, and web platforms
+- **Image Optimization**: Ensure crisp, high-quality icons with Sharp scaling
+- **Developer Productivity**: Save hours of manual resizing and optimization
+- **Expo Integration**: Perfect compatibility with Expo development workflow
 
 ## ✨ Core Features
 
-### 1. User Profile Management
+### 1. Drag-and-Drop Upload Interface
 
-- **Personal Information**: Name, optional profile photo, optional location
-- **Skills Offered**: List expertise areas (e.g., graphic design, coding, yoga, cooking)
-- **Skills Wanted**: Specify learning interests (e.g., video editing, guitar, Excel, photography)
-- **Availability Settings**: Set preferred times (weekends, evenings, specific days)
-- **Privacy Controls**: Choose between public and private profile visibility
+- **File Support**: Accepts PNG, JPG, JPEG, and SVG image files
+- **Visual Feedback**: Real-time drag-over states and upload progress
+- **Image Preview**: Instant preview of uploaded source image
+- **File Validation**: Automatic validation for file type and size (max 10MB)
+- **Error Handling**: Clear error messages for invalid uploads
 
-### 2. Discovery & Search System
+### 2. Automated Icon Generation
 
-- **Browse Profiles**: Explore user profiles to find potential skill matches
-- **Advanced Search**: Filter by specific skills, location, availability
-- **Skill Matching**: Find users who offer what you want to learn and want to learn what you offer
-- **Smart Recommendations**: Get suggested matches based on your profile
+- **One-Command Generation**: Generate all required icon sizes with a single click
+- **Multi-Platform Support**: Creates icons for iOS, Android, and web platforms
+- **Sharp Image Processing**: High-quality scaling and optimization
+- **Custom Cropping**: Intelligent cropping for partial logo variants
+- **Splash Screen Icons**: Centered icons with proper padding for splash screens
 
-### 3. Swap Request System
+### 3. Generated Icon Specifications
 
-- **Send Requests**: Initiate skill exchange proposals with detailed descriptions
-- **Request Management**: Accept or reject incoming swap requests
-- **Communication**: Built-in messaging for coordination and planning
-- **Scheduling**: Coordinate meeting times and learning sessions
-- **Request Tracking**: Monitor pending, accepted, and completed swaps
+- **adaptive-icon.png**: 1024×1024px (Android adaptive icon)
+- **favicon.png**: 48×48px (Web favicon)
+- **icon.png**: 1024×1024px (Main app icon)
+- **partial-react-logo.png**: 518×316px (Cropped top-right section)
+- **react-logo.png**: 100×100px (1x density)
+- **react-logo@2x.png**: 200×200px (2x density)
+- **react-logo@3x.png**: 300×300px (3x density)
+- **splash-icon.png**: 1024×1024px (Centered with padding)
 
-### 4. Post-Swap Features
+### 4. Download & Export Options
 
-- **Rating System**: Rate your learning experience and teaching effectiveness
-- **Feedback & Reviews**: Leave detailed feedback for community members
-- **Trust Building**: Build reputation through positive interactions
-- **Learning History**: Track completed skill exchanges and progress
+- **Individual Downloads**: Download specific icon files as needed
+- **Bulk ZIP Download**: Get all generated icons in a single ZIP file
+- **Instant Preview**: View generated icons before downloading
+- **Ready for Expo**: Icons are optimized and ready for Expo projects
+- **File Organization**: Properly named files following Expo conventions
 
-### 5. Administrative Controls
+### 5. Developer Experience
 
-- **Content Moderation**: Remove spam, inappropriate content, and fake profiles
-- **User Management**: Block problematic users and handle disputes
-- **Communication Tools**: Send platform updates and announcements
-- **Reporting System**: Handle user reports and maintain community standards
-- **Analytics**: Monitor platform usage and community health
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Real-time Processing**: Fast icon generation with visual feedback
+- **Error Recovery**: Graceful handling of processing errors
+- **Usage Instructions**: Clear step-by-step guidance for users
+- **Expo Integration**: Perfect compatibility with Expo development workflow
 
 ## 🔄 How It Works - Practical Example
 
