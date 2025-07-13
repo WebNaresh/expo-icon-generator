@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
+import Image from "next/image";
 
 import {
   Upload,
@@ -463,8 +464,8 @@ export default function HomePage() {
                   Generate Icons
                 </h3>
                 <p className="text-gray-600">
-                  Click "Generate Icons" and our tool will create all the
-                  required sizes for your Expo app.
+                  Click &ldquo;Generate Icons&rdquo; and our tool will create
+                  all the required sizes for your Expo app.
                 </p>
               </div>
             </div>
