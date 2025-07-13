@@ -58,66 +58,81 @@ export async function POST(request: NextRequest) {
 
     // Generate standard icons
     for (const spec of ICON_SPECS) {
-      let processedImage = originalImage.clone();
+      try {
+        let processedImage = originalImage.clone();
 
-      // For splash-icon, add padding/background
-      if (spec.name === 'splash-icon.png') {
-        // Create a white background and composite the icon in the center
-        const iconSize = Math.min(spec.width * 0.8, spec.height * 0.8); // 80% of target size
-        processedImage = processedImage
-          .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
-          .extend({
-            top: Math.floor((spec.height - iconSize) / 2),
-            bottom: Math.ceil((spec.height - iconSize) / 2),
-            left: Math.floor((spec.width - iconSize) / 2),
-            right: Math.ceil((spec.width - iconSize) / 2),
+        // For splash-icon, add padding/background
+        if (spec.name === 'splash-icon.png') {
+          // Create a white background and composite the icon in the center
+          const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size, rounded to integer
+          const topPadding = Math.floor((spec.height - iconSize) / 2);
+          const bottomPadding = Math.ceil((spec.height - iconSize) / 2);
+          const leftPadding = Math.floor((spec.width - iconSize) / 2);
+          const rightPadding = Math.ceil((spec.width - iconSize) / 2);
+
+          processedImage = processedImage
+            .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
+            .extend({
+              top: topPadding,
+              bottom: bottomPadding,
+              left: leftPadding,
+              right: rightPadding,
+              background: { r: 255, g: 255, b: 255, alpha: 0 }
+            });
+        } else {
+          // Standard resize with high-quality scaling
+          processedImage = processedImage.resize(spec.width, spec.height, {
+            fit: 'contain',
             background: { r: 255, g: 255, b: 255, alpha: 0 }
           });
-      } else {
-        // Standard resize with high-quality scaling
-        processedImage = processedImage.resize(spec.width, spec.height, {
-          fit: 'contain',
-          background: { r: 255, g: 255, b: 255, alpha: 0 }
+        }
+
+        const iconBuffer = await processedImage.png().toBuffer();
+        const base64 = iconBuffer.toString('base64');
+        const dataUrl = `data:image/png;base64,${base64}`;
+
+        generatedIcons.push({
+          name: spec.name,
+          size: spec.description,
+          url: dataUrl,
+          buffer: iconBuffer
         });
+      } catch (error) {
+        console.error(`Error processing icon ${spec.name}:`, error);
+        throw new Error(`Failed to process ${spec.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
-
-      const iconBuffer = await processedImage.png().toBuffer();
-      const base64 = iconBuffer.toString('base64');
-      const dataUrl = `data:image/png;base64,${base64}`;
-
-      generatedIcons.push({
-        name: spec.name,
-        size: spec.description,
-        url: dataUrl,
-        buffer: iconBuffer
-      });
     }
 
     // Generate partial-react-logo.png (crop top-right section)
-    const partialImage = originalImage.clone();
-    const cropWidth = Math.floor(metadata.width * 0.6); // Take 60% width from right
-    const cropHeight = Math.floor(metadata.height * 0.4); // Take 40% height from top
-    const left = metadata.width - cropWidth; // Start from right side
-    const top = 0; // Start from top
+    try {
+      const partialImage = originalImage.clone();
+      const cropWidth = Math.floor(metadata.width * 0.6); // Take 60% width from right
+      const cropHeight = Math.floor(metadata.height * 0.4); // Take 40% height from top
+      const left = Math.floor(metadata.width - cropWidth); // Start from right side, ensure integer
+      const top = 0; // Start from top
 
-    const partialBuffer = await partialImage
-      .extract({ left, top, width: cropWidth, height: cropHeight })
-      .resize(PARTIAL_LOGO_SPEC.width, PARTIAL_LOGO_SPEC.height, {
-        fit: 'contain',
-        background: { r: 255, g: 255, b: 255, alpha: 0 }
-      })
-      .png()
-      .toBuffer();
+      const partialBuffer = await partialImage
+        .extract({ left, top, width: cropWidth, height: cropHeight })
+        .resize(PARTIAL_LOGO_SPEC.width, PARTIAL_LOGO_SPEC.height, {
+          fit: 'contain',
+          background: { r: 255, g: 255, b: 255, alpha: 0 }
+        })
+        .png()
+        .toBuffer();
 
-    const partialBase64 = partialBuffer.toString('base64');
-    const partialDataUrl = `data:image/png;base64,${partialBase64}`;
+      const partialBase64 = partialBuffer.toString('base64');
+      const partialDataUrl = `data:image/png;base64,${partialBase64}`;
 
-    generatedIcons.push({
-      name: PARTIAL_LOGO_SPEC.name,
-      size: PARTIAL_LOGO_SPEC.description,
-      url: partialDataUrl,
-      buffer: partialBuffer
-    });
+      generatedIcons.push({
+        name: PARTIAL_LOGO_SPEC.name,
+        size: PARTIAL_LOGO_SPEC.description,
+        url: partialDataUrl,
+        buffer: partialBuffer
+      });
+    } catch (error) {
+      console.error('Error processing partial-react-logo.png:', error);
+      throw new Error(`Failed to process partial-react-logo.png: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
 
     // Return the generated icons (without buffers for response size)
     const response = generatedIcons.map(icon => ({
@@ -130,8 +145,24 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error generating icons:', error);
+
+    // Provide more specific error messages based on error type
+    let errorMessage = 'Failed to generate icons. Please try again.';
+
+    if (error instanceof Error) {
+      if (error.message.includes('Input file contains unsupported image format')) {
+        errorMessage = 'Unsupported image format. Please upload a PNG, JPG, JPEG, or SVG file.';
+      } else if (error.message.includes('Input buffer contains unsupported image format')) {
+        errorMessage = 'Invalid image file. Please ensure your file is a valid image.';
+      } else if (error.message.includes('Input image exceeds pixel limit')) {
+        errorMessage = 'Image is too large. Please use an image smaller than 10MB.';
+      } else if (error.message.includes('Failed to process')) {
+        errorMessage = error.message; // Use our custom error messages from individual icon processing
+      }
+    }
+
     return NextResponse.json(
-      { error: 'Failed to generate icons. Please try again.' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

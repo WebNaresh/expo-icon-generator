@@ -111,11 +111,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="apple-mobile-web-app-title" content="Expo Icons" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#0ea5e9" />
+        <meta
+          name="google-site-verification"
+          content="P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
