@@ -587,7 +587,7 @@ export default function HomePage() {
 
                 <p className="text-sm text-gray-600 mb-4">
                   Choose a background color for your app icon. This will be
-                  applied to icon.png with rounded corners.
+                  applied to icon.png as a rounded square (iOS-style corners).
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">

@@ -77,10 +77,10 @@ export async function POST(request: NextRequest) {
       try {
         let processedImage = originalImage.clone();
 
-        // Special handling for icon.png with background color and circular border radius
+        // Special handling for icon.png with background color and rounded square corners
         if (spec.name === 'icon.png') {
           try {
-            console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b})`);
+            console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b}) - creating rounded square`);
 
             // Step 1: Create a square background with the selected color
             const squareBackground = sharp({
@@ -114,26 +114,28 @@ export async function POST(request: NextRequest) {
               .png()
               .toBuffer();
 
-            // Step 4: Create circular mask and apply it
-            const radius = spec.width / 2;
-            const circularMask = Buffer.from(
+            // Step 4: Create rounded square mask and apply it
+            // Using 20% corner radius for iOS-style rounded square (similar to iPhone app icons)
+            const cornerRadius = Math.round(spec.width * 0.2);
+            const roundedSquareMask = Buffer.from(
               `<svg width="${spec.width}" height="${spec.height}">
-                <circle cx="${radius}" cy="${radius}" r="${radius}" fill="white"/>
+                <rect x="0" y="0" width="${spec.width}" height="${spec.height}"
+                      rx="${cornerRadius}" ry="${cornerRadius}" fill="white"/>
               </svg>`
             );
 
-            // Step 5: Apply the circular mask to create rounded corners
+            // Step 5: Apply the rounded square mask to create rounded corners
             processedImage = sharp(compositeImage)
               .composite([
                 {
-                  input: circularMask,
+                  input: roundedSquareMask,
                   blend: 'dest-in'
                 }
               ]);
 
           } catch (maskError) {
-            console.warn('Error applying circular mask to icon.png, falling back to square icon:', maskError);
-            // Fallback to square icon with background color (no circular mask)
+            console.warn('Error applying rounded square mask to icon.png, falling back to regular square icon:', maskError);
+            // Fallback to square icon with background color (no rounded corners)
             const squareBackground = sharp({
               create: {
                 width: spec.width,
