@@ -19,20 +19,7 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
   } : { r: 255, g: 255, b: 255 };
 }
 
-// Helper function to create a circular mask
-async function createCircularMask(size: number): Promise<Buffer> {
-  const radius = size / 2;
-  const center = radius;
 
-  // Create SVG for circular mask
-  const svgMask = `
-    <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="${center}" cy="${center}" r="${radius}" fill="white"/>
-    </svg>
-  `;
-
-  return Buffer.from(svgMask);
-}
 
 // Icon specifications
 const ICON_SPECS = [
@@ -93,7 +80,9 @@ export async function POST(request: NextRequest) {
         // Special handling for icon.png with background color and circular border radius
         if (spec.name === 'icon.png') {
           try {
-            // Create a square background with the selected color
+            console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b})`);
+
+            // Step 1: Create a square background with the selected color
             const squareBackground = sharp({
               create: {
                 width: spec.width,
@@ -103,18 +92,18 @@ export async function POST(request: NextRequest) {
               }
             });
 
-            // Resize the original image to fit within the square (with some padding)
+            // Step 2: Resize the original icon to fit within the square (with padding)
             const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size
             const resizedIcon = await processedImage
-              .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
+              .resize(iconSize, iconSize, {
+                fit: 'contain',
+                background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparent background for the icon
+              })
               .png()
               .toBuffer();
 
-            // Create circular mask
-            const maskBuffer = await createCircularMask(spec.width);
-
-            // Composite the icon on the background and apply circular mask
-            processedImage = squareBackground
+            // Step 3: Composite the icon on top of the colored background
+            const compositeImage = await squareBackground
               .composite([
                 {
                   input: resizedIcon,
@@ -122,15 +111,29 @@ export async function POST(request: NextRequest) {
                   left: Math.floor((spec.width - iconSize) / 2)
                 }
               ])
+              .png()
+              .toBuffer();
+
+            // Step 4: Create circular mask and apply it
+            const radius = spec.width / 2;
+            const circularMask = Buffer.from(
+              `<svg width="${spec.width}" height="${spec.height}">
+                <circle cx="${radius}" cy="${radius}" r="${radius}" fill="white"/>
+              </svg>`
+            );
+
+            // Step 5: Apply the circular mask to create rounded corners
+            processedImage = sharp(compositeImage)
               .composite([
                 {
-                  input: maskBuffer,
+                  input: circularMask,
                   blend: 'dest-in'
                 }
               ]);
+
           } catch (maskError) {
             console.warn('Error applying circular mask to icon.png, falling back to square icon:', maskError);
-            // Fallback to square icon with background color
+            // Fallback to square icon with background color (no circular mask)
             const squareBackground = sharp({
               create: {
                 width: spec.width,
@@ -142,7 +145,10 @@ export async function POST(request: NextRequest) {
 
             const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8));
             const resizedIcon = await processedImage
-              .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
+              .resize(iconSize, iconSize, {
+                fit: 'contain',
+                background: { r: 255, g: 255, b: 255, alpha: 0 }
+              })
               .png()
               .toBuffer();
 
