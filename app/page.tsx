@@ -28,6 +28,15 @@ interface UploadedFile {
   preview: string;
 }
 
+// Types for color analysis
+interface ColorAnalysis {
+  suggestedBackgroundColor: string;
+  dominantColors: string[];
+  hasTransparency: boolean;
+  edgeColors: string[];
+  reasoning: string;
+}
+
 // Types for contributors
 interface Contributor {
   username: string;
@@ -61,6 +70,17 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isPasteReady, setIsPasteReady] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
+  const [colorAnalysis, setColorAnalysis] = useState<ColorAnalysis | null>(
+    null
+  );
+  const [isAnalyzingColors, setIsAnalyzingColors] = useState(false);
+
+  console.log(
+    `🚀 ~ page.tsx:66 ~ HomePage ~ backgroundColor:`,
+    backgroundColor
+  );
+
   const [contributors, setContributors] = useState<Contributor[]>([]);
   const [isLoadingContributors, setIsLoadingContributors] = useState(false);
   const [contributorsError, setContributorsError] = useState<string | null>(
@@ -80,6 +100,36 @@ export default function HomePage() {
     return null;
   };
 
+  // Analyze image colors to suggest background color
+  const analyzeImageColors = async (file: File) => {
+    setIsAnalyzingColors(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await fetch("/api/analyze-image-colors", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to analyze image colors");
+      }
+
+      const analysis: ColorAnalysis = await response.json();
+      setColorAnalysis(analysis);
+      setBackgroundColor(analysis.suggestedBackgroundColor);
+
+      console.log("Color analysis result:", analysis);
+    } catch (err) {
+      console.warn("Failed to analyze image colors:", err);
+      // Keep default white background if analysis fails
+      setColorAnalysis(null);
+    } finally {
+      setIsAnalyzingColors(false);
+    }
+  };
+
   // Handle file upload
   const handleFileUpload = useCallback((file: File) => {
     const validationError = validateFile(file);
@@ -92,6 +142,11 @@ export default function HomePage() {
     const preview = URL.createObjectURL(file);
     setUploadedFile({ file, preview });
     setGeneratedIcons([]); // Clear previous results
+    setColorAnalysis(null); // Clear previous color analysis
+    setBackgroundColor("#ffffff"); // Reset to default while analyzing
+
+    // Analyze image colors to suggest background color
+    analyzeImageColors(file);
   }, []);
 
   // Drag and drop handlers
@@ -265,6 +320,7 @@ export default function HomePage() {
     try {
       const formData = new FormData();
       formData.append("image", uploadedFile.file);
+      formData.append("backgroundColor", backgroundColor);
 
       const response = await fetch("/api/generate-icons", {
         method: "POST",
@@ -437,7 +493,7 @@ export default function HomePage() {
                       alt="Preview"
                       width={128}
                       height={128}
-                      className="max-w-32 max-h-32 rounded-lg shadow-md object-contain"
+                      className={`max-w-32 max-h-32 rounded-lg shadow-md object-contain ${`bg-[${backgroundColor}]`}`}
                     />
                   </div>
                   <div>
@@ -452,6 +508,8 @@ export default function HomePage() {
                     onClick={() => {
                       setUploadedFile(null);
                       setGeneratedIcons([]);
+                      setColorAnalysis(null);
+                      setBackgroundColor("#ffffff");
                       if (fileInputRef.current) {
                         fileInputRef.current.value = "";
                       }
@@ -492,6 +550,153 @@ export default function HomePage() {
                 </div>
               )}
             </div>
+
+            {/* Background Color Picker */}
+            {uploadedFile && (
+              <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Icon Background Color
+                  </h3>
+                  {isAnalyzingColors && (
+                    <div className="flex items-center gap-2 text-sm text-sky-600">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Analyzing colors...
+                    </div>
+                  )}
+                </div>
+
+                {colorAnalysis && (
+                  <div className="mb-4 p-3 bg-sky-50 border border-sky-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <CheckCircle className="w-4 h-4 text-sky-600" />
+                      <span className="text-sm font-medium text-sky-800">
+                        Smart Color Suggestion
+                      </span>
+                    </div>
+                    <p className="text-sm text-sky-700 mb-2">
+                      {colorAnalysis.reasoning}
+                    </p>
+                    {colorAnalysis.hasTransparency && (
+                      <p className="text-xs text-sky-600">
+                        ✓ Transparency detected in image
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                <p className="text-sm text-gray-600 mb-4">
+                  Choose a background color for your app icon. This will be
+                  applied to icon.png as a rounded square (iOS-style corners).
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor="backgroundColor"
+                        className="text-sm font-medium text-gray-700"
+                      >
+                        Background Color:
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          id="backgroundColor"
+                          type="color"
+                          value={backgroundColor}
+                          onChange={(e) => setBackgroundColor(e.target.value)}
+                          className="w-12 h-10 rounded-lg border border-gray-300 cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={backgroundColor}
+                          onChange={(e) => setBackgroundColor(e.target.value)}
+                          className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
+                          placeholder="#ffffff"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">Preview:</span>
+                      <div
+                        className="w-8 h-8 rounded-full border border-gray-300"
+                        style={{ backgroundColor }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Detected Colors */}
+                  {colorAnalysis && colorAnalysis.dominantColors.length > 0 && (
+                    <div className="mb-4">
+                      <span className="text-sm font-medium text-gray-700 mb-2 block">
+                        Detected Colors:
+                      </span>
+                      <div className="flex gap-2 flex-wrap">
+                        {[
+                          ...new Set([
+                            colorAnalysis.suggestedBackgroundColor,
+                            ...colorAnalysis.dominantColors,
+                            ...colorAnalysis.edgeColors,
+                          ]),
+                        ]
+                          .slice(0, 8)
+                          .map((color, index) => (
+                            <button
+                              key={`detected-${color}-${index}`}
+                              onClick={() => setBackgroundColor(color)}
+                              className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                                backgroundColor === color
+                                  ? "border-sky-500 ring-2 ring-sky-200"
+                                  : "border-gray-300 hover:border-gray-400"
+                              } ${
+                                color === colorAnalysis.suggestedBackgroundColor
+                                  ? "ring-2 ring-green-300"
+                                  : ""
+                              }`}
+                              style={{ backgroundColor: color }}
+                              title={
+                                color === colorAnalysis.suggestedBackgroundColor
+                                  ? "Suggested color"
+                                  : `Detected color: ${color}`
+                              }
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Preset Colors */}
+                  <div>
+                    <span className="text-sm font-medium text-gray-700 mb-2 block">
+                      Quick Presets:
+                    </span>
+                    <div className="flex gap-2 flex-wrap">
+                      {[
+                        { color: "#ffffff", name: "White" },
+                        { color: "#000000", name: "Black" },
+                        { color: "#3b82f6", name: "Blue" },
+                        { color: "#ef4444", name: "Red" },
+                        { color: "#10b981", name: "Green" },
+                        { color: "#f59e0b", name: "Orange" },
+                        { color: "#8b5cf6", name: "Purple" },
+                        { color: "#06b6d4", name: "Cyan" },
+                      ].map((preset) => (
+                        <button
+                          key={preset.color}
+                          onClick={() => setBackgroundColor(preset.color)}
+                          className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                            backgroundColor === preset.color
+                              ? "border-sky-500 ring-2 ring-sky-200"
+                              : "border-gray-300 hover:border-gray-400"
+                          }`}
+                          style={{ backgroundColor: preset.color }}
+                          title={preset.name}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Error Display */}
             {error && (
