@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://expo-assets-generator.vercel.app"),
   alternates: {
-    canonical: "/",
+    canonical: "https://expo-assets-generator.vercel.app",
   },
   openGraph: {
     title: "Expo Icon Generator - Automate Your App Icons",
