@@ -9,6 +9,31 @@ interface GeneratedIconData {
   buffer: Buffer;
 }
 
+// Helper function to convert hex color to RGB
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : { r: 255, g: 255, b: 255 };
+}
+
+// Helper function to create a circular mask
+async function createCircularMask(size: number): Promise<Buffer> {
+  const radius = size / 2;
+  const center = radius;
+
+  // Create SVG for circular mask
+  const svgMask = `
+    <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${center}" cy="${center}" r="${radius}" fill="white"/>
+    </svg>
+  `;
+
+  return Buffer.from(svgMask);
+}
+
 // Icon specifications
 const ICON_SPECS = [
   { name: 'adaptive-icon.png', width: 1024, height: 1024, description: '1024×1024px (Android adaptive icon)' },
@@ -32,6 +57,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('image') as File;
+    const backgroundColor = formData.get('backgroundColor') as string || '#ffffff';
 
     if (!file) {
       return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
@@ -56,13 +82,81 @@ export async function POST(request: NextRequest) {
 
     const generatedIcons: GeneratedIconData[] = [];
 
+    // Parse background color
+    const bgColor = hexToRgb(backgroundColor);
+
     // Generate standard icons
     for (const spec of ICON_SPECS) {
       try {
         let processedImage = originalImage.clone();
 
+        // Special handling for icon.png with background color and circular border radius
+        if (spec.name === 'icon.png') {
+          try {
+            // Create a square background with the selected color
+            const squareBackground = sharp({
+              create: {
+                width: spec.width,
+                height: spec.height,
+                channels: 4,
+                background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
+              }
+            });
+
+            // Resize the original image to fit within the square (with some padding)
+            const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size
+            const resizedIcon = await processedImage
+              .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
+              .png()
+              .toBuffer();
+
+            // Create circular mask
+            const maskBuffer = await createCircularMask(spec.width);
+
+            // Composite the icon on the background and apply circular mask
+            processedImage = squareBackground
+              .composite([
+                {
+                  input: resizedIcon,
+                  top: Math.floor((spec.height - iconSize) / 2),
+                  left: Math.floor((spec.width - iconSize) / 2)
+                }
+              ])
+              .composite([
+                {
+                  input: maskBuffer,
+                  blend: 'dest-in'
+                }
+              ]);
+          } catch (maskError) {
+            console.warn('Error applying circular mask to icon.png, falling back to square icon:', maskError);
+            // Fallback to square icon with background color
+            const squareBackground = sharp({
+              create: {
+                width: spec.width,
+                height: spec.height,
+                channels: 4,
+                background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
+              }
+            });
+
+            const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8));
+            const resizedIcon = await processedImage
+              .resize(iconSize, iconSize, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
+              .png()
+              .toBuffer();
+
+            processedImage = squareBackground.composite([
+              {
+                input: resizedIcon,
+                top: Math.floor((spec.height - iconSize) / 2),
+                left: Math.floor((spec.width - iconSize) / 2)
+              }
+            ]);
+          }
+        }
         // For splash-icon, add padding/background
-        if (spec.name === 'splash-icon.png') {
+        else if (spec.name === 'splash-icon.png') {
           // Create a white background and composite the icon in the center
           const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size, rounded to integer
           const topPadding = Math.floor((spec.height - iconSize) / 2);
