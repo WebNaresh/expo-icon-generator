@@ -115,7 +115,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM"
         />
-    <meta name="google-adsense-account" content="ca-pub-6220952943304269">
+    <meta name="google-adsense-account" content="ca-pub-6220952943304269"/>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
