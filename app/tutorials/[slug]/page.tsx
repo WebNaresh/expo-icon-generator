@@ -1584,6 +1584,1031 @@ Successful app store submission requires careful preparation, attention to detai
 Ready to submit your app? Make sure you have perfect icons with our [Icon Generator](/)!
       `,
     },
+    "adaptive-icons-android-tutorial": {
+      slug: "adaptive-icons-android-tutorial",
+      title: "Android Adaptive Icons Deep Dive",
+      description:
+        "Master Android's adaptive icon system. Learn about foreground/background layers, dynamic theming, and backward compatibility.",
+      difficulty: "Intermediate",
+      duration: "1.5 hours",
+      category: "Design",
+      topics: ["Android", "Adaptive Icons", "Material Design", "Theming"],
+      rating: 4.5,
+      students: 4300,
+      chapters: [
+        {
+          id: "1",
+          title: "Introduction to Adaptive Icons",
+          duration: "15 min",
+        },
+        { id: "2", title: "Anatomy of Adaptive Icons", duration: "20 min" },
+        { id: "3", title: "Creating Adaptive Icons", duration: "25 min" },
+        { id: "4", title: "Testing and Optimization", duration: "15 min" },
+        { id: "5", title: "Backward Compatibility", duration: "15 min" },
+      ],
+      content: `
+# Android Adaptive Icons Deep Dive
+
+Master Android's adaptive icon system introduced in Android 8.0 (API level 26). Learn how to create flexible, dynamic icons that adapt to different device themes and shapes.
+
+## What You'll Learn
+
+- ✅ Understand adaptive icon architecture
+- ✅ Create foreground and background layers
+- ✅ Design for different mask shapes
+- ✅ Implement dynamic theming
+- ✅ Ensure backward compatibility
+- ✅ Test across different devices
+
+## Chapter 1: Introduction to Adaptive Icons
+
+### What Are Adaptive Icons?
+
+Adaptive icons allow Android to apply various visual effects and shapes to app icons, creating a more unified and dynamic user experience. They consist of two layers:
+
+1. **Foreground Layer**: Your main icon design
+2. **Background Layer**: A solid color or simple pattern
+
+### Benefits of Adaptive Icons
+
+#### Visual Consistency
+- Uniform appearance across different launchers
+- Consistent sizing and spacing
+- Cohesive visual language
+
+#### Dynamic Effects
+- Parallax effects during animations
+- Zoom and rotation effects
+- Launcher-specific customizations
+
+#### Theming Support
+- Automatic adaptation to system themes
+- Dark mode compatibility
+- Material You color theming
+
+### System Requirements
+
+Adaptive icons are supported on:
+- **Android 8.0 (API 26)+**: Full adaptive icon support
+- **Android 7.1 and below**: Falls back to legacy icons
+- **All launchers**: System handles compatibility
+
+## Chapter 2: Anatomy of Adaptive Icons
+
+### Layer Structure
+
+#### Foreground Layer
+The foreground contains your main icon design:
+- **Size**: 108×108dp canvas
+- **Safe Zone**: 66×66dp center area
+- **Format**: Vector drawable (preferred) or PNG
+
+#### Background Layer
+The background provides context and depth:
+- **Size**: 108×108dp canvas
+- **Content**: Solid color or simple pattern
+- **Format**: Vector drawable, color resource, or PNG
+
+### Safe Zone Guidelines
+
+#### Critical Design Area
+The safe zone (66×66dp) ensures your icon remains visible regardless of the mask shape applied:
+
+\`\`\`
+Total Canvas: 108×108dp
+Safe Zone: 66×66dp (center)
+Bleed Area: 21dp on each side
+\`\`\`
+
+#### Design Considerations
+- Keep important elements within the safe zone
+- Use bleed area for background elements
+- Avoid placing text near edges
+- Test with different mask shapes
+
+### Mask Shapes
+
+Android applies various masks to adaptive icons:
+
+#### Common Shapes
+- **Circle**: Most common shape
+- **Rounded Square**: iOS-like appearance
+- **Squircle**: Smooth rounded corners
+- **Square**: Sharp corners (rare)
+
+#### Device Variations
+Different manufacturers may use different default shapes:
+- **Google Pixel**: Circle
+- **Samsung**: Rounded square
+- **OnePlus**: Circle
+- **Xiaomi**: Rounded square
+
+## Chapter 3: Creating Adaptive Icons
+
+### Setting Up Adaptive Icons
+
+#### File Structure
+\`\`\`
+res/
+├── mipmap-anydpi-v26/
+│   └── ic_launcher.xml
+├── mipmap-hdpi/
+│   └── ic_launcher.png (legacy)
+├── mipmap-mdpi/
+│   └── ic_launcher.png (legacy)
+├── mipmap-xhdpi/
+│   └── ic_launcher.png (legacy)
+├── mipmap-xxhdpi/
+│   └── ic_launcher.png (legacy)
+├── mipmap-xxxhdpi/
+│   └── ic_launcher.png (legacy)
+└── drawable/
+    ├── ic_launcher_foreground.xml
+    └── ic_launcher_background.xml
+\`\`\`
+
+#### Adaptive Icon XML
+\`\`\`xml
+<!-- res/mipmap-anydpi-v26/ic_launcher.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background"/>
+    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+</adaptive-icon>
+\`\`\`
+
+### Designing the Foreground Layer
+
+#### Vector Drawable Example
+\`\`\`xml
+<!-- res/drawable/ic_launcher_foreground.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Your icon design here -->
+    <path
+        android:fillColor="#FF6B35"
+        android:pathData="M54,32c-12.15,0 -22,9.85 -22,22s9.85,22 22,22s22,-9.85 22,-22S66.15,32 54,32z"/>
+
+    <!-- Additional paths for your design -->
+</vector>
+\`\`\`
+
+#### Design Best Practices
+- **Center your design**: Keep main elements in the safe zone
+- **Use vector graphics**: Scalable and crisp at all sizes
+- **Maintain simplicity**: Avoid overly complex designs
+- **Consider contrast**: Ensure visibility on various backgrounds
+
+### Designing the Background Layer
+
+#### Solid Color Background
+\`\`\`xml
+<!-- res/drawable/ic_launcher_background.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M0,0h108v108h-108z"/>
+</vector>
+\`\`\`
+
+#### Gradient Background
+\`\`\`xml
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startColor="#FF6B35"
+                android:endColor="#F7931E"
+                android:type="linear"
+                android:angle="45"/>
+        </aapt:attr>
+    </path>
+</vector>
+\`\`\`
+
+### Using Android Studio's Image Asset Studio
+
+#### Step-by-Step Process
+1. **Right-click** on app module
+2. **Select** New → Image Asset
+3. **Choose** Launcher Icons (Adaptive and Legacy)
+4. **Configure** foreground and background
+5. **Preview** different shapes
+6. **Generate** all required assets
+
+#### Configuration Options
+- **Foreground Layer**: Upload image or choose clipart
+- **Background Layer**: Color, image, or clipart
+- **Legacy Icon**: Automatically generated
+- **Preview**: See all mask shapes
+
+## Chapter 4: Testing and Optimization
+
+### Testing Adaptive Icons
+
+#### Device Testing
+Test your adaptive icons on various devices:
+- Different Android versions
+- Various launcher apps
+- Different screen densities
+- Light and dark themes
+
+#### Emulator Testing
+Use Android Studio emulators to test:
+\`\`\`bash
+# Create AVDs with different API levels
+API 26+ : Test adaptive icons
+API 25 and below : Test legacy fallback
+\`\`\`
+
+#### Shape Testing
+Test with different mask shapes:
+- Circle mask
+- Rounded rectangle
+- Square mask
+- Custom shapes (if supported)
+
+### Optimization Techniques
+
+#### Performance Optimization
+- **Use vector drawables**: Better performance and smaller size
+- **Minimize complexity**: Reduce path complexity
+- **Optimize colors**: Use theme colors when possible
+
+#### Visual Optimization
+- **Test contrast**: Ensure visibility in all themes
+- **Check alignment**: Verify centering in safe zone
+- **Validate scaling**: Test at different sizes
+
+### Common Issues and Solutions
+
+#### Foreground Too Large
+**Problem**: Important elements get clipped
+**Solution**: Scale down design to fit safe zone
+
+#### Poor Contrast
+**Problem**: Foreground not visible on background
+**Solution**: Adjust colors or add stroke/shadow
+
+#### Legacy Icon Mismatch
+**Problem**: Legacy icon looks different from adaptive
+**Solution**: Generate legacy from adaptive preview
+
+## Chapter 5: Backward Compatibility
+
+### Legacy Icon Support
+
+#### Providing Fallbacks
+For devices running Android 7.1 and below:
+\`\`\`xml
+<!-- Traditional launcher icon -->
+res/mipmap-hdpi/ic_launcher.png (72×72px)
+res/mipmap-mdpi/ic_launcher.png (48×48px)
+res/mipmap-xhdpi/ic_launcher.png (96×96px)
+res/mipmap-xxhdpi/ic_launcher.png (144×144px)
+res/mipmap-xxxhdpi/ic_launcher.png (192×192px)
+\`\`\`
+
+#### Generating Legacy Icons
+Create legacy icons that represent your adaptive icon:
+- Combine foreground and background layers
+- Apply appropriate mask shape
+- Ensure consistency with adaptive version
+
+### Manifest Configuration
+
+#### Application Manifest
+\`\`\`xml
+<application
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:theme="@style/AppTheme">
+
+    <!-- Your app components -->
+</application>
+\`\`\`
+
+#### Round Icon Support
+For Android 7.1 (API 25) round icon support:
+\`\`\`xml
+<!-- res/mipmap-anydpi-v25/ic_launcher_round.xml -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background"/>
+    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+</adaptive-icon>
+\`\`\`
+
+### Best Practices for Compatibility
+
+#### Design Considerations
+- **Design for circle**: Assume circular mask as default
+- **Test legacy versions**: Ensure fallbacks look good
+- **Maintain brand consistency**: Keep visual identity across versions
+
+#### Technical Implementation
+- **Use resource qualifiers**: Proper folder structure
+- **Optimize file sizes**: Compress PNG assets
+- **Test thoroughly**: Verify on older devices
+
+## Advanced Topics
+
+### Dynamic Theming (Android 12+)
+
+#### Material You Integration
+\`\`\`xml
+<!-- Themed icon support -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background"/>
+    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+    <monochrome android:drawable="@drawable/ic_launcher_monochrome"/>
+</adaptive-icon>
+\`\`\`
+
+#### Monochrome Icons
+For themed icons in Android 12+:
+- Single color design
+- High contrast
+- Simple shapes
+- Automatic color adaptation
+
+### Animation Support
+
+#### Animated Adaptive Icons
+\`\`\`xml
+<!-- Animated vector drawable -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android">
+    <target
+        android:name="icon"
+        android:animation="@animator/icon_animation"/>
+</animated-vector>
+\`\`\`
+
+## Best Practices Summary
+
+1. **Design for the safe zone**: Keep important elements within 66×66dp
+2. **Test multiple shapes**: Verify appearance with different masks
+3. **Provide legacy fallbacks**: Support older Android versions
+4. **Use vector graphics**: Better scalability and performance
+5. **Maintain consistency**: Ensure brand recognition across versions
+
+## Conclusion
+
+Adaptive icons provide a powerful way to create flexible, dynamic app icons that integrate seamlessly with the Android ecosystem. By understanding the layer system, safe zones, and testing requirements, you can create icons that look great across all devices and Android versions.
+
+Ready to create your adaptive icons? Use our [Icon Generator](/) to automatically generate all required formats!
+      `,
+    },
+    "expo-eas-build-deployment": {
+      slug: "expo-eas-build-deployment",
+      title: "EAS Build and Deployment Workflow",
+      description:
+        "Set up automated build and deployment pipelines using Expo Application Services. Learn CI/CD best practices for mobile apps.",
+      difficulty: "Advanced",
+      duration: "3.5 hours",
+      category: "DevOps",
+      topics: ["EAS Build", "CI/CD", "Deployment", "Automation", "Testing"],
+      rating: 4.8,
+      students: 3100,
+      chapters: [
+        { id: "1", title: "Introduction to EAS", duration: "20 min" },
+        { id: "2", title: "Setting Up EAS Build", duration: "30 min" },
+        { id: "3", title: "Build Configuration", duration: "40 min" },
+        { id: "4", title: "EAS Submit", duration: "25 min" },
+        { id: "5", title: "CI/CD Integration", duration: "45 min" },
+        { id: "6", title: "Testing and Quality Assurance", duration: "35 min" },
+        { id: "7", title: "Production Deployment", duration: "35 min" },
+      ],
+      content: `
+# EAS Build and Deployment Workflow
+
+Master Expo Application Services (EAS) to create professional build and deployment pipelines for your React Native apps. Learn industry best practices for CI/CD in mobile development.
+
+## What You'll Learn
+
+- ✅ Set up EAS Build for automated builds
+- ✅ Configure build profiles for different environments
+- ✅ Implement EAS Submit for app store deployment
+- ✅ Create CI/CD pipelines with GitHub Actions
+- ✅ Set up automated testing workflows
+- ✅ Manage app signing and credentials
+- ✅ Deploy to production with confidence
+
+## Chapter 1: Introduction to EAS
+
+### What is EAS?
+
+Expo Application Services (EAS) is a comprehensive platform for building, submitting, and updating React Native apps. It provides:
+
+#### Core Services
+- **EAS Build**: Cloud-based build service
+- **EAS Submit**: Automated app store submission
+- **EAS Update**: Over-the-air updates
+- **EAS Metadata**: App store metadata management
+
+#### Benefits Over Traditional Builds
+- **No local setup required**: Build in the cloud
+- **Consistent environments**: Reproducible builds
+- **Parallel builds**: Faster development cycles
+- **Credential management**: Secure handling of certificates
+- **Integration ready**: Works with CI/CD systems
+
+### EAS vs Expo Classic Builds
+
+#### EAS Build Advantages
+- **Bare React Native support**: Not limited to Expo SDK
+- **Custom native code**: Full control over native modules
+- **Flexible configuration**: Customizable build environments
+- **Better performance**: Optimized build infrastructure
+
+#### Migration Considerations
+- **Cost**: EAS has usage-based pricing
+- **Learning curve**: More configuration options
+- **Flexibility**: Greater control but more complexity
+
+## Chapter 2: Setting Up EAS Build
+
+### Prerequisites
+
+#### Required Tools
+\`\`\`bash
+# Install EAS CLI
+npm install -g eas-cli
+
+# Login to your Expo account
+eas login
+
+# Verify installation
+eas --version
+\`\`\`
+
+#### Project Requirements
+- Expo SDK 41+ or bare React Native project
+- Valid Expo account
+- Git repository (recommended)
+
+### Initial Configuration
+
+#### Initialize EAS in Your Project
+\`\`\`bash
+# Navigate to your project directory
+cd your-expo-project
+
+# Initialize EAS
+eas build:configure
+
+# This creates eas.json configuration file
+\`\`\`
+
+#### Basic eas.json Structure
+\`\`\`json
+{
+  "cli": {
+    "version": ">= 2.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}
+\`\`\`
+
+### Understanding Build Profiles
+
+#### Development Profile
+For development and testing:
+\`\`\`json
+"development": {
+  "developmentClient": true,
+  "distribution": "internal",
+  "ios": {
+    "resourceClass": "m1-medium"
+  },
+  "android": {
+    "buildType": "developmentClient"
+  }
+}
+\`\`\`
+
+#### Preview Profile
+For internal testing and QA:
+\`\`\`json
+"preview": {
+  "distribution": "internal",
+  "ios": {
+    "simulator": true
+  },
+  "android": {
+    "buildType": "apk"
+  }
+}
+\`\`\`
+
+#### Production Profile
+For app store releases:
+\`\`\`json
+"production": {
+  "ios": {
+    "resourceClass": "m1-medium"
+  },
+  "android": {
+    "buildType": "app-bundle"
+  }
+}
+\`\`\`
+
+## Chapter 3: Build Configuration
+
+### Advanced Configuration Options
+
+#### Environment Variables
+\`\`\`json
+{
+  "build": {
+    "production": {
+      "env": {
+        "API_URL": "https://api.production.com",
+        "ANALYTICS_KEY": "prod-key-123"
+      }
+    },
+    "staging": {
+      "env": {
+        "API_URL": "https://api.staging.com",
+        "ANALYTICS_KEY": "staging-key-456"
+      }
+    }
+  }
+}
+\`\`\`
+
+#### Custom Build Scripts
+\`\`\`json
+{
+  "build": {
+    "production": {
+      "ios": {
+        "buildConfiguration": "Release"
+      },
+      "android": {
+        "gradleCommand": ":app:bundleRelease"
+      }
+    }
+  }
+}
+\`\`\`
+
+### Platform-Specific Configuration
+
+#### iOS Configuration
+\`\`\`json
+{
+  "build": {
+    "production": {
+      "ios": {
+        "resourceClass": "m1-medium",
+        "scheme": "YourApp",
+        "buildConfiguration": "Release",
+        "enterpriseProvisioning": "universal",
+        "autoIncrement": "buildNumber"
+      }
+    }
+  }
+}
+\`\`\`
+
+#### Android Configuration
+\`\`\`json
+{
+  "build": {
+    "production": {
+      "android": {
+        "resourceClass": "medium",
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:bundleRelease",
+        "autoIncrement": "versionCode"
+      }
+    }
+  }
+}
+\`\`\`
+
+### Credential Management
+
+#### Automatic Credential Management
+\`\`\`bash
+# EAS handles credentials automatically
+eas build --platform ios --profile production
+
+# For first-time setup, EAS will:
+# 1. Generate certificates
+# 2. Create provisioning profiles
+# 3. Store securely in EAS servers
+\`\`\`
+
+#### Manual Credential Management
+\`\`\`bash
+# View stored credentials
+eas credentials
+
+# Configure specific credentials
+eas credentials:configure
+
+# Sync local credentials
+eas credentials:sync
+\`\`\`
+
+### Running Your First Build
+
+#### Build Commands
+\`\`\`bash
+# Build for specific platform and profile
+eas build --platform ios --profile production
+eas build --platform android --profile production
+
+# Build for all platforms
+eas build --profile production
+
+# Build with custom message
+eas build --profile production --message "Release v1.2.0"
+\`\`\`
+
+#### Monitoring Build Progress
+- **EAS CLI**: Real-time progress in terminal
+- **Expo Dashboard**: Web interface for build monitoring
+- **Email notifications**: Build completion alerts
+- **Webhooks**: Custom integrations
+
+## Chapter 4: EAS Submit
+
+### Setting Up App Store Submission
+
+#### iOS App Store Configuration
+\`\`\`json
+{
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "1234567890",
+        "appleTeamId": "ABCD123456"
+      }
+    }
+  }
+}
+\`\`\`
+
+#### Google Play Store Configuration
+\`\`\`json
+{
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production"
+      }
+    }
+  }
+}
+\`\`\`
+
+### Automated Submission Workflow
+
+#### Complete Build and Submit Pipeline
+\`\`\`bash
+# Build and submit in one command
+eas build --platform ios --profile production --auto-submit
+
+# Or submit existing build
+eas submit --platform ios --profile production --id BUILD_ID
+\`\`\`
+
+#### Submission Profiles
+\`\`\`json
+{
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "1234567890"
+      },
+      "android": {
+        "track": "production",
+        "releaseStatus": "completed"
+      }
+    },
+    "beta": {
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "1234567890"
+      },
+      "android": {
+        "track": "beta",
+        "releaseStatus": "completed"
+      }
+    }
+  }
+}
+\`\`\`
+
+## Chapter 5: CI/CD Integration
+
+### GitHub Actions Integration
+
+#### Basic Workflow Setup
+\`\`\`yaml
+# .github/workflows/eas-build.yml
+name: EAS Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and Submit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "\${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: \${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build on EAS
+        run: eas build --platform all --non-interactive
+\`\`\`
+
+#### Advanced Workflow with Testing
+\`\`\`yaml
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - run: npm ci
+      - run: npm run test
+      - run: npm run lint
+      - run: npm run type-check
+
+  build:
+    name: EAS Build
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: \${{ secrets.EXPO_TOKEN }}
+      - run: npm ci
+      - run: eas build --platform all --non-interactive --profile production
+
+  submit:
+    name: Submit to Stores
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: \${{ secrets.EXPO_TOKEN }}
+      - run: eas submit --platform all --non-interactive --profile production
+\`\`\`
+
+### Environment-Based Deployments
+
+#### Branch-Based Workflows
+\`\`\`yaml
+# Different profiles for different branches
+- name: Build Development
+  if: github.ref == 'refs/heads/develop'
+  run: eas build --platform all --profile development
+
+- name: Build Staging
+  if: github.ref == 'refs/heads/staging'
+  run: eas build --platform all --profile preview
+
+- name: Build Production
+  if: github.ref == 'refs/heads/main'
+  run: eas build --platform all --profile production
+\`\`\`
+
+## Chapter 6: Testing and Quality Assurance
+
+### Automated Testing Integration
+
+#### Pre-Build Testing
+\`\`\`json
+{
+  "build": {
+    "production": {
+      "prebuildCommand": "npm run test && npm run lint"
+    }
+  }
+}
+\`\`\`
+
+#### Test Configuration
+\`\`\`bash
+# Package.json scripts
+{
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --noEmit"
+  }
+}
+\`\`\`
+
+### Device Testing with EAS Build
+
+#### Development Client Testing
+\`\`\`bash
+# Build development client
+eas build --platform ios --profile development
+
+# Install on device for testing
+# Use Expo Go or custom development client
+\`\`\`
+
+#### Internal Distribution
+\`\`\`bash
+# Build for internal testing
+eas build --platform all --profile preview
+
+# Share with team via Expo Dashboard
+# Or download directly from build page
+\`\`\`
+
+### Quality Gates
+
+#### Build Quality Checks
+\`\`\`yaml
+# GitHub Actions quality gates
+- name: Quality Gates
+  run: |
+    npm run test:coverage
+    npm run lint
+    npm run type-check
+    npm run security-audit
+\`\`\`
+
+## Chapter 7: Production Deployment
+
+### Release Management
+
+#### Version Management
+\`\`\`json
+{
+  "expo": {
+    "version": "1.2.0",
+    "ios": {
+      "buildNumber": "12"
+    },
+    "android": {
+      "versionCode": 12
+    }
+  }
+}
+\`\`\`
+
+#### Automated Version Bumping
+\`\`\`bash
+# Using semantic versioning
+npm version patch  # 1.0.0 -> 1.0.1
+npm version minor  # 1.0.0 -> 1.1.0
+npm version major  # 1.0.0 -> 2.0.0
+
+# Update app.json automatically
+\`\`\`
+
+### Production Deployment Strategy
+
+#### Blue-Green Deployment
+\`\`\`yaml
+# Deploy to staging first
+- name: Deploy to Staging
+  run: eas build --profile staging
+
+# Run integration tests
+- name: Integration Tests
+  run: npm run test:integration
+
+# Deploy to production
+- name: Deploy to Production
+  run: eas build --profile production
+\`\`\`
+
+#### Rollback Strategy
+\`\`\`bash
+# Keep previous builds available
+eas build:list --platform ios --status finished --limit 5
+
+# Quick rollback using EAS Update
+eas update --branch production --message "Rollback to previous version"
+\`\`\`
+
+### Monitoring and Alerting
+
+#### Build Monitoring
+\`\`\`yaml
+# Slack notifications
+- name: Notify Slack
+  if: failure()
+  uses: 8398a7/action-slack@v3
+  with:
+    status: failure
+    text: "EAS Build failed for \${{ github.ref }}"
+\`\`\`
+
+#### Production Monitoring
+- **Crash reporting**: Sentry, Crashlytics
+- **Performance monitoring**: Firebase Performance
+- **User analytics**: Amplitude, Mixpanel
+- **App store metrics**: App Store Connect, Google Play Console
+
+## Best Practices Summary
+
+1. **Use build profiles**: Separate development, staging, and production
+2. **Automate testing**: Run tests before builds
+3. **Secure credentials**: Use EAS credential management
+4. **Monitor builds**: Set up notifications and alerts
+5. **Plan rollbacks**: Have a rollback strategy ready
+6. **Version consistently**: Use semantic versioning
+7. **Test thoroughly**: Use development clients and internal distribution
+
+## Conclusion
+
+EAS Build and deployment workflows provide a robust foundation for professional mobile app development. By implementing proper CI/CD practices, automated testing, and monitoring, you can deliver high-quality apps with confidence.
+
+Ready to deploy your app? Start with perfect icons using our [Icon Generator](/)!
+      `,
+    },
   };
 
   return tutorials[slug] || null;
