@@ -117,6 +117,37 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Legal */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Community Links */}
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Community</h3>

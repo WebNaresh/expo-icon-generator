@@ -133,7 +133,7 @@ module.exports = {
       },
     ];
 
-    // Support pages
+    // Support and Legal pages
     const supportPages = [
       {
         loc: "/faq",
@@ -141,152 +141,37 @@ module.exports = {
         priority: 0.8,
         lastmod: new Date().toISOString(),
       },
-    ];
-
-    // Feature-specific pages for better search targeting
-    const featurePages = [
       {
-        loc: "/features/icon-generation",
+        loc: "/privacy",
         changefreq: "monthly",
-        priority: 0.8,
+        priority: 0.7,
         lastmod: new Date().toISOString(),
       },
       {
-        loc: "/features/background-color-detection",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/features/multi-platform-support",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/features/smart-color-analysis",
+        loc: "/terms",
         changefreq: "monthly",
         priority: 0.7,
         lastmod: new Date().toISOString(),
       },
     ];
 
-    // Platform-specific pages
-    const platformPages = [
-      {
-        loc: "/platforms/ios",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/android",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/web",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/react-native",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-    ];
+    // Remove non-existent feature pages that were causing indexing issues
 
-    // Icon format specific pages
-    const formatPages = [
-      {
-        loc: "/formats/adaptive-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/app-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/favicon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/splash-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-    ];
+    // Remove non-existent platform pages that were causing indexing issues
 
-    // Documentation pages
-    const docPages = [
-      {
-        loc: "/docs/getting-started",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/api-reference",
-        changefreq: "monthly",
-        priority: 0.6,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/troubleshooting",
-        changefreq: "monthly",
-        priority: 0.5,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/faq",
-        changefreq: "monthly",
-        priority: 0.5,
-        lastmod: new Date().toISOString(),
-      },
-    ];
+    // Remove non-existent format pages that were causing indexing issues
 
-    // Tool-specific pages
-    const toolPages = [
-      {
-        loc: "/tools/expo-icon-generator",
-        changefreq: "weekly",
-        priority: 0.9,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/tools/react-native-icons",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/tools/app-store-icons",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-    ];
+    // Remove non-existent documentation pages that were causing indexing issues
 
-    // Add all pages to result
+    // Remove non-existent tool pages that were causing indexing issues
+
+    // Add only existing pages to result
     result.push(
       ...blogPages,
       ...tutorialPages,
-      ...supportPages,
-      ...featurePages,
-      ...platformPages,
-      ...formatPages,
-      ...docPages,
-      ...toolPages
+      ...supportPages
+      // Removed non-existent pages that were causing Google Search Console indexing issues:
+      // featurePages, platformPages, formatPages, docPages, toolPages
     );
 
     // Fetch dynamic contributor pages
@@ -331,18 +216,15 @@ module.exports = {
     } else if (path.startsWith("/tutorials")) {
       priority = 0.9;
       changefreq = "weekly";
+    } else if (path === "/faq") {
+      priority = 0.8;
+      changefreq = "monthly";
+    } else if (path === "/privacy" || path === "/terms") {
+      priority = 0.7;
+      changefreq = "monthly";
     } else if (path.startsWith("/contributors")) {
       priority = 0.6;
       changefreq = "monthly";
-    } else if (path.startsWith("/features/")) {
-      priority = 0.8;
-      changefreq = "monthly";
-    } else if (path.startsWith("/platforms/")) {
-      priority = 0.8;
-      changefreq = "monthly";
-    } else if (path.startsWith("/tools/")) {
-      priority = 0.9;
-      changefreq = "weekly";
     }
 
     return {
