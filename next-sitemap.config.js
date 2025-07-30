@@ -87,7 +87,7 @@ module.exports = {
       },
     ];
 
-    // Tutorial pages
+    // Tutorial pages - All 6 dynamic tutorial routes
     const tutorialPages = [
       {
         loc: "/tutorials",
@@ -95,6 +95,7 @@ module.exports = {
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
+      // Featured tutorials (higher priority)
       {
         loc: "/tutorials/expo-app-development-complete-guide",
         changefreq: "monthly",
@@ -104,15 +105,16 @@ module.exports = {
       {
         loc: "/tutorials/professional-icon-design-masterclass",
         changefreq: "monthly",
-        priority: 0.8,
+        priority: 0.9,
         lastmod: new Date().toISOString(),
       },
       {
         loc: "/tutorials/react-native-performance-optimization",
         changefreq: "monthly",
-        priority: 0.8,
+        priority: 0.9,
         lastmod: new Date().toISOString(),
       },
+      // Additional tutorials (good priority)
       {
         loc: "/tutorials/app-store-submission-guide",
         changefreq: "monthly",
@@ -122,13 +124,13 @@ module.exports = {
       {
         loc: "/tutorials/adaptive-icons-android-tutorial",
         changefreq: "monthly",
-        priority: 0.7,
+        priority: 0.8,
         lastmod: new Date().toISOString(),
       },
       {
         loc: "/tutorials/expo-eas-build-deployment",
         changefreq: "monthly",
-        priority: 0.7,
+        priority: 0.8,
         lastmod: new Date().toISOString(),
       },
     ];
@@ -213,9 +215,21 @@ module.exports = {
     } else if (path.startsWith("/blog")) {
       priority = 0.9;
       changefreq = "weekly";
-    } else if (path.startsWith("/tutorials")) {
+    } else if (path === "/tutorials") {
       priority = 0.9;
       changefreq = "weekly";
+    } else if (path.startsWith("/tutorials/")) {
+      // Featured tutorials get higher priority
+      if (
+        path.includes("expo-app-development-complete-guide") ||
+        path.includes("professional-icon-design-masterclass") ||
+        path.includes("react-native-performance-optimization")
+      ) {
+        priority = 0.9;
+      } else {
+        priority = 0.8;
+      }
+      changefreq = "monthly";
     } else if (path === "/faq") {
       priority = 0.8;
       changefreq = "monthly";

@@ -77,16 +77,18 @@ export const metadata: Metadata = {
     siteName: "Expo Icon Generator",
     images: [
       {
-        url: "/web-app-manifest-512x512.png",
+        url: "https://expo-assets-generator.vercel.app/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Expo Icon Generator - Automate Your App Icons",
+        type: "image/png",
+      },
+      {
+        url: "https://expo-assets-generator.vercel.app/web-app-manifest-512x512.png",
         width: 512,
         height: 512,
         alt: "Expo Icon Generator Logo",
-      },
-      {
-        url: "/web-app-manifest-192x192.png",
-        width: 192,
-        height: 192,
-        alt: "Expo Icon Generator Logo",
+        type: "image/png",
       },
     ],
     locale: "en_US",
@@ -97,8 +99,9 @@ export const metadata: Metadata = {
     title: "Expo Icon Generator - Automate Your App Icons",
     description:
       "Automate and simplify icon generation for Expo-based React Native apps. Generate platform-specific icons from a single source image.",
-    images: ["/web-app-manifest-512x512.png"],
+    images: ["https://expo-assets-generator.vercel.app/opengraph-image.png"],
     creator: "@expo_icons",
+    site: "@expo_icons",
   },
   robots: {
     index: true,
