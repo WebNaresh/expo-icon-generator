@@ -41,6 +41,108 @@ module.exports = {
   additionalPaths: async (config) => {
     const result = [];
 
+    // Blog pages
+    const blogPages = [
+      {
+        loc: "/blog",
+        changefreq: "weekly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/complete-guide-expo-icon-generation",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/ios-android-icon-requirements-2024",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/icon-design-best-practices",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/automated-icon-generation-workflow",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/app-store-optimization-icons",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/react-native-icon-performance",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
+    // Tutorial pages
+    const tutorialPages = [
+      {
+        loc: "/tutorials",
+        changefreq: "weekly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/expo-app-development-complete-guide",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/professional-icon-design-masterclass",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/react-native-performance-optimization",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/app-store-submission-guide",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/adaptive-icons-android-tutorial",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/expo-eas-build-deployment",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
+    // Support pages
+    const supportPages = [
+      {
+        loc: "/faq",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
     // Feature-specific pages for better search targeting
     const featurePages = [
       {
@@ -177,6 +279,9 @@ module.exports = {
 
     // Add all pages to result
     result.push(
+      ...blogPages,
+      ...tutorialPages,
+      ...supportPages,
       ...featurePages,
       ...platformPages,
       ...formatPages,
@@ -212,13 +317,19 @@ module.exports = {
   },
 
   // Transform function to customize sitemap entries
-  transform: async (config, path) => {
+  transform: async (_, path) => {
     // Custom priority and changefreq based on path
     let priority = 0.7;
     let changefreq = "monthly";
 
     if (path === "/") {
       priority = 1.0;
+      changefreq = "weekly";
+    } else if (path.startsWith("/blog")) {
+      priority = 0.9;
+      changefreq = "weekly";
+    } else if (path.startsWith("/tutorials")) {
+      priority = 0.9;
       changefreq = "weekly";
     } else if (path.startsWith("/contributors")) {
       priority = 0.6;

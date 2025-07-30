@@ -6,9 +6,9 @@ export function Footer() {
   return (
     <footer className="bg-white border-t border-gray-200 mt-auto">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
-          <div className="col-span-1 lg:col-span-1">
+          <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/web-app-manifest-192x192.png"
@@ -45,10 +45,73 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/blog"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tutorials"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Tutorials
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contributors"
                   className="text-gray-600 hover:text-sky-600 transition-colors"
                 >
                   Contributors
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/blog/complete-guide-expo-icon-generation"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Icon Generation Guide
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/ios-android-icon-requirements-2024"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Platform Requirements
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/icon-design-best-practices"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Design Best Practices
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tutorials/expo-app-development-complete-guide"
+                  className="text-gray-600 hover:text-sky-600 transition-colors"
+                >
+                  Expo Development
                 </Link>
               </li>
             </ul>

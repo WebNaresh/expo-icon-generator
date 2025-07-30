@@ -23,6 +23,20 @@ export const metadata: Metadata = {
   description:
     "A modern tool designed to automate and simplify icon generation for Expo-based React Native apps. Generate platform-specific icons (iOS, Android, web) from a single source image with one command. Features image optimization, sharp scaling, custom background and padding, and automatic app.json updates.",
   keywords: [
+    // High-performing keywords from Google Search Console
+    "expo assets generator",
+    "expo icon generator",
+    "expo app icon generator",
+    "expo icons generator",
+    "expo icons",
+    "expo icon builder",
+    "expo app icon",
+    "expo icon",
+    "expo asset generator",
+    "expo android icon",
+    "react native icon generator",
+    "expo app icons",
+    // Additional relevant keywords
     "expo-icon-generator",
     "react native icons",
     "app icon automation",
@@ -41,7 +55,6 @@ export const metadata: Metadata = {
     "expo cli",
     "app icon sizes",
     "icon automation tool",
-    "expo app icons",
     "react native tools",
   ],
   authors: [{ name: "Expo Icon Generator Team" }],
@@ -115,7 +128,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM"
         />
-    <meta name="google-adsense-account" content="ca-pub-6220952943304269"/>
+        <meta name="google-adsense-account" content="ca-pub-6220952943304269" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
