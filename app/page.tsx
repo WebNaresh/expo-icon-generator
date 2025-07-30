@@ -13,6 +13,10 @@ import {
   Image as ImageIcon,
   Users,
   ExternalLink,
+  Smartphone,
+  Palette,
+  Zap,
+  ArrowRight,
 } from "lucide-react";
 
 // Types for our icon generation
@@ -1014,6 +1018,198 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Comprehensive Guide Section */}
+        <div className="max-w-6xl mx-auto mt-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Complete Icon Generation Guide
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <Smartphone className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Platform Requirements
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Understanding iOS and Android icon specifications is crucial for
+                app store approval. iOS requires 1024×1024px icons without
+                transparency, while Android uses adaptive icons with foreground
+                and background layers.
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                <li>• iOS: 1024×1024px, no transparency</li>
+                <li>• Android: Adaptive icons with safe zones</li>
+                <li>• Web: Multiple sizes for PWA support</li>
+                <li>• Apple Watch: Various sizes up to 108×108px</li>
+              </ul>
+              <Link
+                href="/blog/ios-android-icon-requirements-2024"
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Learn More →
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Palette className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Design Best Practices
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Creating effective app icons requires understanding design
+                principles, color theory, and user psychology. Your icon should
+                be simple, memorable, and work across all sizes and backgrounds.
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                <li>• Simple, recognizable design</li>
+                <li>• High contrast for visibility</li>
+                <li>• Consistent brand identity</li>
+                <li>• Test at smallest sizes (29×29px)</li>
+              </ul>
+              <Link
+                href="/blog/icon-design-best-practices"
+                className="text-green-600 hover:text-green-700 font-medium"
+              >
+                Design Guide →
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Automation & Workflow
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Streamline your development process with automated icon
+                generation. Integrate with CI/CD pipelines, maintain consistency
+                across updates, and save hours of manual work with proper
+                tooling.
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                <li>• Automated CI/CD integration</li>
+                <li>• Batch processing capabilities</li>
+                <li>• Version control best practices</li>
+                <li>• Quality assurance workflows</li>
+              </ul>
+              <Link
+                href="/blog/automated-icon-generation-workflow"
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                Automation Guide →
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Technical Specifications */}
+        <div className="max-w-6xl mx-auto mt-16 bg-gray-50 rounded-2xl p-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Technical Specifications
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Generated Icon Formats
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <span className="font-medium">adaptive-icon.png</span>
+                  <span className="text-sm text-gray-600">1024×1024px</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <span className="font-medium">icon.png</span>
+                  <span className="text-sm text-gray-600">1024×1024px</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <span className="font-medium">splash-icon.png</span>
+                  <span className="text-sm text-gray-600">1024×1024px</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <span className="font-medium">favicon.png</span>
+                  <span className="text-sm text-gray-600">48×48px</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <span className="font-medium">Multi-density icons</span>
+                  <span className="text-sm text-gray-600">@1x, @2x, @3x</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Supported Input Formats
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center p-3 bg-white rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <span>PNG (Recommended for best quality)</span>
+                </div>
+                <div className="flex items-center p-3 bg-white rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <span>JPG/JPEG (Good for photographs)</span>
+                </div>
+                <div className="flex items-center p-3 bg-white rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <span>SVG (Vector graphics, scalable)</span>
+                </div>
+                <div className="flex items-center p-3 bg-white rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <span>Maximum file size: 10MB</span>
+                </div>
+                <div className="flex items-center p-3 bg-white rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <span>Recommended: 1024×1024px or larger</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* App Store Optimization Section */}
+        <div className="max-w-4xl mx-auto mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+          <h2 className="text-3xl font-bold mb-6 text-center">
+            App Store Optimization (ASO)
+          </h2>
+          <p className="text-lg mb-8 text-center opacity-90">
+            Your app icon is the first thing users see. Make it count with these
+            proven strategies that can increase your download rates by up to
+            30%.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white/10 rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-3">Icon Impact Statistics</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• 73% of users judge app quality by icon design</li>
+                <li>• Professional icons increase retention by 25%</li>
+                <li>• Consistent branding improves recognition by 40%</li>
+                <li>• A/B testing icons can boost downloads by 20-30%</li>
+              </ul>
+            </div>
+            <div className="bg-white/10 rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-3">Optimization Checklist</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Test on different backgrounds and themes</li>
+                <li>• Ensure visibility at small sizes</li>
+                <li>• Maintain brand consistency across platforms</li>
+                <li>• Consider cultural differences for global apps</li>
+              </ul>
+            </div>
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/blog/app-store-optimization-icons"
+              className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+            >
+              Learn ASO Strategies
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </div>

@@ -50,6 +50,24 @@ export function Navbar() {
                   Home
                 </Link>
                 <Link
+                  href="/blog"
+                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/tutorials"
+                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                >
+                  Tutorials
+                </Link>
+                <Link
+                  href="/faq"
+                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                >
+                  FAQ
+                </Link>
+                <Link
                   href="/contributors"
                   className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
                 >
@@ -67,6 +85,9 @@ export function Navbar() {
             ) : (
               <>
                 <span className="text-gray-600 font-medium">Home</span>
+                <span className="text-gray-600 font-medium">Blog</span>
+                <span className="text-gray-600 font-medium">Tutorials</span>
+                <span className="text-gray-600 font-medium">FAQ</span>
                 <span className="text-gray-600 font-medium">Contributors</span>
                 <span className="text-gray-600 font-medium">GitHub</span>
               </>

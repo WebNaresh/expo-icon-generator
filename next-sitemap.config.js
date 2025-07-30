@@ -41,147 +41,139 @@ module.exports = {
   additionalPaths: async (config) => {
     const result = [];
 
-    // Feature-specific pages for better search targeting
-    const featurePages = [
+    // Blog pages
+    const blogPages = [
       {
-        loc: "/features/icon-generation",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/features/background-color-detection",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/features/multi-platform-support",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/features/smart-color-analysis",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-    ];
-
-    // Platform-specific pages
-    const platformPages = [
-      {
-        loc: "/platforms/ios",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/android",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/web",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/platforms/react-native",
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      },
-    ];
-
-    // Icon format specific pages
-    const formatPages = [
-      {
-        loc: "/formats/adaptive-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/app-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/favicon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/formats/splash-icon",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-    ];
-
-    // Documentation pages
-    const docPages = [
-      {
-        loc: "/docs/getting-started",
-        changefreq: "monthly",
-        priority: 0.7,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/api-reference",
-        changefreq: "monthly",
-        priority: 0.6,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/troubleshooting",
-        changefreq: "monthly",
-        priority: 0.5,
-        lastmod: new Date().toISOString(),
-      },
-      {
-        loc: "/docs/faq",
-        changefreq: "monthly",
-        priority: 0.5,
-        lastmod: new Date().toISOString(),
-      },
-    ];
-
-    // Tool-specific pages
-    const toolPages = [
-      {
-        loc: "/tools/expo-icon-generator",
+        loc: "/blog",
         changefreq: "weekly",
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
       {
-        loc: "/tools/react-native-icons",
+        loc: "/blog/complete-guide-expo-icon-generation",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/ios-android-icon-requirements-2024",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/icon-design-best-practices",
         changefreq: "monthly",
         priority: 0.8,
         lastmod: new Date().toISOString(),
       },
       {
-        loc: "/tools/app-store-icons",
+        loc: "/blog/automated-icon-generation-workflow",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/app-store-optimization-icons",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/blog/react-native-icon-performance",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
+    // Tutorial pages - All 6 dynamic tutorial routes
+    const tutorialPages = [
+      {
+        loc: "/tutorials",
+        changefreq: "weekly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      // Featured tutorials (higher priority)
+      {
+        loc: "/tutorials/expo-app-development-complete-guide",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/professional-icon-design-masterclass",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/react-native-performance-optimization",
+        changefreq: "monthly",
+        priority: 0.9,
+        lastmod: new Date().toISOString(),
+      },
+      // Additional tutorials (good priority)
+      {
+        loc: "/tutorials/app-store-submission-guide",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/adaptive-icons-android-tutorial",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/tutorials/expo-eas-build-deployment",
         changefreq: "monthly",
         priority: 0.8,
         lastmod: new Date().toISOString(),
       },
     ];
 
-    // Add all pages to result
+    // Support and Legal pages
+    const supportPages = [
+      {
+        loc: "/faq",
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/privacy",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+      {
+        loc: "/terms",
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
+    // Remove non-existent feature pages that were causing indexing issues
+
+    // Remove non-existent platform pages that were causing indexing issues
+
+    // Remove non-existent format pages that were causing indexing issues
+
+    // Remove non-existent documentation pages that were causing indexing issues
+
+    // Remove non-existent tool pages that were causing indexing issues
+
+    // Add only existing pages to result
     result.push(
-      ...featurePages,
-      ...platformPages,
-      ...formatPages,
-      ...docPages,
-      ...toolPages
+      ...blogPages,
+      ...tutorialPages,
+      ...supportPages
+      // Removed non-existent pages that were causing Google Search Console indexing issues:
+      // featurePages, platformPages, formatPages, docPages, toolPages
     );
 
     // Fetch dynamic contributor pages
@@ -212,7 +204,7 @@ module.exports = {
   },
 
   // Transform function to customize sitemap entries
-  transform: async (config, path) => {
+  transform: async (_, path) => {
     // Custom priority and changefreq based on path
     let priority = 0.7;
     let changefreq = "monthly";
@@ -220,18 +212,33 @@ module.exports = {
     if (path === "/") {
       priority = 1.0;
       changefreq = "weekly";
+    } else if (path.startsWith("/blog")) {
+      priority = 0.9;
+      changefreq = "weekly";
+    } else if (path === "/tutorials") {
+      priority = 0.9;
+      changefreq = "weekly";
+    } else if (path.startsWith("/tutorials/")) {
+      // Featured tutorials get higher priority
+      if (
+        path.includes("expo-app-development-complete-guide") ||
+        path.includes("professional-icon-design-masterclass") ||
+        path.includes("react-native-performance-optimization")
+      ) {
+        priority = 0.9;
+      } else {
+        priority = 0.8;
+      }
+      changefreq = "monthly";
+    } else if (path === "/faq") {
+      priority = 0.8;
+      changefreq = "monthly";
+    } else if (path === "/privacy" || path === "/terms") {
+      priority = 0.7;
+      changefreq = "monthly";
     } else if (path.startsWith("/contributors")) {
       priority = 0.6;
       changefreq = "monthly";
-    } else if (path.startsWith("/features/")) {
-      priority = 0.8;
-      changefreq = "monthly";
-    } else if (path.startsWith("/platforms/")) {
-      priority = 0.8;
-      changefreq = "monthly";
-    } else if (path.startsWith("/tools/")) {
-      priority = 0.9;
-      changefreq = "weekly";
     }
 
     return {
