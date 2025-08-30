@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/utils/navbar";
 import { Footer } from "@/components/utils/footer";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -132,6 +133,12 @@ export default function RootLayout({
           content="P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM"
         />
         <meta name="google-adsense-account" content="ca-pub-6220952943304269" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6220952943304269"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
