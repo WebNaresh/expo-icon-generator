@@ -119,18 +119,29 @@ export default function IconDetailModal({
             </h3>
             <div className="bg-gray-50 rounded-xl p-8 flex items-center justify-center">
               <div className="relative">
-                <Image
+                <img
                   src={icon.url}
                   alt={icon.name}
                   width={200}
                   height={200}
                   className="max-w-full max-h-full object-contain drop-shadow-lg"
+                  onError={(e) => {
+                    console.error(
+                      `Modal: Failed to load image for ${icon.name}:`,
+                      e
+                    );
+                  }}
+                  onLoad={() => {
+                    console.log(
+                      `Modal: Successfully loaded image for ${icon.name}`
+                    );
+                  }}
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white rounded-lg p-4 flex items-center justify-center border-2 border-dashed border-gray-200">
-                <Image
+                <img
                   src={icon.url}
                   alt={`${icon.name} on white`}
                   width={64}
@@ -139,7 +150,7 @@ export default function IconDetailModal({
                 />
               </div>
               <div className="bg-gray-900 rounded-lg p-4 flex items-center justify-center border-2 border-dashed border-gray-300">
-                <Image
+                <img
                   src={icon.url}
                   alt={`${icon.name} on dark`}
                   width={64}

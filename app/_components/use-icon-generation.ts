@@ -10,6 +10,15 @@ export function useIconGeneration() {
 
   // Generate icons
   const generateIcons = useCallback(async (file: File, backgroundColor: string) => {
+    console.log("🔥 [FRONTEND] Starting icon generation...");
+    console.log("🔥 [FRONTEND] File:", {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      lastModified: new Date(file.lastModified).toISOString()
+    });
+    console.log("🔥 [FRONTEND] Background color:", backgroundColor);
+
     setIsGenerating(true);
     setError(null);
 
@@ -18,18 +27,54 @@ export function useIconGeneration() {
       formData.append("image", file);
       formData.append("backgroundColor", backgroundColor);
 
+      console.log("🔥 [FRONTEND] Sending request to /api/generate-icons...");
+
       const response = await fetch("/api/generate-icons", {
         method: "POST",
         body: formData,
       });
 
+      console.log("🔥 [FRONTEND] Response received:", {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("🔥 [FRONTEND] API error response:", errorText);
         throw new Error("Failed to generate icons");
       }
 
       const result = await response.json();
+      console.log("🔥 [FRONTEND] API result:", {
+        iconsCount: result.icons?.length,
+        firstIconName: result.icons?.[0]?.name,
+        firstIconUrlPrefix: result.icons?.[0]?.url?.substring(0, 100),
+        firstIconUrlLength: result.icons?.[0]?.url?.length,
+        firstIconSize: result.icons?.[0]?.size,
+        hasBlob: !!result.icons?.[0]?.blob
+      });
+
+      // Log each icon's details
+      result.icons?.forEach((icon: any, index: number) => {
+        console.log(`🔥 [FRONTEND] Icon ${index}:`, {
+          name: icon.name,
+          size: icon.size,
+          urlLength: icon.url?.length,
+          urlPrefix: icon.url?.substring(0, 50) + "...",
+          isDataUrl: icon.url?.startsWith('data:'),
+          mimeType: icon.url?.match(/data:([^;]+)/)?.[1],
+          hasBase64: icon.url?.includes('base64,')
+        });
+      });
+
       setGeneratedIcons(result.icons);
+      console.log("🔥 [FRONTEND] Icons set in state successfully!");
+
     } catch (err) {
+      console.error("🔥 [FRONTEND] Error in generateIcons:", err);
       setError(
         err instanceof Error
           ? err.message
@@ -37,6 +82,7 @@ export function useIconGeneration() {
       );
     } finally {
       setIsGenerating(false);
+      console.log("🔥 [FRONTEND] Icon generation process completed");
     }
   }, []);
 

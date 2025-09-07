@@ -59,13 +59,30 @@ export async function POST(request: NextRequest) {
     // Convert file to buffer
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    // Get original image metadata
+    // Get original image metadata and validate
     const originalImage = sharp(buffer);
     const metadata = await originalImage.metadata();
 
     if (!metadata.width || !metadata.height) {
       return NextResponse.json({ error: 'Could not read image dimensions' }, { status: 400 });
     }
+
+    console.log('Original uploaded image metadata:', {
+      width: metadata.width,
+      height: metadata.height,
+      channels: metadata.channels,
+      hasAlpha: metadata.hasAlpha,
+      format: metadata.format,
+      size: buffer.length
+    });
+
+    // Create a test version to see if the image has visible content
+    const testImage = await originalImage.clone()
+      .resize(100, 100, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 1 } })
+      .png()
+      .toBuffer();
+
+    console.log('Test image created, size:', testImage.length);
 
     const generatedIcons: GeneratedIconData[] = [];
 
@@ -81,36 +98,64 @@ export async function POST(request: NextRequest) {
         if (spec.name === 'icon.png') {
           console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b}) - creating square background`);
 
-          // Step 1: Create a square background with the selected color
-          const squareBackground = sharp({
-            create: {
-              width: spec.width,
-              height: spec.height,
-              channels: 4,
-              background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
-            }
-          });
-
-          // Step 2: Resize the original icon to fit within the square (with padding)
-          // Use 70% size to give more breathing room around the icon
-          const iconSize = Math.round(Math.min(spec.width * 0.7, spec.height * 0.7));
-          const resizedIcon = await processedImage
-            .resize(iconSize, iconSize, {
-              fit: 'contain',
-              background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparent background for the icon
-            })
-            .png()
-            .toBuffer();
-
-          // Step 3: Composite the icon on top of the colored background
-          processedImage = squareBackground
-            .composite([
-              {
-                input: resizedIcon,
-                top: Math.floor((spec.height - iconSize) / 2),
-                left: Math.floor((spec.width - iconSize) / 2)
+          try {
+            // Step 1: Create a square background with the selected color
+            const squareBackground = sharp({
+              create: {
+                width: spec.width,
+                height: spec.height,
+                channels: 4,
+                background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
               }
-            ]);
+            });
+
+            // Step 2: Resize the original icon to fit within the square (with padding)
+            // Use 70% size to give more breathing room around the icon
+            const iconSize = Math.round(Math.min(spec.width * 0.7, spec.height * 0.7));
+
+            // First get metadata of the original image to understand what we're working with
+            const originalMetadata = await processedImage.metadata();
+            console.log(`Original image metadata:`, {
+              width: originalMetadata.width,
+              height: originalMetadata.height,
+              channels: originalMetadata.channels,
+              hasAlpha: originalMetadata.hasAlpha
+            });
+
+            const resizedIcon = await processedImage
+              .resize(iconSize, iconSize, {
+                fit: 'contain',
+                background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparent background for the icon
+              })
+              .png()
+              .toBuffer();
+
+            // Debug: Check the resized icon size
+            const resizedMetadata = await sharp(resizedIcon).metadata();
+            console.log(`Resized icon metadata:`, {
+              width: resizedMetadata.width,
+              height: resizedMetadata.height,
+              channels: resizedMetadata.channels,
+              hasAlpha: resizedMetadata.hasAlpha
+            });
+
+            // Step 3: Composite the icon on top of the colored background
+            processedImage = squareBackground
+              .composite([
+                {
+                  input: resizedIcon,
+                  top: Math.floor((spec.height - iconSize) / 2),
+                  left: Math.floor((spec.width - iconSize) / 2)
+                }
+              ]);
+          } catch (iconError) {
+            console.error(`Error in icon.png processing:`, iconError);
+            // Fallback to simple resize if composite fails
+            processedImage = processedImage.resize(spec.width, spec.height, {
+              fit: 'contain',
+              background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
+            });
+          }
         }
         // For splash-icon, add padding/background
         else if (spec.name === 'splash-icon.png') {
@@ -132,13 +177,37 @@ export async function POST(request: NextRequest) {
             });
         } else {
           // Standard resize with high-quality scaling
-          processedImage = processedImage.resize(spec.width, spec.height, {
-            fit: 'contain',
-            background: { r: 255, g: 255, b: 255, alpha: 0 }
-          });
+          console.log(`Processing ${spec.name} with standard resize`);
+
+          // For images with transparency, we might need to flatten them first
+          // or provide a proper background
+          if (spec.name.includes('react-logo') || spec.name.includes('adaptive') || spec.name.includes('favicon')) {
+            // These should preserve transparency
+            processedImage = processedImage.resize(spec.width, spec.height, {
+              fit: 'contain',
+              background: { r: 255, g: 255, b: 255, alpha: 0 }
+            });
+          } else {
+            // For other icons, provide a white background to ensure visibility
+            processedImage = processedImage.resize(spec.width, spec.height, {
+              fit: 'contain',
+              background: { r: 255, g: 255, b: 255, alpha: 1 }
+            });
+          }
         }
 
         const iconBuffer = await processedImage.png().toBuffer();
+
+        // Debug: Check final output
+        const finalMetadata = await sharp(iconBuffer).metadata();
+        console.log(`Final ${spec.name} metadata:`, {
+          width: finalMetadata.width,
+          height: finalMetadata.height,
+          channels: finalMetadata.channels,
+          hasAlpha: finalMetadata.hasAlpha,
+          size: iconBuffer.length
+        });
+
         const base64 = iconBuffer.toString('base64');
         const dataUrl = `data:image/png;base64,${base64}`;
 

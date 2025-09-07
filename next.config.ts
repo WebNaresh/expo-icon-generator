@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // remove console
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   experimental: {
     // optimizePackageImports: ['sharp', 'jszip'],
+
   },
   images: {
     remotePatterns: [
