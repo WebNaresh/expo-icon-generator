@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import {
-  HeroSection,
-  FileUploadArea,
-  GeneratedIconsDisplay,
-  FeaturesSection,
-  ContributorsSection,
-  HowItWorksSection,
-  ComprehensiveGuideSection,
-  TechnicalSpecificationsSection,
-  AppStoreOptimizationSection,
-  useFileUpload,
-  useContributors,
-  useIconGeneration,
-} from "./_components";
+import { useEffect } from "react";
+import HeroSection from "./_components/hero-section";
+import FileUploadArea from "./_components/file-upload-area";
+import GeneratedIconsDisplay from "./_components/generated-icons-display";
+import FeaturesSection from "./_components/features-section";
+import ContributorsSection from "./_components/contributors-section";
+import HowItWorksSection from "./_components/how-it-works-section";
+import ComprehensiveGuideSection from "./_components/comprehensive-guide-section";
+import TechnicalSpecificationsSection from "./_components/technical-specifications-section";
+import AppStoreOptimizationSection from "./_components/app-store-optimization-section";
+import { useFileUpload } from "./_components/use-file-upload";
+import { useContributors } from "./_components/use-contributors";
+import { useIconGeneration } from "./_components/use-icon-generation";
 
 export default function HomePage() {
   // Use custom hooks for separated concerns
@@ -57,9 +55,6 @@ export default function HomePage() {
     clearGeneratedIcons,
   } = useIconGeneration();
 
-  // Track the previous uploaded file to avoid infinite re-renders
-  const previousFileRef = useRef<string | null>(null);
-
   // Set up event listeners for paste functionality
   useEffect(() => {
     document.addEventListener("paste", handlePaste);
@@ -78,14 +73,9 @@ export default function HomePage() {
 
   // Clear generated icons when new file is uploaded
   useEffect(() => {
-    const currentFileKey = uploadedFile
-      ? `${uploadedFile.file.name}-${uploadedFile.file.lastModified}`
-      : null;
-
-    if (currentFileKey && currentFileKey !== previousFileRef.current) {
+    if (uploadedFile) {
       clearGeneratedIcons();
       setIconError(null);
-      previousFileRef.current = currentFileKey;
     }
   }, [uploadedFile, clearGeneratedIcons, setIconError]);
 
