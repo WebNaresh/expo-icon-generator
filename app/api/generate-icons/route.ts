@@ -25,7 +25,7 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
 const ICON_SPECS = [
   { name: 'adaptive-icon.png', width: 1024, height: 1024, description: '1024×1024px (Android adaptive icon)' },
   { name: 'favicon.png', width: 48, height: 48, description: '48×48px (Web favicon)' },
-  { name: 'icon.png', width: 1024, height: 1024, description: '1024×1024px (Main app icon)' },
+  { name: 'icon.png', width: 1024, height: 1024, description: '1024×1024px (Main app icon with background)' },
   { name: 'react-logo.png', width: 100, height: 100, description: '100×100px (1x density)' },
   { name: 'react-logo@2x.png', width: 200, height: 200, description: '200×200px (2x density)' },
   { name: 'react-logo@3x.png', width: 300, height: 300, description: '300×300px (3x density)' },
@@ -77,91 +77,40 @@ export async function POST(request: NextRequest) {
       try {
         let processedImage = originalImage.clone();
 
-        // Special handling for icon.png with background color and rounded square corners
+        // Special handling for icon.png with background color
         if (spec.name === 'icon.png') {
-          try {
-            console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b}) - creating rounded square`);
+          console.log(`Processing icon.png with background color: ${backgroundColor} (RGB: ${bgColor.r}, ${bgColor.g}, ${bgColor.b}) - creating square background`);
 
-            // Step 1: Create a square background with the selected color
-            const squareBackground = sharp({
-              create: {
-                width: spec.width,
-                height: spec.height,
-                channels: 4,
-                background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
-              }
-            });
+          // Step 1: Create a square background with the selected color
+          const squareBackground = sharp({
+            create: {
+              width: spec.width,
+              height: spec.height,
+              channels: 4,
+              background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
+            }
+          });
 
-            // Step 2: Resize the original icon to fit within the square (with padding)
-            const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size
-            const resizedIcon = await processedImage
-              .resize(iconSize, iconSize, {
-                fit: 'contain',
-                background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparent background for the icon
-              })
-              .png()
-              .toBuffer();
+          // Step 2: Resize the original icon to fit within the square (with padding)
+          // Use 70% size to give more breathing room around the icon
+          const iconSize = Math.round(Math.min(spec.width * 0.7, spec.height * 0.7));
+          const resizedIcon = await processedImage
+            .resize(iconSize, iconSize, {
+              fit: 'contain',
+              background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparent background for the icon
+            })
+            .png()
+            .toBuffer();
 
-            // Step 3: Composite the icon on top of the colored background
-            const compositeImage = await squareBackground
-              .composite([
-                {
-                  input: resizedIcon,
-                  top: Math.floor((spec.height - iconSize) / 2),
-                  left: Math.floor((spec.width - iconSize) / 2)
-                }
-              ])
-              .png()
-              .toBuffer();
-
-            // Step 4: Create rounded square mask and apply it
-            // Using 20% corner radius for iOS-style rounded square (similar to iPhone app icons)
-            const cornerRadius = Math.round(spec.width * 0.2);
-            const roundedSquareMask = Buffer.from(
-              `<svg width="${spec.width}" height="${spec.height}">
-                <rect x="0" y="0" width="${spec.width}" height="${spec.height}"
-                      rx="${cornerRadius}" ry="${cornerRadius}" fill="white"/>
-              </svg>`
-            );
-
-            // Step 5: Apply the rounded square mask to create rounded corners
-            processedImage = sharp(compositeImage)
-              .composite([
-                {
-                  input: roundedSquareMask,
-                  blend: 'dest-in'
-                }
-              ]);
-
-          } catch (maskError) {
-            console.warn('Error applying rounded square mask to icon.png, falling back to regular square icon:', maskError);
-            // Fallback to square icon with background color (no rounded corners)
-            const squareBackground = sharp({
-              create: {
-                width: spec.width,
-                height: spec.height,
-                channels: 4,
-                background: { r: bgColor.r, g: bgColor.g, b: bgColor.b, alpha: 1 }
-              }
-            });
-
-            const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8));
-            const resizedIcon = await processedImage
-              .resize(iconSize, iconSize, {
-                fit: 'contain',
-                background: { r: 255, g: 255, b: 255, alpha: 0 }
-              })
-              .png()
-              .toBuffer();
-
-            processedImage = squareBackground.composite([
+          // Step 3: Composite the icon on top of the colored background
+          processedImage = squareBackground
+            .composite([
               {
                 input: resizedIcon,
                 top: Math.floor((spec.height - iconSize) / 2),
                 left: Math.floor((spec.width - iconSize) / 2)
               }
             ]);
-          }
         }
         // For splash-icon, add padding/background
         else if (spec.name === 'splash-icon.png') {

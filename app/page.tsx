@@ -492,13 +492,18 @@ export default function HomePage() {
               {uploadedFile ? (
                 <div className="space-y-4">
                   <div className="flex justify-center">
-                    <Image
-                      src={uploadedFile.preview}
-                      alt="Preview"
-                      width={128}
-                      height={128}
-                      className={`max-w-32 max-h-32 rounded-lg shadow-md object-contain ${`bg-[${backgroundColor}]`}`}
-                    />
+                    <div
+                      className="w-32 h-32 rounded-lg shadow-md flex items-center justify-center p-4"
+                      style={{ backgroundColor }}
+                    >
+                      <Image
+                        src={uploadedFile.preview}
+                        alt="Preview"
+                        width={80}
+                        height={80}
+                        className="max-w-20 max-h-20 object-contain"
+                      />
+                    </div>
                   </div>
                   <div>
                     <p className="text-green-600 font-medium">
@@ -591,7 +596,8 @@ export default function HomePage() {
 
                 <p className="text-sm text-gray-600 mb-4">
                   Choose a background color for your app icon. This will be
-                  applied to icon.png as a rounded square (iOS-style corners).
+                  applied to icon.png with your image centered and smaller (70%
+                  size) as a square background.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
