@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Users,
   Loader2,
@@ -83,9 +84,11 @@ export default function ContributorsSection({
                 className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100"
               >
                 <div className="flex items-start gap-4">
-                  <img
+                  <Image
                     src={contributor.avatar_url}
                     alt={`${contributor.username}'s avatar`}
+                    width={64}
+                    height={64}
                     className="w-16 h-16 rounded-full border-2 border-sky-100"
                   />
                   <div className="flex-1 min-w-0">

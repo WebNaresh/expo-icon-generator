@@ -227,22 +227,6 @@ function hexToRgb(hex: string): [number, number, number] | null {
   ] : null;
 }
 
-// Helper function to generate complementary color
-function generateComplementaryColor(rgb: [number, number, number]): [number, number, number] {
-  const [r, g, b] = rgb;
-
-  // Calculate luminance to determine if we need a light or dark background
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-  if (luminance > 0.5) {
-    // Image is bright, suggest a darker background
-    return [Math.max(0, r - 100), Math.max(0, g - 100), Math.max(0, b - 100)];
-  } else {
-    // Image is dark, suggest a lighter background
-    return [Math.min(255, r + 100), Math.min(255, g + 100), Math.min(255, b + 100)];
-  }
-}
-
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();

@@ -27,8 +27,6 @@ export default function HomePage() {
     colorAnalysis,
     isAnalyzingColors,
     setBackgroundColor,
-    setError,
-    handleFileUpload,
     handleDragOver,
     handleDragLeave,
     handleDrop,
@@ -120,7 +118,6 @@ export default function HomePage() {
             backgroundColor={backgroundColor}
             colorAnalysis={colorAnalysis}
             isAnalyzingColors={isAnalyzingColors}
-            onFileUpload={handleFileUpload}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}

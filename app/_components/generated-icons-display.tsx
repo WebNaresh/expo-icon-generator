@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Download } from "lucide-react";
 
 interface GeneratedIcon {
@@ -45,9 +46,11 @@ export default function GeneratedIconsDisplay({
             className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
           >
             <div className="aspect-square bg-gray-50 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
-              <img
+              <Image
                 src={icon.url}
                 alt={icon.name}
+                width={200}
+                height={200}
                 className="max-w-full max-h-full object-contain"
               />
             </div>

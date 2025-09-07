@@ -1,4 +1,5 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import { Upload, Clipboard, ImageIcon, AlertCircle } from "lucide-react";
 
 interface UploadedFile {
@@ -23,7 +24,6 @@ interface FileUploadAreaProps {
   backgroundColor: string;
   colorAnalysis: ColorAnalysis | null;
   isAnalyzingColors: boolean;
-  onFileUpload: (file: File) => void;
   onDragOver: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -50,7 +50,6 @@ export default function FileUploadArea({
   backgroundColor,
   colorAnalysis,
   isAnalyzingColors,
-  onFileUpload,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -101,9 +100,11 @@ export default function FileUploadArea({
         {uploadedFile ? (
           <div className="space-y-4">
             <div className="w-32 h-32 mx-auto rounded-lg overflow-hidden shadow-lg">
-              <img
+              <Image
                 src={uploadedFile.preview}
                 alt="Uploaded preview"
+                width={128}
+                height={128}
                 className="w-full h-full object-cover"
               />
             </div>
