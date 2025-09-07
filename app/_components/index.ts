@@ -10,6 +10,8 @@ export { default as TechnicalSpecificationsSection } from './technical-specifica
 export { default as AppStoreOptimizationSection } from './app-store-optimization-section';
 export { default as FeedbackModal } from './feedback-modal';
 export { default as IconDetailModal } from './icon-detail-modal';
+export { default as StructuredData } from './structured-data';
+export { default as SEOContentSection } from './seo-content-section';
 
 // Custom hooks
 export { useFileUpload } from './use-file-upload';

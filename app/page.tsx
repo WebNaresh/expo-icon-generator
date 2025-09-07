@@ -12,6 +12,8 @@ import {
   TechnicalSpecificationsSection,
   AppStoreOptimizationSection,
   FeedbackModal,
+  StructuredData,
+  SEOContentSection,
   useFileUpload,
   useContributors,
   useIconGeneration,
@@ -107,6 +109,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
+      {/* Structured Data for SEO */}
+      <StructuredData />
+      
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <HeroSection />
@@ -142,6 +147,9 @@ export default function HomePage() {
 
         {/* Features Section */}
         <FeaturesSection />
+
+        {/* SEO Content Section */}
+        <SEOContentSection />
 
         {/* Contributors Section */}
         <ContributorsSection
