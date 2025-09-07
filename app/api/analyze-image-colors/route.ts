@@ -176,25 +176,23 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
       const primaryRgb = hexToRgb(primaryColor);
 
       if (primaryRgb) {
-        // If image has transparency and clear edge colors, prefer edge-based suggestion
+        // First priority: Use the most dominant color from the image
+        suggestedBackgroundColor = primaryColor;
+        reasoning = "Using most dominant color from image";
+
+        // Only override with edge color if:
+        // 1. Image has transparency 
+        // 2. Edge color is different enough from dominant color
+        // 3. Edge color appears to be a significant background color
         if (hasTransparency && edgeColors.length > 0) {
           const mostCommonEdgeColor = edgeColors[0];
           const edgeRgb = hexToRgb(mostCommonEdgeColor);
 
-          if (edgeRgb && getContrastRatio(edgeRgb, primaryRgb) > 1.5) {
+          if (edgeRgb && getContrastRatio(edgeRgb, primaryRgb) > 2.0) {
+            // Check if edge color is more prevalent than expected for a border
             suggestedBackgroundColor = mostCommonEdgeColor;
-            reasoning = "Detected from image edges - likely original background";
-          } else {
-            // Generate complementary color
-            const complementaryColor = generateComplementaryColor(primaryRgb);
-            suggestedBackgroundColor = rgbToHex(complementaryColor[0], complementaryColor[1], complementaryColor[2]);
-            reasoning = "Generated complementary color for better contrast";
+            reasoning = "Using edge color - likely original transparent background";
           }
-        } else {
-          // Generate complementary color based on primary color
-          const complementaryColor = generateComplementaryColor(primaryRgb);
-          suggestedBackgroundColor = rgbToHex(complementaryColor[0], complementaryColor[1], complementaryColor[2]);
-          reasoning = "Generated complementary color based on dominant image color";
         }
       }
     }
