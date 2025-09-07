@@ -52,7 +52,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
     // Extract colors from pixels
     const colors: { [key: string]: number } = {};
     const totalPixels = (info.width * info.height);
-    
+
     // Sample ALL pixels for better accuracy (not every 4th)
     const step = info.channels; // 3 for RGB, 4 for RGBA
     for (let i = 0; i < data.length; i += step) {
@@ -98,7 +98,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
           if (topIndex + 2 < data.length) {
             // Skip transparent pixels
             if (step === 4 && data[topIndex + 3] < 200) continue;
-            
+
             const topColor = rgbToHex(
               Math.round(data[topIndex] / 16) * 16,
               Math.round(data[topIndex + 1] / 16) * 16,
@@ -113,7 +113,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
           if (bottomIndex + 2 < data.length) {
             // Skip transparent pixels
             if (step === 4 && data[bottomIndex + 3] < 200) continue;
-            
+
             const bottomColor = rgbToHex(
               Math.round(data[bottomIndex] / 16) * 16,
               Math.round(data[bottomIndex + 1] / 16) * 16,
@@ -132,7 +132,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
           if (leftIndex + 2 < data.length) {
             // Skip transparent pixels
             if (step === 4 && data[leftIndex + 3] < 200) continue;
-            
+
             const leftColor = rgbToHex(
               Math.round(data[leftIndex] / 16) * 16,
               Math.round(data[leftIndex + 1] / 16) * 16,
@@ -147,7 +147,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
           if (rightIndex + 2 < data.length) {
             // Skip transparent pixels
             if (step === 4 && data[rightIndex + 3] < 200) continue;
-            
+
             const rightColor = rgbToHex(
               Math.round(data[rightIndex] / 16) * 16,
               Math.round(data[rightIndex + 1] / 16) * 16,
@@ -159,7 +159,7 @@ async function analyzeImageColors(buffer: Buffer): Promise<ColorAnalysis> {
       }
 
       // Get most common edge colors with minimum threshold
-      const minEdgeCount = Math.max(1, Math.floor(edgeThickness * 2)); 
+      const minEdgeCount = Math.max(1, Math.floor(edgeThickness * 2));
       edgeColors.push(...Object.entries(edgeColorCounts)
         .filter(([, count]) => count >= minEdgeCount)
         .sort(([, a], [, b]) => b - a)
