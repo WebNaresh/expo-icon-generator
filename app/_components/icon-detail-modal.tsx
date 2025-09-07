@@ -10,13 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-
-interface GeneratedIcon {
-  name: string;
-  size: string;
-  url: string;
-  blob: Blob;
-}
+import { GeneratedIcon } from "./types";
 
 interface IconDetailModalProps {
   icon: GeneratedIcon | null;
@@ -94,7 +88,13 @@ export default function IconDetailModal({
   };
 
   const iconDetails = getIconDetails(icon.name, icon.size);
-  const fileSizeKB = Math.round(icon.blob.size / 1024);
+
+  // Calculate file size - use blob if available, otherwise estimate from data URL
+  const fileSizeKB = icon.blob
+    ? Math.round(icon.blob.size / 1024)
+    : icon.url.startsWith("data:")
+    ? Math.round((icon.url.length * 0.75) / 1024) // Base64 estimate
+    : 0;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -181,7 +181,7 @@ export default function IconDetailModal({
                   <div className="flex justify-between">
                     <dt className="text-sm text-gray-600">File Size:</dt>
                     <dd className="text-sm font-medium text-gray-900">
-                      {fileSizeKB} KB
+                      {fileSizeKB > 0 ? `${fileSizeKB} KB` : "N/A"}
                     </dd>
                   </div>
                   <div className="flex justify-between">

@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Download, Eye } from "lucide-react";
 import IconDetailModal from "./icon-detail-modal";
-
-interface GeneratedIcon {
-  name: string;
-  size: string;
-  url: string;
-  blob: Blob;
-}
+import { GeneratedIcon } from "./types";
 
 interface GeneratedIconsDisplayProps {
   generatedIcons: GeneratedIcon[];

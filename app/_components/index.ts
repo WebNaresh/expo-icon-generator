@@ -17,3 +17,6 @@ export { default as SEOContentSection } from './seo-content-section';
 export { useFileUpload } from './use-file-upload';
 export { useContributors } from './use-contributors';
 export { useIconGeneration } from './use-icon-generation';
+
+// Types
+export type { GeneratedIcon, GeneratedIconData } from './types';

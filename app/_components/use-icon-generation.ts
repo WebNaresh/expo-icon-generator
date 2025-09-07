@@ -1,11 +1,5 @@
 import { useState, useCallback } from "react";
-
-interface GeneratedIcon {
-  name: string;
-  size: string;
-  url: string;
-  blob: Blob;
-}
+import { GeneratedIcon } from "./types";
 
 export function useIconGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -47,17 +41,34 @@ export function useIconGeneration() {
   }, []);
 
   // Download single icon
-  const downloadIcon = useCallback((icon: GeneratedIcon) => {
-    const link = document.createElement("a");
-    link.href = icon.url;
-    link.download = icon.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadIcon = useCallback(async (icon: GeneratedIcon) => {
+    try {
+      // If we have a blob, use it directly
+      if (icon.blob) {
+        const url = URL.createObjectURL(icon.blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = icon.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else {
+        // If no blob, download from URL
+        const link = document.createElement("a");
+        link.href = icon.url;
+        link.download = icon.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
 
-    // Show feedback modal after download
-    setLastDownloadType(`icon: ${icon.name}`);
-    setTimeout(() => setShowFeedbackModal(true), 500);
+      // Show feedback modal after download
+      setLastDownloadType(`icon: ${icon.name}`);
+      setTimeout(() => setShowFeedbackModal(true), 500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to download icon");
+    }
   }, []);
 
   // Download all icons as ZIP
