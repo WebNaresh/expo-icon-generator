@@ -11,6 +11,7 @@ import {
   ComprehensiveGuideSection,
   TechnicalSpecificationsSection,
   AppStoreOptimizationSection,
+  FeedbackModal,
   useFileUpload,
   useContributors,
   useIconGeneration,
@@ -53,6 +54,9 @@ export default function HomePage() {
     downloadIcon,
     downloadAllIcons,
     clearGeneratedIcons,
+    showFeedbackModal,
+    lastDownloadType,
+    closeFeedbackModal,
   } = useIconGeneration();
 
   // Track the previous uploaded file to avoid infinite re-renders
@@ -158,6 +162,13 @@ export default function HomePage() {
         {/* App Store Optimization Section */}
         <AppStoreOptimizationSection />
       </div>
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={closeFeedbackModal}
+        downloadType={lastDownloadType}
+      />
     </div>
   );
 }

@@ -11,6 +11,8 @@ export function useIconGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedIcons, setGeneratedIcons] = useState<GeneratedIcon[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [lastDownloadType, setLastDownloadType] = useState<string>("");
 
   // Generate icons
   const generateIcons = useCallback(async (file: File, backgroundColor: string) => {
@@ -52,6 +54,10 @@ export function useIconGeneration() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Show feedback modal after download
+    setLastDownloadType(`icon: ${icon.name}`);
+    setTimeout(() => setShowFeedbackModal(true), 500);
   }, []);
 
   // Download all icons as ZIP
@@ -83,6 +89,10 @@ export function useIconGeneration() {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+
+      // Show feedback modal after download
+      setLastDownloadType("all icons (ZIP)");
+      setTimeout(() => setShowFeedbackModal(true), 500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to download icons");
     }
@@ -91,6 +101,12 @@ export function useIconGeneration() {
   // Clear generated icons
   const clearGeneratedIcons = useCallback(() => {
     setGeneratedIcons([]);
+  }, []);
+
+  // Feedback modal controls
+  const closeFeedbackModal = useCallback(() => {
+    setShowFeedbackModal(false);
+    setLastDownloadType("");
   }, []);
 
   return {
@@ -102,5 +118,8 @@ export function useIconGeneration() {
     downloadIcon,
     downloadAllIcons,
     clearGeneratedIcons,
+    showFeedbackModal,
+    lastDownloadType,
+    closeFeedbackModal,
   };
 }

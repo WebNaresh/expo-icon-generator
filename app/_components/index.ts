@@ -8,6 +8,8 @@ export { default as HowItWorksSection } from './how-it-works-section';
 export { default as ComprehensiveGuideSection } from './comprehensive-guide-section';
 export { default as TechnicalSpecificationsSection } from './technical-specifications-section';
 export { default as AppStoreOptimizationSection } from './app-store-optimization-section';
+export { default as FeedbackModal } from './feedback-modal';
+export { default as IconDetailModal } from './icon-detail-modal';
 
 // Custom hooks
 export { useFileUpload } from './use-file-upload';
