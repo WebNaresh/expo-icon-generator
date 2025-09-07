@@ -14,6 +14,7 @@ import {
   FeedbackModal,
   StructuredData,
   SEOContentSection,
+  CrossPromotionBanner,
   useFileUpload,
   useContributors,
   useIconGeneration,
@@ -147,6 +148,9 @@ export default function HomePage() {
 
         {/* Features Section */}
         <FeaturesSection />
+
+        {/* Cross-promotion Banner */}
+        <CrossPromotionBanner />
 
         {/* SEO Content Section */}
         <SEOContentSection />

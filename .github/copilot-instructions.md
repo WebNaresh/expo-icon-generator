@@ -17,12 +17,18 @@
 ## Developer Workflows
 
 - **Install**: `npm install --legacy-peer-deps` (Sharp requires legacy peer deps)
-- **Dev Server**: `npm run dev` (Turbopack, port 8888)
+- **Dev Server**: `npm run dev` (Turbopack, port 8888) - **DO NOT RUN** - Server is always running
 - **Build**: `npm run build`
 - **Start**: `npm run start`
 - **Lint**: `npm run lint`
 - **Type Check**: `npx tsc --noEmit`
 - **API Testing**: Use `/api/generate-icons` and `/api/download-icons` endpoints for programmatic access.
+
+## Important Development Rules
+
+- **Never run `npm run dev`** - The development server is always running in the background
+- **Hot reload is active** - Changes to files will automatically reload in the browser
+- **Use TypeScript checking** - Run `npx tsc --noEmit` to check for type errors without starting server
 
 ## Project-Specific Conventions
 

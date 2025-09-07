@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="bg-white border-t border-gray-200 mt-auto">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand Section */}
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
@@ -29,6 +29,43 @@ export function Footer() {
             <p className="text-sm text-gray-500">
               © 2024 Expo Icon Generator. All rights reserved.
             </p>
+          </div>
+
+          {/* Our Products Section */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Our Products</h3>
+            <ul className="space-y-3">
+              <li>
+                <div className="p-3 border border-gray-200 rounded-lg bg-sky-50">
+                  <div className="font-medium text-sky-700 mb-1">
+                    Expo Icon Generator
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Current tool - Generate platform-specific icons
+                  </div>
+                </div>
+              </li>
+              <li>
+                <Link
+                  href="https://www.freeqrcodegenerator.shop/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block p-3 border border-gray-200 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium text-gray-900 group-hover:text-sky-600 transition-colors">
+                        Free QR Code Generator
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Create custom QR codes for free
+                      </div>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-sky-600 transition-colors" />
+                  </div>
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Navigation Links */}

@@ -12,6 +12,7 @@ export { default as FeedbackModal } from './feedback-modal';
 export { default as IconDetailModal } from './icon-detail-modal';
 export { default as StructuredData } from './structured-data';
 export { default as SEOContentSection } from './seo-content-section';
+export { default as CrossPromotionBanner } from './cross-promotion-banner';
 
 // Custom hooks
 export { useFileUpload } from './use-file-upload';
