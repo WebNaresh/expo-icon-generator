@@ -2,13 +2,15 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://expo-assets-generator.vercel.app",
   generateRobotsTxt: false, // Disable since we have app/robots.ts
-  generateIndexSitemap: false, // Disable index sitemap to avoid nested structure
-  trailingSlash: false, // Ensure no trailing slashes for consistent URLs
+  generateIndexSitemap: false, // Ensure no index sitemap is created
+  trailingSlash: false,
 
+  // Force single sitemap with large size limit
+  sitemapSize: 50000, // Increased to ensure all URLs fit in one sitemap
+  
   // Sitemap configuration for better SEO
   changefreq: "weekly",
   priority: 0.7,
-  sitemapSize: 5000,
 
   // Exclude certain paths from sitemap
   exclude: [
