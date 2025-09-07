@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import { Download, Eye } from "lucide-react";
 import IconDetailModal from "./icon-detail-modal";
 import { GeneratedIcon } from "./types";
@@ -82,7 +81,7 @@ export default function GeneratedIconsDisplay({
                 onClick={() => handleIconClick(icon)}
               >
                 <div className="relative">
-                  {/* Try regular img tag as fallback for debugging */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={icon.url}
                     alt={icon.name}
