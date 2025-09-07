@@ -4,7 +4,7 @@ module.exports = {
   generateRobotsTxt: true, // Enable robots.txt generation
   generateIndexSitemap: false,
   trailingSlash: false,
-  
+
   // Ensure single sitemap file
   sitemapSize: 50000,
   changefreq: "weekly",
@@ -14,13 +14,13 @@ module.exports = {
   robotsTxtOptions: {
     policies: [
       {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/'],
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/admin/", "/_next/"],
       },
       {
-        userAgent: 'Googlebot',
-        allow: '/',
+        userAgent: "Googlebot",
+        allow: "/",
         crawlDelay: 1,
       },
     ],
@@ -29,13 +29,7 @@ module.exports = {
   },
 
   // Exclude certain paths from sitemap
-  exclude: [
-    "/api/*",
-    "/admin/*", 
-    "/_next/*",
-    "/404",
-    "/500",
-  ],
+  exclude: ["/api/*", "/admin/*", "/_next/*", "/404", "/500"],
 
   // Simplified transform function - no additionalPaths to avoid complexity
   transform: async (_, path) => {
