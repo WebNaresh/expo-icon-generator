@@ -162,7 +162,9 @@ export default function IconDetailModal({
 
             <div className="space-y-4">
               <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-3">Basic Information</h4>
+                <h4 className="font-medium text-gray-900 mb-3">
+                  Basic Information
+                </h4>
                 <dl className="space-y-2">
                   <div className="flex justify-between">
                     <dt className="text-sm text-gray-600">File Name:</dt>
@@ -226,7 +228,9 @@ export default function IconDetailModal({
 
               {/* Usage Guidelines */}
               <div className="bg-amber-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-2">Usage Guidelines</h4>
+                <h4 className="font-medium text-gray-900 mb-2">
+                  Usage Guidelines
+                </h4>
                 <div className="text-xs text-gray-600 space-y-1">
                   {iconDetails.platform === "Android" && (
                     <>

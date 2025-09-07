@@ -10,14 +10,19 @@ export default function HeroSection() {
         </span>
       </h1>
       <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-6">
-        The ultimate <strong>expo icon generator</strong> and <strong>expo assets generator</strong> for React Native developers. 
-        Create <strong>expo app icons</strong>, <strong>adaptive icons</strong>, and all platform-specific icons 
-        from a single image. Perfect for <strong>expo icon generation</strong> and <strong>react native app icon</strong> needs.
+        The ultimate <strong>expo icon generator</strong> and{" "}
+        <strong>expo assets generator</strong> for React Native developers.
+        Create <strong>expo app icons</strong>, <strong>adaptive icons</strong>,
+        and all platform-specific icons from a single image. Perfect for{" "}
+        <strong>expo icon generation</strong> and{" "}
+        <strong>react native app icon</strong> needs.
       </p>
       <div className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-        Generate <strong>iOS icons</strong>, <strong>Android adaptive icons</strong>, <strong>web app icons</strong>, 
-        and <strong>expo favicon</strong> automatically. Supports all <strong>expo icon sizes</strong> and formats 
-        required for App Store and Google Play submission.
+        Generate <strong>iOS icons</strong>,{" "}
+        <strong>Android adaptive icons</strong>, <strong>web app icons</strong>,
+        and <strong>expo favicon</strong> automatically. Supports all{" "}
+        <strong>expo icon sizes</strong> and formats required for App Store and
+        Google Play submission.
       </div>
       <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
         <span className="flex items-center gap-2">

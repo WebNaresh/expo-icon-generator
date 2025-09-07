@@ -59,7 +59,7 @@ export default function GeneratedIconsDisplay({
             key={index}
             className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
           >
-            <div 
+            <div
               className="aspect-square bg-gray-50 rounded-lg mb-3 flex items-center justify-center overflow-hidden cursor-pointer hover:bg-gray-100 transition-colors group"
               onClick={() => handleIconClick(icon)}
             >

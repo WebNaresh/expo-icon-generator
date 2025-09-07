@@ -91,7 +91,8 @@ export default function FeedbackModal({
             Help Us Improve!
           </DialogTitle>
           <DialogDescription>
-            Thanks for downloading {downloadType}! Your feedback helps us build better features.
+            Thanks for downloading {downloadType}! Your feedback helps us build
+            better features.
           </DialogDescription>
         </DialogHeader>
 
@@ -152,8 +153,8 @@ export default function FeedbackModal({
             {submitStatus === "error" && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-700 text-sm">
-                  Failed to send feedback. Please try again or email us
-                  directly at bhosalenaresh73@gmail.com
+                  Failed to send feedback. Please try again or email us directly
+                  at bhosalenaresh73@gmail.com
                 </p>
               </div>
             )}

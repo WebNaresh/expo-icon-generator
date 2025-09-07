@@ -111,7 +111,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
       {/* Structured Data for SEO */}
       <StructuredData />
-      
+
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <HeroSection />

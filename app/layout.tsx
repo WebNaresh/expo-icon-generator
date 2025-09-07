@@ -18,7 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
+    default:
+      "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
     template: "%s | Expo Assets Generator",
   },
   description:
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   keywords: [
     // High-performing keywords from Google Search Console (prioritized by CTR and impressions)
     "expo assets generator",
-    "expo icon generator", 
+    "expo icon generator",
     "expo app icon generator",
     "expo icons generator",
     "expo adaptive icon generator",
@@ -98,7 +99,7 @@ export const metadata: Metadata = {
     "expo build tools",
     "mobile app development",
     "react native toolchain",
-    "expo workflow optimization"
+    "expo workflow optimization",
   ],
   authors: [{ name: "Expo Icon Generator Team" }],
   creator: "Expo Icon Generator",
@@ -113,7 +114,8 @@ export const metadata: Metadata = {
     canonical: "https://expo-assets-generator.vercel.app",
   },
   openGraph: {
-    title: "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
+    title:
+      "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
     description:
       "Free Expo Assets Generator and Icon Generator for React Native apps. Generate iOS, Android, and web icons from one image. Create adaptive icons, app store icons, and all expo icon sizes automatically.",
     url: "https://expo-assets-generator.vercel.app",
@@ -156,6 +158,11 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  other: {
+    "google-site-verification": "P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM",
+    robots:
+      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
   },
   verification: {
     google: "your-google-verification-code",
