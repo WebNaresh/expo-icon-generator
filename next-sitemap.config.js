@@ -7,7 +7,7 @@ module.exports = {
 
   // Force single sitemap with very large size limit to prevent splitting
   sitemapSize: 100000,
-  changefreq: "weekly", 
+  changefreq: "weekly",
   priority: 0.7,
 
   // Custom robots.txt configuration
@@ -40,14 +40,14 @@ module.exports = {
         lastmod: new Date().toISOString(),
       },
       {
-        loc: "/blog/ios-android-icon-requirements-2024", 
+        loc: "/blog/ios-android-icon-requirements-2024",
         changefreq: "monthly",
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
       {
         loc: "/blog/icon-design-best-practices",
-        changefreq: "monthly", 
+        changefreq: "monthly",
         priority: 0.8,
         lastmod: new Date().toISOString(),
       },
@@ -84,7 +84,7 @@ module.exports = {
       },
       {
         loc: "/tutorials/react-native-performance-optimization",
-        changefreq: "monthly", 
+        changefreq: "monthly",
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         loc: "/tutorials/expo-eas-build-deployment",
-        changefreq: "monthly", 
+        changefreq: "monthly",
         priority: 0.8,
         lastmod: new Date().toISOString(),
       },
