@@ -1,32 +1,14 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://expo-assets-generator.vercel.app",
-  generateRobotsTxt: true, // Generate robots.txt file
-  generateIndexSitemap: true, // Generate sitemap index for large sites
+  generateRobotsTxt: false, // Disable since we have app/robots.ts
+  generateIndexSitemap: false, // Disable index sitemap to avoid nested structure
   trailingSlash: false, // Ensure no trailing slashes for consistent URLs
 
   // Sitemap configuration for better SEO
   changefreq: "weekly",
   priority: 0.7,
   sitemapSize: 5000,
-
-  // Custom robots.txt configuration
-  robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-        crawlDelay: 1,
-      },
-    ],
-    additionalSitemaps: [
-      "https://expo-assets-generator.vercel.app/sitemap.xml",
-    ],
-  },
 
   // Exclude certain paths from sitemap
   exclude: [

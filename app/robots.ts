@@ -24,10 +24,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: [
-      'https://expo-assets-generator.vercel.app/sitemap.xml',
-      'https://expo-assets-generator.vercel.app/sitemap-0.xml',
-    ],
+    sitemap: 'https://expo-assets-generator.vercel.app/sitemap.xml',
     host: 'https://expo-assets-generator.vercel.app',
   }
 }
