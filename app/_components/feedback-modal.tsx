@@ -56,7 +56,7 @@ export default function FeedbackModal({
       setFeedback("");
       setUserEmail("");
       onClose();
-      
+
       // Redirect to support page after 1 second
       setTimeout(() => {
         router.push("/thanks-gift");

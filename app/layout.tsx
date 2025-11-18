@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/utils/navbar";
 import { Footer } from "@/components/utils/footer";
+import { Providers } from "./providers";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -192,9 +193,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
