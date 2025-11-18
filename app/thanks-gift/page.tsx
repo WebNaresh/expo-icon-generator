@@ -1,5 +1,3 @@
-"use client";
-
 import { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -8,9 +6,9 @@ import {
   Coffee,
   Sparkles,
   ArrowLeft,
-  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SupportButton } from "./support-button";
 
 export const metadata: Metadata = {
   title: "Support Our Work | Expo Icon Generator",
@@ -31,14 +29,6 @@ export const metadata: Metadata = {
 };
 
 export default function ThanksGiftPage() {
-  const handleSupportClick = () => {
-    window.open(
-      "https://razorpay.me/@webnaresh",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-
   return (
     <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-indigo-50">
       <div className="container mx-auto px-4 py-16">
@@ -92,17 +82,7 @@ export default function ThanksGiftPage() {
             </div>
 
             <div className="flex flex-col items-center space-y-6">
-              <Button
-                onClick={handleSupportClick}
-                className="group relative overflow-hidden bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
-              >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  <Sparkles className="w-6 h-6" />
-                  Support via Razorpay
-                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-linear-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
+              <SupportButton />
 
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
