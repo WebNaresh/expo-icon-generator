@@ -38,7 +38,7 @@ export default function ThanksGiftPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-indigo-50">
       <div className="container mx-auto px-4 py-16">
         {/* Back Button */}
         <div className="mb-8">
@@ -54,7 +54,7 @@ export default function ThanksGiftPage() {
         <div className="max-w-3xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-6 shadow-lg">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-blue-500 to-purple-600 rounded-full mb-6 shadow-lg">
               <Heart className="w-12 h-12 text-white" />
             </div>
 
