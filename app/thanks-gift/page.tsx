@@ -94,14 +94,14 @@ export default function ThanksGiftPage() {
             <div className="flex flex-col items-center space-y-6">
               <Button
                 onClick={handleSupportClick}
-                className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
+                className="group relative overflow-hidden bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl w-full max-w-md"
               >
                 <span className="relative z-10 flex items-center justify-center gap-3">
                   <Sparkles className="w-6 h-6" />
                   Support via Razorpay
                   <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Button>
 
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -151,7 +151,7 @@ export default function ThanksGiftPage() {
           </div>
 
           {/* Appreciation Message */}
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8 text-center">
+          <div className="bg-linear-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Heart className="w-6 h-6 text-red-500" />
               <h3 className="text-2xl font-semibold text-amber-800">
