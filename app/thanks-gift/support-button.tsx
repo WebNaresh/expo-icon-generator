@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 
 export function SupportButton() {
   const handleSupportClick = () => {
-    window.open("https://razorpay.me/@webnaresh", "_blank", "noopener,noreferrer");
+    window.open(
+      "https://razorpay.me/@webnaresh",
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
