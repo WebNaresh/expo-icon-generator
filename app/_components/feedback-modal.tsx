@@ -1,5 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import { Send, Heart } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +20,26 @@ interface FeedbackModalProps {
   downloadType: string;
 }
 
+interface FeedbackData {
+  feedback: string;
+  userEmail: string;
+  downloadType: string;
+}
+
+const submitFeedback = async (data: FeedbackData): Promise<void> => {
+  const response = await fetch("/api/send-feedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to submit feedback");
+  }
+};
+
 export default function FeedbackModal({
   isOpen,
   onClose,
@@ -23,10 +47,25 @@ export default function FeedbackModal({
 }: FeedbackModalProps) {
   const [feedback, setFeedback] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const router = useRouter();
+
+  const feedbackMutation = useMutation({
+    mutationFn: submitFeedback,
+    onSuccess: () => {
+      // Reset form
+      setFeedback("");
+      setUserEmail("");
+      onClose();
+
+      // Redirect to support page after 1 second
+      setTimeout(() => {
+        router.push("/thanks-gift");
+      }, 1000);
+    },
+    onError: (error) => {
+      console.error("Error submitting feedback:", error);
+    },
+  });
 
   if (!isOpen) return null;
 
@@ -38,47 +77,19 @@ export default function FeedbackModal({
       return;
     }
 
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
-
-    try {
-      const response = await fetch("/api/send-feedback", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          feedback: feedback.trim(),
-          userEmail: userEmail.trim(),
-          downloadType,
-        }),
-      });
-
-      if (response.ok) {
-        setSubmitStatus("success");
-        setTimeout(() => {
-          onClose();
-          setFeedback("");
-          setUserEmail("");
-          setSubmitStatus("idle");
-        }, 2000);
-      } else {
-        setSubmitStatus("error");
-      }
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
+    feedbackMutation.mutate({
+      feedback: feedback.trim(),
+      userEmail: userEmail.trim(),
+      downloadType,
+    });
   };
 
   const handleClose = () => {
-    if (!isSubmitting) {
+    if (!feedbackMutation.isPending) {
       onClose();
       setFeedback("");
       setUserEmail("");
-      setSubmitStatus("idle");
+      feedbackMutation.reset();
     }
   };
 
@@ -96,7 +107,7 @@ export default function FeedbackModal({
           </DialogDescription>
         </DialogHeader>
 
-        {submitStatus === "success" ? (
+        {feedbackMutation.isSuccess ? (
           <div className="text-center py-8">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Heart className="w-8 h-8 text-green-600" />
@@ -126,7 +137,7 @@ export default function FeedbackModal({
                 placeholder="Tell us what you'd like to see improved or added to Expo Icon Generator..."
                 rows={4}
                 required
-                disabled={isSubmitting}
+                disabled={feedbackMutation.isPending}
               />
             </div>
 
@@ -145,12 +156,12 @@ export default function FeedbackModal({
                 onChange={(e) => setUserEmail(e.target.value)}
                 placeholder="your.email@example.com"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                disabled={isSubmitting}
+                disabled={feedbackMutation.isPending}
               />
             </div>
 
             {/* Error Message */}
-            {submitStatus === "error" && (
+            {feedbackMutation.isError && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-700 text-sm">
                   Failed to send feedback. Please try again or email us directly
@@ -165,17 +176,17 @@ export default function FeedbackModal({
                 type="button"
                 variant="outline"
                 onClick={handleClose}
-                disabled={isSubmitting}
+                disabled={feedbackMutation.isPending}
                 className="flex-1"
               >
                 Skip
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || !feedback.trim()}
+                disabled={feedbackMutation.isPending || !feedback.trim()}
                 className="flex-1"
               >
-                {isSubmitting ? (
+                {feedbackMutation.isPending ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                     Sending...

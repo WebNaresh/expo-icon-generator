@@ -1,12 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  Gift,
-  Heart,
-  Coffee,
-  Sparkles,
-  ArrowLeft,
-} from "lucide-react";
+import { Gift, Heart, Coffee, Sparkles, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SupportButton } from "./support-button";
 
