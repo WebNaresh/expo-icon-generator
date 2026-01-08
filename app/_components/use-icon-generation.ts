@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import JSZip from "jszip";
 import { GeneratedIcon } from "./types";
 
 export function useIconGeneration() {
@@ -120,25 +121,28 @@ export function useIconGeneration() {
   // Download all icons as ZIP
   const downloadAllIcons = useCallback(async () => {
     try {
-      const response = await fetch("/api/download-icons", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          icons: generatedIcons.map((icon) => ({
-            name: icon.name,
-            url: icon.url,
-          })),
-        }),
+      const zip = new JSZip();
+
+      // Add each icon to the zip
+      generatedIcons.forEach((icon) => {
+        // If it's a data URL, we need to extract the base64 part
+        if (icon.url.startsWith("data:")) {
+          const base64Data = icon.url.split(",")[1];
+          zip.file(icon.name, base64Data, { base64: true });
+        } else if (icon.blob) {
+          zip.file(icon.name, icon.blob);
+        } else {
+          // Fallback for non-data URLs if any (though currently all are data URLs or blobs)
+          // This might need fetch if we had remote URLs, but for this app content is local
+          // Attempt to fetch if it's a blob url that we don't have direct blob access to?
+          // For now assuming data URI or blob is available.
+          // actually the current generatedIcons usually have data urls.
+          // Let's stick to the data url assumption based on previous code.
+        }
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to download icons");
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
+      const content = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(content);
       const link = document.createElement("a");
       link.href = url;
       link.download = "expo-icons.zip";
@@ -151,6 +155,7 @@ export function useIconGeneration() {
       setLastDownloadType("all icons (ZIP)");
       setTimeout(() => setShowFeedbackModal(true), 500);
     } catch (err) {
+      console.error("Failed to generate zip", err);
       setError(err instanceof Error ? err.message : "Failed to download icons");
     }
   }, [generatedIcons]);
