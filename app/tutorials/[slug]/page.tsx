@@ -2654,24 +2654,24 @@ export default async function TutorialPage({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
+      <div className="container mx-auto max-w-6xl px-4 py-12">
         {/* Back Navigation */}
         <Link
           href="/tutorials"
-          className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 mb-8 font-medium"
+          className="mb-8 inline-flex items-center gap-2 font-medium text-purple-600 hover:text-purple-700"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="h-4 w-4" />
           Back to Tutorials
         </Link>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Tutorial Header */}
             <header className="mb-8">
-              <div className="flex items-center gap-4 mb-4">
+              <div className="mb-4 flex items-center gap-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`rounded-full px-3 py-1 text-sm font-medium ${
                     tutorial.difficulty === "Beginner"
                       ? "bg-green-100 text-green-700"
                       : tutorial.difficulty === "Intermediate"
@@ -2681,30 +2681,30 @@ export default async function TutorialPage({
                 >
                   {tutorial.difficulty}
                 </span>
-                <span className="text-gray-500 text-sm">
+                <span className="text-sm text-gray-500">
                   {tutorial.category}
                 </span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
                 {tutorial.title}
               </h1>
 
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="mb-6 text-lg text-gray-600">
                 {tutorial.description}
               </p>
 
               <div className="flex items-center gap-6 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
+                  <Clock className="h-4 w-4" />
                   <span>{tutorial.duration}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
+                  <Users className="h-4 w-4" />
                   <span>{tutorial.students.toLocaleString()} students</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                  <Star className="h-4 w-4 fill-current text-yellow-500" />
                   <span>{tutorial.rating} rating</span>
                 </div>
               </div>
@@ -2737,25 +2737,25 @@ export default async function TutorialPage({
           <div className="lg:col-span-1">
             <div className="sticky top-8 space-y-6">
               {/* Course Progress */}
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <div className="rounded-xl bg-gray-50 p-6">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
                   Course Content
                 </h3>
                 <div className="space-y-3">
                   {tutorial.chapters.map((chapter, index) => (
                     <div
                       key={chapter.id}
-                      className="flex items-center gap-3 p-3 bg-white rounded-lg"
+                      className="flex items-center gap-3 rounded-lg bg-white p-3"
                     >
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         {chapter.completed ? (
-                          <CheckCircle className="w-5 h-5 text-green-500" />
+                          <CheckCircle className="h-5 w-5 text-green-500" />
                         ) : (
-                          <Play className="w-5 h-5 text-gray-400" />
+                          <Play className="h-5 w-5 text-gray-400" />
                         )}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-gray-900">
                           {index + 1}. {chapter.title}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -2768,15 +2768,15 @@ export default async function TutorialPage({
               </div>
 
               {/* Topics Covered */}
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <div className="rounded-xl bg-gray-50 p-6">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
                   Topics Covered
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {tutorial.topics.map((topic) => (
                     <span
                       key={topic}
-                      className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
+                      className="rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700"
                     >
                       {topic}
                     </span>
@@ -2785,13 +2785,13 @@ export default async function TutorialPage({
               </div>
 
               {/* Call to Action */}
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6 text-white text-center">
-                <BookOpen className="w-8 h-8 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold mb-2">Ready to Start?</h3>
-                <p className="text-sm mb-4 opacity-90">
+              <div className="rounded-xl bg-linear-to-r from-purple-600 to-pink-600 p-6 text-center text-white">
+                <BookOpen className="mx-auto mb-3 h-8 w-8" />
+                <h3 className="mb-2 text-lg font-semibold">Ready to Start?</h3>
+                <p className="mb-4 text-sm opacity-90">
                   Begin this tutorial and start building amazing apps today.
                 </p>
-                <button className="w-full bg-white text-purple-600 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                <button className="w-full rounded-lg bg-white py-2 font-medium text-purple-600 transition-colors hover:bg-gray-100">
                   Start Tutorial
                 </button>
               </div>

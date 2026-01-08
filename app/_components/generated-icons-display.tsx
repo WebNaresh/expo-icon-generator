@@ -46,21 +46,21 @@ export default function GeneratedIconsDisplay({
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="rounded-2xl bg-white p-8 shadow-xl">
+      <div className="mb-6 flex items-center justify-between">
         <h3 className="text-xl font-bold text-gray-900">
           Generated Icons ({generatedIcons.length})
         </h3>
         <button
           onClick={onDownloadAllIcons}
-          className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded-lg transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition-colors hover:bg-green-700"
         >
-          <Download className="w-4 h-4" />
+          <Download className="h-4 w-4" />
           Download All (ZIP)
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {generatedIcons.map((icon, index) => {
           // Debug logging
           console.log(`Icon ${index}:`, {
@@ -74,10 +74,10 @@ export default function GeneratedIconsDisplay({
           return (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+              className="rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md"
             >
               <div
-                className="aspect-square bg-gray-50 rounded-lg mb-3 flex items-center justify-center overflow-hidden cursor-pointer hover:bg-gray-100 transition-colors group"
+                className="group mb-3 flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gray-50 transition-colors hover:bg-gray-100"
                 onClick={() => handleIconClick(icon)}
               >
                 <div className="relative">
@@ -87,7 +87,7 @@ export default function GeneratedIconsDisplay({
                     alt={icon.name}
                     width={200}
                     height={200}
-                    className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
+                    className="max-h-full max-w-full object-contain transition-transform group-hover:scale-105"
                     onError={(e) => {
                       console.error(
                         `Failed to load image for ${icon.name}:`,
@@ -99,22 +99,22 @@ export default function GeneratedIconsDisplay({
                     }}
                   />
                   {/* Only show overlay on hover, with pointer-events-none to not block image */}
-                  <div className="absolute inset-0 bg-transparent group-hover:bg-black group-hover:bg-opacity-20 transition-all flex items-center justify-center pointer-events-none">
-                    <Eye className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="group-hover:bg-opacity-20 pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent transition-all group-hover:bg-black">
+                    <Eye className="h-8 w-8 text-white opacity-0 transition-opacity group-hover:opacity-100" />
                   </div>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-900 truncate">
+                  <span className="truncate text-sm font-medium text-gray-900">
                     {icon.name}
                   </span>
-                  <span className="text-xs text-gray-500 ml-2">
+                  <span className="ml-2 text-xs text-gray-500">
                     {icon.size}
                   </span>
                 </div>
                 {/* Debug: Show URL info */}
-                <div className="text-xs text-gray-400 mb-2">
+                <div className="mb-2 text-xs text-gray-400">
                   <div>URL length: {icon.url.length}</div>
                   <div>
                     Data URL: {icon.url.startsWith("data:") ? "✓" : "✗"}
@@ -136,16 +136,16 @@ export default function GeneratedIconsDisplay({
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleIconClick(icon)}
-                    className="flex-1 inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-3 py-2 rounded text-sm transition-colors"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
                   >
-                    <Eye className="w-4 h-4" />
+                    <Eye className="h-4 w-4" />
                     View
                   </button>
                   <button
                     onClick={() => onDownloadIcon(icon)}
-                    className="flex-1 inline-flex items-center justify-center gap-2 bg-sky-100 hover:bg-sky-200 text-sky-700 font-medium px-3 py-2 rounded text-sm transition-colors"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded bg-sky-100 px-3 py-2 text-sm font-medium text-sky-700 transition-colors hover:bg-sky-200"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="h-4 w-4" />
                     Download
                   </button>
                 </div>

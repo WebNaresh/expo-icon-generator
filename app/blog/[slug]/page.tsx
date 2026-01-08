@@ -541,44 +541,44 @@ export default async function BlogPostPage({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="container mx-auto max-w-4xl px-4 py-12">
         {/* Back Navigation */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-8 font-medium"
+          className="mb-8 inline-flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="h-4 w-4" />
           Back to Blog
         </Link>
 
         {/* Article Header */}
         <header className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+          <div className="mb-6 flex items-center gap-4">
+            <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
               {post.category}
             </span>
-            <span className="text-gray-500 text-sm flex items-center gap-1">
-              <Clock className="w-4 h-4" />
+            <span className="flex items-center gap-1 text-sm text-gray-500">
+              <Clock className="h-4 w-4" />
               {post.readTime}
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="mb-6 text-4xl leading-tight font-bold text-gray-900 md:text-5xl">
             {post.title}
           </h1>
 
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="mb-8 text-xl leading-relaxed text-gray-600">
             {post.description}
           </p>
 
-          <div className="flex items-center justify-between border-t border-b border-gray-200 py-6">
+          <div className="flex items-center justify-between border-y border-gray-200 py-6">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-gray-600">
-                <User className="w-5 h-5" />
+                <User className="h-5 w-5" />
                 <span className="font-medium">{post.author}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="h-5 w-5" />
                 <span>
                   {new Date(post.publishedAt).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -589,8 +589,8 @@ export default async function BlogPostPage({
               </div>
             </div>
 
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-              <Share2 className="w-5 h-5" />
+            <button className="flex items-center gap-2 text-gray-600 transition-colors hover:text-blue-600">
+              <Share2 className="h-5 w-5" />
               <span>Share</span>
             </button>
           </div>
@@ -615,15 +615,15 @@ export default async function BlogPostPage({
         </article>
 
         {/* Tags */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
+        <div className="mt-12 border-t border-gray-200 pt-8">
+          <h3 className="mb-4 text-lg font-semibold text-gray-900">Tags</h3>
           <div className="flex flex-wrap gap-3">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 transition-colors cursor-pointer"
+                className="cursor-pointer rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-100"
               >
-                <Tag className="w-3 h-3 inline mr-1" />
+                <Tag className="mr-1 inline h-3 w-3" />
                 {tag}
               </span>
             ))}
@@ -631,21 +631,21 @@ export default async function BlogPostPage({
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 bg-gradient-to-r from-blue-50 to-sky-50 rounded-xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <div className="mt-16 rounded-xl bg-linear-to-r from-blue-50 to-sky-50 p-8 text-center">
+          <h3 className="mb-4 text-2xl font-bold text-gray-900">
             Ready to Generate Perfect Icons?
           </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="mx-auto mb-6 max-w-2xl text-gray-600">
             Put these techniques into practice with our automated icon
             generation tool. Create platform-specific icons from a single source
             image in seconds.
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
           >
             Try Icon Generator
-            <ArrowLeft className="w-4 h-4 rotate-180" />
+            <ArrowLeft className="h-4 w-4 rotate-180" />
           </Link>
         </div>
       </div>

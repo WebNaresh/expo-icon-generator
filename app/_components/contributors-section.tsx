@@ -41,47 +41,47 @@ export default function ContributorsSection({
   contributorsError,
 }: ContributorsSectionProps) {
   return (
-    <div className="max-w-6xl mx-auto mt-16">
-      <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <Users className="w-8 h-8 text-sky-600" />
+    <div className="mx-auto mt-16 max-w-6xl">
+      <div className="mb-12 text-center">
+        <div className="mb-4 flex items-center justify-center gap-3">
+          <Users className="h-8 w-8 text-sky-600" />
           <h2 className="text-3xl font-bold text-gray-900">
             Meet Our Contributors
           </h2>
         </div>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-xl text-gray-600">
           The amazing developers who make Expo Icon Generator possible through
           their contributions and dedication.
         </p>
       </div>
 
       {isLoadingContributors ? (
-        <div className="flex justify-center items-center py-12">
+        <div className="flex items-center justify-center py-12">
           <div className="flex items-center gap-3 text-gray-600">
-            <Loader2 className="w-6 h-6 animate-spin" />
+            <Loader2 className="h-6 w-6 animate-spin" />
             <span>Loading contributors...</span>
           </div>
         </div>
       ) : contributorsError ? (
-        <div className="text-center py-12">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-            <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-3" />
-            <p className="text-red-700 font-medium mb-2">
+        <div className="py-12 text-center">
+          <div className="mx-auto max-w-md rounded-lg border border-red-200 bg-red-50 p-6">
+            <AlertCircle className="mx-auto mb-3 h-8 w-8 text-red-500" />
+            <p className="mb-2 font-medium text-red-700">
               Failed to load contributors
             </p>
-            <p className="text-red-600 text-sm">{contributorsError}</p>
-            <p className="text-gray-600 text-sm mt-3">
+            <p className="text-sm text-red-600">{contributorsError}</p>
+            <p className="mt-3 text-sm text-gray-600">
               Please try refreshing the page
             </p>
           </div>
         </div>
       ) : contributors.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+          <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {contributors.slice(0, 6).map((contributor) => (
               <div
                 key={contributor.username}
-                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-100"
+                className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-200 hover:shadow-xl"
               >
                 <div className="flex items-start gap-4">
                   <Image
@@ -89,35 +89,35 @@ export default function ContributorsSection({
                     alt={`${contributor.username}'s avatar`}
                     width={64}
                     height={64}
-                    className="w-16 h-16 rounded-full border-2 border-sky-100"
+                    className="h-16 w-16 rounded-full border-2 border-sky-100"
                   />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-bold text-gray-900 truncate">
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-1 flex items-center gap-2">
+                      <h3 className="truncate text-lg font-bold text-gray-900">
                         {contributor.name || contributor.username}
                       </h3>
-                      <span className="bg-sky-100 text-sky-700 text-xs font-medium px-2 py-1 rounded-full">
+                      <span className="rounded-full bg-sky-100 px-2 py-1 text-xs font-medium text-sky-700">
                         {contributor.contributions} commits
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="mb-2 text-sm text-gray-600">
                       @{contributor.username}
                     </p>
                     {contributor.bio && (
-                      <p className="text-sm text-gray-700 mb-3 line-clamp-2">
+                      <p className="mb-3 line-clamp-2 text-sm text-gray-700">
                         {contributor.bio}
                       </p>
                     )}
-                    <div className="flex flex-wrap gap-2 text-xs text-gray-500 mb-3">
+                    <div className="mb-3 flex flex-wrap gap-2 text-xs text-gray-500">
                       {contributor.location && (
                         <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
+                          <MapPin className="h-3 w-3" />
                           {contributor.location}
                         </span>
                       )}
                       {contributor.company && (
                         <span className="flex items-center gap-1">
-                          <Building2 className="w-3 h-3" />
+                          <Building2 className="h-3 w-3" />
                           {contributor.company}
                         </span>
                       )}
@@ -137,9 +137,9 @@ export default function ContributorsSection({
                             }
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-sky-600 transition-colors"
+                            className="text-gray-400 transition-colors hover:text-sky-600"
                           >
-                            <Globe className="w-4 h-4" />
+                            <Globe className="h-4 w-4" />
                           </a>
                         )}
                         {contributor.twitter_username && (
@@ -147,18 +147,18 @@ export default function ContributorsSection({
                             href={`https://twitter.com/${contributor.twitter_username}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-sky-600 transition-colors"
+                            className="text-gray-400 transition-colors hover:text-sky-600"
                           >
-                            <Twitter className="w-4 h-4" />
+                            <Twitter className="h-4 w-4" />
                           </a>
                         )}
                         <a
                           href={contributor.profile_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-400 hover:text-sky-600 transition-colors"
+                          className="text-gray-400 transition-colors hover:text-sky-600"
                         >
-                          <Github className="w-4 h-4" />
+                          <Github className="h-4 w-4" />
                         </a>
                       </div>
                     </div>
@@ -171,16 +171,16 @@ export default function ContributorsSection({
           <div className="text-center">
             <Link
               href="/contributors"
-              className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-medium text-white transition-colors hover:bg-sky-700"
             >
               View All Contributors
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="h-4 w-4" />
             </Link>
           </div>
         </>
       ) : (
-        <div className="text-center py-12">
-          <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+        <div className="py-12 text-center">
+          <Users className="mx-auto mb-4 h-12 w-12 text-gray-300" />
           <p className="text-gray-500">No contributors found</p>
         </div>
       )}

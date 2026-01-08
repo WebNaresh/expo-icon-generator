@@ -2,16 +2,16 @@ import { ImageIcon, CheckCircle, Loader2, Download } from "lucide-react";
 
 export default function FeaturesSection() {
   return (
-    <div className="max-w-6xl mx-auto mt-16">
-      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+    <div className="mx-auto mt-16 max-w-6xl">
+      <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
         Why Choose Expo Icon Generator?
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         <div className="text-center">
-          <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <ImageIcon className="w-8 h-8 text-sky-600" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-100">
+            <ImageIcon className="h-8 w-8 text-sky-600" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             Multiple Formats
           </h3>
           <p className="text-gray-600">
@@ -20,10 +20,10 @@ export default function FeaturesSection() {
           </p>
         </div>
         <div className="text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+            <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             Optimized Output
           </h3>
           <p className="text-gray-600">
@@ -32,10 +32,10 @@ export default function FeaturesSection() {
           </p>
         </div>
         <div className="text-center">
-          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Loader2 className="w-8 h-8 text-purple-600" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-purple-100">
+            <Loader2 className="h-8 w-8 text-purple-600" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             One Command
           </h3>
           <p className="text-gray-600">
@@ -44,10 +44,10 @@ export default function FeaturesSection() {
           </p>
         </div>
         <div className="text-center">
-          <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Download className="w-8 h-8 text-orange-600" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
+            <Download className="h-8 w-8 text-orange-600" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">
             Ready to Use
           </h3>
           <p className="text-gray-600">

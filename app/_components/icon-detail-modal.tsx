@@ -97,10 +97,10 @@ export default function IconDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <Info className="w-6 h-6 text-sky-600" />
+            <Info className="h-6 w-6 text-sky-600" />
             Icon Details
           </DialogTitle>
           <DialogDescription>
@@ -109,14 +109,14 @@ export default function IconDetailModal({
         </DialogHeader>
 
         {/* Content */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           {/* Icon Preview */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <FileImage className="w-5 h-5 text-sky-600" />
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+              <FileImage className="h-5 w-5 text-sky-600" />
               Preview
             </h3>
-            <div className="bg-gray-50 rounded-xl p-8 flex items-center justify-center">
+            <div className="flex items-center justify-center rounded-xl bg-gray-50 p-8">
               <div className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -124,7 +124,7 @@ export default function IconDetailModal({
                   alt={icon.name}
                   width={200}
                   height={200}
-                  className="max-w-full max-h-full object-contain drop-shadow-lg"
+                  className="max-h-full max-w-full object-contain drop-shadow-lg"
                   onError={(e) => {
                     console.error(
                       `Modal: Failed to load image for ${icon.name}:`,
@@ -140,7 +140,7 @@ export default function IconDetailModal({
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white rounded-lg p-4 flex items-center justify-center border-2 border-dashed border-gray-200">
+              <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-white p-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={icon.url}
@@ -150,7 +150,7 @@ export default function IconDetailModal({
                   className="object-contain"
                 />
               </div>
-              <div className="bg-gray-900 rounded-lg p-4 flex items-center justify-center border-2 border-dashed border-gray-300">
+              <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-900 p-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={icon.url}
@@ -161,27 +161,27 @@ export default function IconDetailModal({
                 />
               </div>
             </div>
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-center text-xs text-gray-500">
               Preview on light and dark backgrounds
             </p>
           </div>
 
           {/* Icon Specifications */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Ruler className="w-5 h-5 text-sky-600" />
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+              <Ruler className="h-5 w-5 text-sky-600" />
               Specifications
             </h3>
 
             <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-3">
+              <div className="rounded-lg bg-gray-50 p-4">
+                <h4 className="mb-3 font-medium text-gray-900">
                   Basic Information
                 </h4>
                 <dl className="space-y-2">
                   <div className="flex justify-between">
                     <dt className="text-sm text-gray-600">File Name:</dt>
-                    <dd className="text-sm font-medium text-gray-900 font-mono">
+                    <dd className="font-mono text-sm font-medium text-gray-900">
                       {icon.name}
                     </dd>
                   </div>
@@ -206,9 +206,9 @@ export default function IconDetailModal({
                 </dl>
               </div>
 
-              <div className="bg-sky-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
-                  <Palette className="w-4 h-4 text-sky-600" />
+              <div className="rounded-lg bg-sky-50 p-4">
+                <h4 className="mb-3 flex items-center gap-2 font-medium text-gray-900">
+                  <Palette className="h-4 w-4 text-sky-600" />
                   Platform Details
                 </h4>
                 <dl className="space-y-2">
@@ -240,11 +240,11 @@ export default function IconDetailModal({
               </div>
 
               {/* Usage Guidelines */}
-              <div className="bg-amber-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-2">
+              <div className="rounded-lg bg-amber-50 p-4">
+                <h4 className="mb-2 font-medium text-gray-900">
                   Usage Guidelines
                 </h4>
-                <div className="text-xs text-gray-600 space-y-1">
+                <div className="space-y-1 text-xs text-gray-600">
                   {iconDetails.platform === "Android" && (
                     <>
                       <p>• Place in res/mipmap or res/drawable folder</p>
@@ -273,7 +273,7 @@ export default function IconDetailModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+        <div className="flex items-center justify-between border-t border-gray-200 pt-6">
           <div className="text-sm text-gray-600">
             Optimized for {iconDetails.platform} • {iconDetails.purpose}
           </div>
@@ -287,7 +287,7 @@ export default function IconDetailModal({
                 onClose();
               }}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="mr-2 h-4 w-4" />
               Download
             </Button>
           </div>

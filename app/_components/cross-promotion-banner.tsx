@@ -16,8 +16,8 @@ export default function CrossPromotionBanner() {
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gray-100 rounded-lg">
-              <QrCode className="w-5 h-5 text-gray-700" />
+            <div className="rounded-lg bg-gray-100 p-2">
+              <QrCode className="h-5 w-5 text-gray-700" />
             </div>
             <div>
               <CardTitle className="text-lg font-semibold text-gray-900">
@@ -35,7 +35,7 @@ export default function CrossPromotionBanner() {
       </CardHeader>
       <CardContent className="pt-0">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-600 max-w-md">
+          <p className="max-w-md text-sm text-gray-600">
             Generate custom QR codes with logos, colors, and advanced features.
             Perfect for linking to your mobile apps and websites.
           </p>
@@ -47,7 +47,7 @@ export default function CrossPromotionBanner() {
               className="inline-flex items-center gap-2"
             >
               <span>Try QR Generator</span>
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="h-4 w-4" />
             </Link>
           </Button>
         </div>

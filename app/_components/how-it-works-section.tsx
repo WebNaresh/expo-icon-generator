@@ -1,16 +1,16 @@
 export default function HowItWorksSection() {
   return (
-    <div className="max-w-4xl mx-auto mt-16 bg-white rounded-2xl shadow-xl p-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+    <div className="mx-auto mt-16 max-w-4xl rounded-2xl bg-white p-8 shadow-xl">
+      <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
         How It Works
       </h2>
       <div className="space-y-6">
         <div className="flex items-start gap-4">
-          <div className="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
             1
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Upload Your Source Image
             </h3>
             <p className="text-gray-600">
@@ -21,11 +21,11 @@ export default function HowItWorksSection() {
           </div>
         </div>
         <div className="flex items-start gap-4">
-          <div className="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
             2
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Choose Background Color
             </h3>
             <p className="text-gray-600">
@@ -36,11 +36,11 @@ export default function HowItWorksSection() {
           </div>
         </div>
         <div className="flex items-start gap-4">
-          <div className="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
             3
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Download Generated Icons
             </h3>
             <p className="text-gray-600">

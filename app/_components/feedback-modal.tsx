@@ -98,7 +98,7 @@ export default function FeedbackModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Heart className="w-6 h-6 text-red-500" />
+            <Heart className="h-6 w-6 text-red-500" />
             Help Us Improve!
           </DialogTitle>
           <DialogDescription>
@@ -108,11 +108,11 @@ export default function FeedbackModal({
         </DialogHeader>
 
         {feedbackMutation.isSuccess ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="w-8 h-8 text-green-600" />
+          <div className="py-8 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+              <Heart className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Thank You!
             </h3>
             <p className="text-gray-600">
@@ -126,7 +126,7 @@ export default function FeedbackModal({
             <div>
               <label
                 htmlFor="feedback"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 What features would you like to see next? Any suggestions?
               </label>
@@ -145,7 +145,7 @@ export default function FeedbackModal({
             <div>
               <label
                 htmlFor="userEmail"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Your Email (optional - for follow-up questions)
               </label>
@@ -155,15 +155,15 @@ export default function FeedbackModal({
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-sky-500"
                 disabled={feedbackMutation.isPending}
               />
             </div>
 
             {/* Error Message */}
             {feedbackMutation.isError && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-700 text-sm">
+              <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+                <p className="text-sm text-red-700">
                   Failed to send feedback. Please try again or email us directly
                   at bhosalenaresh73@gmail.com
                 </p>
@@ -188,12 +188,12 @@ export default function FeedbackModal({
               >
                 {feedbackMutation.isPending ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
                     Sending...
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4 mr-2" />
+                    <Send className="mr-2 h-4 w-4" />
                     Send Feedback
                   </>
                 )}

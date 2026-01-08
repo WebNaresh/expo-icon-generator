@@ -133,29 +133,29 @@ export default function BlogPage() {
   const recentPosts = blogPosts.filter((post) => !post.featured);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-sky-50">
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        <div className="mb-16 text-center">
+          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-6xl">
             Icon Generation Blog
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
             Expert guides, tutorials, and insights for creating perfect icons
             for your mobile applications. Learn from real-world examples and
             industry best practices.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
             <span className="flex items-center gap-2">
-              <Tag className="w-4 h-4 text-blue-500" />
+              <Tag className="h-4 w-4 text-blue-500" />
               Expert Tutorials
             </span>
             <span className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-green-500" />
+              <Clock className="h-4 w-4 text-green-500" />
               Updated Weekly
             </span>
             <span className="flex items-center gap-2">
-              <User className="w-4 h-4 text-purple-500" />
+              <User className="h-4 w-4 text-purple-500" />
               Industry Insights
             </span>
           </div>
@@ -163,47 +163,47 @@ export default function BlogPage() {
 
         {/* Featured Posts */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <h2 className="mb-8 text-3xl font-bold text-gray-900">
             Featured Articles
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid gap-8 md:grid-cols-2">
             {featuredPosts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                className="overflow-hidden rounded-xl bg-white shadow-lg transition-shadow hover:shadow-xl"
               >
                 <div className="p-8">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                  <div className="mb-4 flex items-center gap-4">
+                    <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
                       {post.category}
                     </span>
-                    <span className="text-gray-500 text-sm flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
+                    <span className="flex items-center gap-1 text-sm text-gray-500">
+                      <Clock className="h-4 w-4" />
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 hover:text-blue-600 transition-colors">
+                  <h3 className="mb-4 text-2xl font-bold text-gray-900 transition-colors hover:text-blue-600">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="mb-6 leading-relaxed text-gray-600">
                     {post.description}
                   </p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
-                      <User className="w-4 h-4" />
+                      <User className="h-4 w-4" />
                       <span>{post.author}</span>
                       <span>•</span>
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="h-4 w-4" />
                       <span>
                         {new Date(post.publishedAt).toLocaleDateString()}
                       </span>
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+                      className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
                     >
                       Read More
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
@@ -214,11 +214,11 @@ export default function BlogPage() {
 
         {/* Category Filter */}
         <section className="mb-12">
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <button
                 key={category}
-                className="px-6 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors"
+                className="rounded-full border border-gray-300 px-6 py-2 text-gray-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
               >
                 {category}
               </button>
@@ -228,35 +228,35 @@ export default function BlogPage() {
 
         {/* Recent Posts */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <h2 className="mb-8 text-3xl font-bold text-gray-900">
             Recent Articles
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {recentPosts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                className="overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg"
               >
                 <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="rounded bg-gray-100 px-2 py-1 text-sm text-gray-700">
                       {post.category}
                     </span>
-                    <span className="text-gray-500 text-sm">
+                    <span className="text-sm text-gray-500">
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
+                  <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors hover:text-blue-600">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                  <p className="mb-4 text-sm leading-relaxed text-gray-600">
                     {post.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="mb-4 flex flex-wrap gap-2">
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs"
+                        className="rounded bg-blue-50 px-2 py-1 text-xs text-blue-600"
                       >
                         #{tag}
                       </span>
@@ -268,7 +268,7 @@ export default function BlogPage() {
                     </span>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="text-blue-600 hover:text-blue-700 font-medium"
+                      className="font-medium text-blue-600 hover:text-blue-700"
                     >
                       Read →
                     </Link>
@@ -280,22 +280,22 @@ export default function BlogPage() {
         </section>
 
         {/* Newsletter Signup */}
-        <section className="mt-16 bg-white rounded-xl shadow-lg p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <section className="mt-16 rounded-xl bg-white p-8 text-center shadow-lg">
+          <h3 className="mb-4 text-2xl font-bold text-gray-900">
             Stay Updated with Icon Generation Tips
           </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="mx-auto mb-6 max-w-2xl text-gray-600">
             Get the latest tutorials, best practices, and industry insights
             delivered to your inbox. Join thousands of developers improving
             their app icon game.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700">
               Subscribe
             </button>
           </div>
