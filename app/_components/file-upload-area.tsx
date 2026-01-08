@@ -87,9 +87,12 @@ export default function FileUploadArea({
     // Check if the native EyeDropper API is supported (Chrome/Edge/Opera)
     if ("EyeDropper" in window) {
       try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - EyeDropper is not yet in standard types
-        const eyeDropper = new (window as any).EyeDropper();
+        // @ts-expect-error - EyeDropper is not yet in standard types
+        const eyeDropper = new (
+          window as unknown as {
+            EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> };
+          }
+        ).EyeDropper();
         const result = await eyeDropper.open();
         onBackgroundColorChange(result.sRGBHex);
         return; // Success, don't fallback to manual mode
@@ -163,7 +166,7 @@ export default function FileUploadArea({
             : uploadedFile
             ? "border-green-500 bg-green-50"
             : isPasteReady
-            ? "bg-sky-25 border-sky-400"
+            ? "bg-sky-50 border-sky-400"
             : "border-gray-300 hover:border-sky-400 hover:bg-sky-50"
         }`}
         onDragOver={onDragOver}
