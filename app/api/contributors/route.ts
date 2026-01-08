@@ -166,7 +166,7 @@ async function fetchContributors(): Promise<ProcessedContributor[]> {
   // Check cache first
   const cachedData = getCachedData(cacheKey)
   if (cachedData) {
-    return cachedData
+    return cachedData as ProcessedContributor[]
   }
 
   try {
