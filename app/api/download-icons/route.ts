@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
         // Convert base64 to buffer
         const buffer = Buffer.from(base64Data, 'base64');
-        
+
         // Add to ZIP
         zip.file(icon.name, buffer);
       } catch (error) {
@@ -33,14 +33,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate ZIP file
-    const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
 
     // Return ZIP file
-    return new NextResponse(zipBuffer, {
+    return new NextResponse(zipBlob, {
       headers: {
         'Content-Type': 'application/zip',
         'Content-Disposition': 'attachment; filename="expo-icons.zip"',
-        'Content-Length': zipBuffer.length.toString(),
+        'Content-Length': zipBlob.size.toString(),
       },
     });
 
