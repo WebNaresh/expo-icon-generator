@@ -87,7 +87,6 @@ export default function FileUploadArea({
     // Check if the native EyeDropper API is supported (Chrome/Edge/Opera)
     if ("EyeDropper" in window) {
       try {
-        // @ts-expect-error - EyeDropper is not yet in standard types
         const eyeDropper = new (
           window as unknown as {
             EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> };
