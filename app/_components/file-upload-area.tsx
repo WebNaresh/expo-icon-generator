@@ -166,7 +166,7 @@ export default function FileUploadArea({
             : uploadedFile
             ? "border-green-500 bg-green-50"
             : isPasteReady
-            ? "bg-sky-50 border-sky-400"
+            ? "border-sky-400 bg-sky-50"
             : "border-gray-300 hover:border-sky-400 hover:bg-sky-50"
         }`}
         onDragOver={onDragOver}
