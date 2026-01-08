@@ -99,7 +99,7 @@ export default function GeneratedIconsDisplay({
                     }}
                   />
                   {/* Only show overlay on hover, with pointer-events-none to not block image */}
-                  <div className="group-hover:bg-opacity-20 pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent transition-all group-hover:bg-black">
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent transition-all group-hover:bg-black/20">
                     <Eye className="h-8 w-8 text-white opacity-0 transition-opacity group-hover:opacity-100" />
                   </div>
                 </div>
