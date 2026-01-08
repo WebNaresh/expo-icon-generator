@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import {
   Upload,
   Clipboard,
