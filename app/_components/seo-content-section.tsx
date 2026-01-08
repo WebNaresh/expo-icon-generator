@@ -1,7 +1,7 @@
 export default function SEOContentSection() {
   return (
-    <section className="max-w-6xl mx-auto mt-16 mb-12 bg-white rounded-2xl shadow-lg p-8">
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section className="mx-auto mt-16 mb-12 max-w-6xl rounded-2xl bg-white p-8 shadow-lg">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {/* Expo Icon Generator Features */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -82,8 +82,8 @@ export default function SEOContentSection() {
       </div>
 
       {/* Keywords section for SEO */}
-      <div className="mt-12 pt-8 border-t border-gray-200">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">
+      <div className="mt-12 border-t border-gray-200 pt-8">
+        <h3 className="mb-4 text-xl font-bold text-gray-900">
           Popular Searches
         </h3>
         <div className="flex flex-wrap gap-2">
@@ -111,7 +111,7 @@ export default function SEOContentSection() {
           ].map((keyword) => (
             <span
               key={keyword}
-              className="px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-sm"
+              className="rounded-full bg-sky-100 px-3 py-1 text-sm text-sky-800"
             >
               {keyword}
             </span>
@@ -120,17 +120,17 @@ export default function SEOContentSection() {
       </div>
 
       {/* FAQ section for keywords */}
-      <div className="mt-12 pt-8 border-t border-gray-200">
-        <h3 className="text-xl font-bold text-gray-900 mb-6">
+      <div className="mt-12 border-t border-gray-200 pt-8">
+        <h3 className="mb-6 text-xl font-bold text-gray-900">
           Frequently Asked Questions
         </h3>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900">
                 What is an Expo Assets Generator?
               </h4>
-              <p className="text-gray-700 text-sm">
+              <p className="text-sm text-gray-700">
                 An <strong>expo assets generator</strong> is a tool that
                 automatically creates all the required icons and assets for your
                 Expo React Native app, including iOS app icons, Android adaptive
@@ -138,10 +138,10 @@ export default function SEOContentSection() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900">
                 How does the React Native Icon Generator work?
               </h4>
-              <p className="text-gray-700 text-sm">
+              <p className="text-sm text-gray-700">
                 Our <strong>react native icon generator</strong> takes your
                 source image and automatically generates all the required{" "}
                 <strong>expo app icon</strong> sizes and formats for iOS,
@@ -151,10 +151,10 @@ export default function SEOContentSection() {
           </div>
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900">
                 What are Android Adaptive Icons?
               </h4>
-              <p className="text-gray-700 text-sm">
+              <p className="text-sm text-gray-700">
                 <strong>Android adaptive icons</strong> are icons that can
                 display a variety of shapes across different device models. Our{" "}
                 <strong>adaptive icon generator</strong> creates both foreground
@@ -162,10 +162,10 @@ export default function SEOContentSection() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900">
                 Is this Expo Icon Generator free?
               </h4>
-              <p className="text-gray-700 text-sm">
+              <p className="text-sm text-gray-700">
                 Yes! Our <strong>expo icon generator</strong> is completely free
                 and open source. Generate unlimited <strong>expo icons</strong>{" "}
                 without any restrictions.

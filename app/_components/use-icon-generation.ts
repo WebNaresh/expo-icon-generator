@@ -58,7 +58,7 @@ export function useIconGeneration() {
       });
 
       // Log each icon's details
-      result.icons?.forEach((icon: any, index: number) => {
+      result.icons?.forEach((icon: GeneratedIcon, index: number) => {
         console.log(`🔥 [FRONTEND] Icon ${index}:`, {
           name: icon.name,
           size: icon.size,

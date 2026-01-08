@@ -185,21 +185,21 @@ export default async function ContributorPage({
   const joinDate = formatDate(contributor.created_at);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
+    <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-blue-50">
       <div className="container mx-auto px-4 py-12">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
             href="/contributors"
-            className="inline-flex items-center text-sky-600 hover:text-sky-700 font-medium transition-colors"
+            className="inline-flex items-center font-medium text-sky-600 transition-colors hover:text-sky-700"
           >
             ← Back to Contributors
           </Link>
         </div>
 
         {/* Profile Header */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-          <div className="flex flex-col md:flex-row items-start gap-8">
+        <div className="mb-8 rounded-2xl bg-white p-8 shadow-xl">
+          <div className="flex flex-col items-start gap-8 md:flex-row">
             {/* Avatar */}
             <div className="relative">
               <Image
@@ -214,55 +214,55 @@ export default async function ContributorPage({
                   target.src = "/default-avatar.png";
                 }}
               />
-              <div className="absolute -bottom-2 -right-2 bg-sky-500 text-white rounded-full p-2">
-                <Award className="w-5 h-5" />
+              <div className="absolute -right-2 -bottom-2 rounded-full bg-sky-500 p-2 text-white">
+                <Award className="h-5 w-5" />
               </div>
             </div>
 
             {/* Profile Info */}
             <div className="flex-1">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  <h1 className="mb-2 text-3xl font-bold text-gray-900">
                     {displayName}
                   </h1>
-                  <p className="text-xl text-sky-600 font-medium mb-2">
+                  <p className="mb-2 text-xl font-medium text-sky-600">
                     @{contributor.username}
                   </p>
                   <div className="flex items-center gap-4 text-sm text-gray-600">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="h-4 w-4" />
                       Joined {joinDate}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Users className="w-4 h-4" />
+                      <Users className="h-4 w-4" />
                       {contributor.followers} followers
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 mt-4 sm:mt-0">
+                <div className="mt-4 flex items-center gap-3 sm:mt-0">
                   <Link
                     href={contributor.profile_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-white transition-colors hover:bg-gray-800"
                   >
-                    <Github className="w-4 h-4" />
+                    <Github className="h-4 w-4" />
                     GitHub Profile
                   </Link>
                   <button
                     onClick={() => handleDownloadCertificate(contributor)}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-white transition-colors hover:bg-sky-700"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="h-4 w-4" />
                     Certificate
                   </button>
                 </div>
               </div>
 
               {contributor.bio && (
-                <p className="text-gray-700 mb-4 leading-relaxed">
+                <p className="mb-4 leading-relaxed text-gray-700">
                   {contributor.bio}
                 </p>
               )}
@@ -271,13 +271,13 @@ export default async function ContributorPage({
               <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                 {contributor.location && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="h-4 w-4" />
                     {contributor.location}
                   </span>
                 )}
                 {contributor.company && (
                   <span className="flex items-center gap-1">
-                    <Building className="w-4 h-4" />
+                    <Building className="h-4 w-4" />
                     {contributor.company}
                   </span>
                 )}
@@ -292,7 +292,7 @@ export default async function ContributorPage({
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 text-sky-600 hover:text-sky-700"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="h-4 w-4" />
                     Website
                   </Link>
                 )}
@@ -302,12 +302,12 @@ export default async function ContributorPage({
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Award className="w-6 h-6 text-green-600" />
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+              <Award className="h-6 w-6 text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+            <h3 className="mb-1 text-2xl font-bold text-gray-900">
               {contributor.contributions}
             </h3>
             <p className="text-gray-600">
@@ -315,21 +315,21 @@ export default async function ContributorPage({
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <BookOpen className="w-6 h-6 text-blue-600" />
+          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+              <BookOpen className="h-6 w-6 text-blue-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+            <h3 className="mb-1 text-2xl font-bold text-gray-900">
               {contributor.public_repos}
             </h3>
             <p className="text-gray-600">Public Repositories</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Users className="w-6 h-6 text-purple-600" />
+          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+              <Users className="h-6 w-6 text-purple-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+            <h3 className="mb-1 text-2xl font-bold text-gray-900">
               {contributor.followers}
             </h3>
             <p className="text-gray-600">GitHub Followers</p>
@@ -337,18 +337,18 @@ export default async function ContributorPage({
         </div>
 
         {/* Contribution Details */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="rounded-2xl bg-white p-8 shadow-xl">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Contribution Details
           </h2>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between rounded-lg bg-gray-50 p-4">
               <div>
                 <h3 className="font-semibold text-gray-900">
                   Expo Icon Generator
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm text-gray-600">
                   Main project contributions
                 </p>
               </div>
@@ -356,11 +356,11 @@ export default async function ContributorPage({
                 <span className="text-2xl font-bold text-sky-600">
                   {contributor.contributions}
                 </span>
-                <p className="text-gray-500 text-sm">commits</p>
+                <p className="text-sm text-gray-500">commits</p>
               </div>
             </div>
 
-            <div className="text-center py-8 text-gray-500">
+            <div className="py-8 text-center text-gray-500">
               <p>
                 Detailed contribution history and commit information will be
                 available soon.
@@ -370,12 +370,12 @@ export default async function ContributorPage({
         </div>
 
         {/* Back to Contributors */}
-        <div className="text-center mt-12">
+        <div className="mt-12 text-center">
           <Link
             href="/contributors"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 text-white font-semibold rounded-lg hover:bg-sky-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-sky-700"
           >
-            <Users className="w-5 h-5" />
+            <Users className="h-5 w-5" />
             View All Contributors
           </Link>
         </div>

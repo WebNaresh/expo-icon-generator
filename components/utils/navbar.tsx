@@ -8,17 +8,18 @@ export function Navbar() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
   }, []);
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo and Brand */}
           <Link
             href="/"
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 transition-opacity hover:opacity-80"
           >
             <Image
               src="/web-app-manifest-192x192.png"
@@ -33,43 +34,43 @@ export function Navbar() {
           </Link>
 
           {/* Greeting Message */}
-          <div className="hidden lg:flex items-center">
-            <span className="text-gray-600 text-sm font-medium px-3 py-1 bg-sky-50 rounded-full border border-sky-100">
+          <div className="hidden items-center lg:flex">
+            <span className="rounded-full border border-sky-100 bg-sky-50 px-3 py-1 text-sm font-medium text-gray-600">
               👋 Hello, Developer!
             </span>
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-8 md:flex">
             {isClient ? (
               <>
                 <Link
                   href="/"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   Home
                 </Link>
                 <Link
                   href="/blog"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   Blog
                 </Link>
                 <Link
                   href="/tutorials"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   Tutorials
                 </Link>
                 <Link
                   href="/faq"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   FAQ
                 </Link>
                 <Link
                   href="/contributors"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   Contributors
                 </Link>
@@ -77,19 +78,19 @@ export function Navbar() {
                   href="https://github.com/WebNaresh/expo-icon-generator"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-sky-600 transition-colors font-medium"
+                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
                 >
                   GitHub
                 </Link>
               </>
             ) : (
               <>
-                <span className="text-gray-600 font-medium">Home</span>
-                <span className="text-gray-600 font-medium">Blog</span>
-                <span className="text-gray-600 font-medium">Tutorials</span>
-                <span className="text-gray-600 font-medium">FAQ</span>
-                <span className="text-gray-600 font-medium">Contributors</span>
-                <span className="text-gray-600 font-medium">GitHub</span>
+                <span className="font-medium text-gray-600">Home</span>
+                <span className="font-medium text-gray-600">Blog</span>
+                <span className="font-medium text-gray-600">Tutorials</span>
+                <span className="font-medium text-gray-600">FAQ</span>
+                <span className="font-medium text-gray-600">Contributors</span>
+                <span className="font-medium text-gray-600">GitHub</span>
               </>
             )}
           </div>

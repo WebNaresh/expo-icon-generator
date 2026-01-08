@@ -109,7 +109,7 @@ export default function HomePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-sky-50">
       {/* Structured Data for SEO */}
       <StructuredData />
 
@@ -118,7 +118,7 @@ export default function HomePage() {
         <HeroSection />
 
         {/* Upload Section */}
-        <div className="max-w-4xl mx-auto">
+        <div className="mx-auto max-w-4xl">
           <FileUploadArea
             uploadedFile={uploadedFile}
             isGenerating={isGenerating}

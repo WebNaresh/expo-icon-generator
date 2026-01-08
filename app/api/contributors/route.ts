@@ -85,7 +85,7 @@ const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = 60 // GitHub allows 60 requests per hour for unauthenticated requests
 
 // Simple in-memory cache (in production, consider using Redis or similar)
-const cache = new Map<string, { data: any; timestamp: number }>()
+const cache = new Map<string, { data: unknown; timestamp: number }>()
 const rateLimitTracker = new Map<string, { count: number; resetTime: number }>()
 
 // Helper function to check rate limits
@@ -107,7 +107,7 @@ function checkRateLimit(clientId: string): boolean {
 }
 
 // Helper function to get cached data
-function getCachedData(key: string): any | null {
+function getCachedData(key: string): unknown | null {
   const cached = cache.get(key)
   if (!cached) return null
 
@@ -121,12 +121,12 @@ function getCachedData(key: string): any | null {
 }
 
 // Helper function to set cached data
-function setCachedData(key: string, data: any): void {
+function setCachedData(key: string, data: unknown): void {
   cache.set(key, { data, timestamp: Date.now() })
 }
 
 // Helper function to fetch GitHub API with error handling
-async function fetchGitHubAPI(endpoint: string): Promise<any> {
+async function fetchGitHubAPI<T>(endpoint: string): Promise<T> {
   const url = `${GITHUB_API_BASE}${endpoint}`
 
   try {
@@ -166,7 +166,7 @@ async function fetchContributors(): Promise<ProcessedContributor[]> {
   // Check cache first
   const cachedData = getCachedData(cacheKey)
   if (cachedData) {
-    return cachedData
+    return cachedData as ProcessedContributor[]
   }
 
   try {

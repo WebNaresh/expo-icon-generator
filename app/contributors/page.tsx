@@ -45,9 +45,9 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
     }
   );
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
+    <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Avatar and basic info */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         <Image
           src={contributor.avatar_url}
           alt={`${displayName} avatar`}
@@ -61,10 +61,10 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           }}
         />
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-gray-900 mb-1">
+          <h3 className="mb-1 text-xl font-bold text-gray-900">
             {displayName}
           </h3>
-          <p className="text-sky-600 font-medium mb-1">
+          <p className="mb-1 font-medium text-sky-600">
             {contributor.contributions} contribution
             {contributor.contributions !== 1 ? "s" : ""}
           </p>
@@ -74,20 +74,20 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
 
       {/* Bio */}
       {contributor.bio && (
-        <p className="text-gray-700 mb-4 leading-relaxed line-clamp-3">
+        <p className="mb-4 line-clamp-3 leading-relaxed text-gray-700">
           {contributor.bio}
         </p>
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="text-center p-3 bg-gray-50 rounded-lg">
+      <div className="mb-4 grid grid-cols-2 gap-4">
+        <div className="rounded-lg bg-gray-50 p-3 text-center">
           <div className="text-lg font-bold text-gray-900">
             {contributor.public_repos}
           </div>
           <div className="text-xs text-gray-500">Repositories</div>
         </div>
-        <div className="text-center p-3 bg-gray-50 rounded-lg">
+        <div className="rounded-lg bg-gray-50 p-3 text-center">
           <div className="text-lg font-bold text-gray-900">
             {contributor.followers}
           </div>
@@ -96,7 +96,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
       </div>
 
       {/* Additional info */}
-      <div className="space-y-2 mb-4">
+      <div className="mb-4 space-y-2">
         {contributor.location && (
           <p className="text-sm text-gray-600">📍 {contributor.location}</p>
         )}
@@ -110,7 +110,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
       <div className="flex gap-2">
         <Link
           href={`/contributors/${contributor.username}`}
-          className="flex-1 text-center px-3 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition-colors text-sm font-medium"
+          className="flex-1 rounded-lg bg-sky-100 px-3 py-2 text-center text-sm font-medium text-sky-700 transition-colors hover:bg-sky-200"
         >
           View Profile
         </Link>
@@ -118,10 +118,10 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           href={contributor.profile_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+          className="rounded-lg bg-gray-100 px-3 py-2 text-gray-700 transition-colors hover:bg-gray-200"
           aria-label={`Visit ${contributor.username}'s GitHub profile`}
         >
-          <ExternalLink className="w-4 h-4" />
+          <ExternalLink className="h-4 w-4" />
         </Link>
       </div>
     </div>
@@ -162,14 +162,14 @@ export default function ContributorsPage() {
   }, [fetchContributors]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
+    <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-blue-50">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
             Contributors
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
             Meet the amazing people who make Expo Icon Generator possible. Their
             dedication and expertise help developers worldwide create beautiful
             icons for their mobile applications.
@@ -178,9 +178,9 @@ export default function ContributorsPage() {
 
         {/* Loading State */}
         {isLoading && (
-          <div className="flex justify-center items-center py-16">
+          <div className="flex items-center justify-center py-16">
             <div className="flex items-center gap-3 text-gray-600">
-              <Loader2 className="w-8 h-8 animate-spin" />
+              <Loader2 className="h-8 w-8 animate-spin" />
               <span className="text-lg">Loading contributors...</span>
             </div>
           </div>
@@ -188,16 +188,16 @@ export default function ContributorsPage() {
 
         {/* Error State */}
         {error && (
-          <div className="text-center py-16">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
-              <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-red-700 mb-2">
+          <div className="py-16 text-center">
+            <div className="mx-auto max-w-md rounded-lg border border-red-200 bg-red-50 p-8">
+              <AlertCircle className="mx-auto mb-4 h-12 w-12 text-red-500" />
+              <h3 className="mb-2 text-lg font-semibold text-red-700">
                 Failed to load contributors
               </h3>
-              <p className="text-red-600 mb-4">{error}</p>
+              <p className="mb-4 text-red-600">{error}</p>
               <button
                 onClick={fetchContributors}
-                className="px-6 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors font-medium"
+                className="rounded-lg bg-red-100 px-6 py-2 font-medium text-red-700 transition-colors hover:bg-red-200"
               >
                 Try Again
               </button>
@@ -207,7 +207,7 @@ export default function ContributorsPage() {
 
         {/* Contributors Grid */}
         {!isLoading && !error && contributors.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {contributors.map((contributor) => (
               <ContributorCard
                 key={contributor.username}
@@ -219,17 +219,17 @@ export default function ContributorsPage() {
 
         {/* Empty State */}
         {!isLoading && !error && contributors.length === 0 && (
-          <div className="text-center py-16">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
+          <div className="py-16 text-center">
+            <Users className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+            <h3 className="mb-2 text-xl font-semibold text-gray-700">
               No contributors found
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="mb-6 text-gray-500">
               We couldn&apos;t find any contributors at the moment.
             </p>
             <button
               onClick={fetchContributors}
-              className="px-6 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition-colors font-medium"
+              className="rounded-lg bg-sky-100 px-6 py-2 font-medium text-sky-700 transition-colors hover:bg-sky-200"
             >
               Refresh
             </button>
@@ -237,25 +237,25 @@ export default function ContributorsPage() {
         )}
 
         {/* Call to action */}
-        <div className="bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl p-8 text-center text-white">
-          <div className="max-w-2xl mx-auto">
-            <GitFork className="w-12 h-12 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold mb-4">Want to Contribute?</h2>
-            <p className="text-sky-100 mb-6 text-lg">
+        <div className="rounded-2xl bg-linear-to-r from-sky-500 to-blue-600 p-8 text-center text-white">
+          <div className="mx-auto max-w-2xl">
+            <GitFork className="mx-auto mb-4 h-12 w-12" />
+            <h2 className="mb-4 text-3xl font-bold">Want to Contribute?</h2>
+            <p className="mb-6 text-lg text-sky-100">
               We welcome contributions from developers of all skill levels!
               Whether it&apos;s bug fixes, new features, documentation, or
               design improvements, your help makes this project better for
               everyone.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Link
                 href="https://github.com/WebNaresh/expo-icon-generator"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-sky-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 font-semibold text-sky-600 transition-colors duration-200 hover:bg-gray-50"
               >
-                <ExternalLink className="w-5 h-5 mr-2" />
+                <ExternalLink className="mr-2 h-5 w-5" />
                 View on GitHub
               </Link>
 
@@ -263,9 +263,9 @@ export default function ContributorsPage() {
                 href="https://github.com/WebNaresh/expo-icon-generator/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3 bg-sky-700 text-white font-semibold rounded-lg hover:bg-sky-800 transition-colors duration-200"
+                className="inline-flex items-center justify-center rounded-lg bg-sky-700 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-sky-800"
               >
-                <ExternalLink className="w-5 h-5 mr-2" />
+                <ExternalLink className="mr-2 h-5 w-5" />
                 Report Issues
               </Link>
             </div>
@@ -273,10 +273,10 @@ export default function ContributorsPage() {
         </div>
 
         {/* Back to home */}
-        <div className="text-center mt-12">
+        <div className="mt-12 text-center">
           <Link
             href="/"
-            className="inline-flex items-center text-sky-600 hover:text-sky-700 font-medium transition-colors duration-200"
+            className="inline-flex items-center font-medium text-sky-600 transition-colors duration-200 hover:text-sky-700"
           >
             ← Back to Icon Generator
           </Link>
