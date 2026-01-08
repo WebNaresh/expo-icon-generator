@@ -29,7 +29,6 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/jspdf": "^2.0.0",
     "@types/jszip": "^3.4.0",
@@ -37,7 +36,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.5",
+    "eslint-config-next": "16.0.10",
+    "eslint-plugin-tailwind-canonical-classes": "^1.1.0",
+    "eslint-plugin-tailwindcss": "4.0.0-beta.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
