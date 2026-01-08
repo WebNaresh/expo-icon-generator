@@ -142,7 +142,7 @@ export default function ThanksGiftPage() {
           {/* Alternative Support */}
           <div className="mt-10 text-center">
             <p className="text-gray-600 mb-4">
-              Can't contribute financially? You can still help us by:
+              Can&apos;t contribute financially? You can still help us by:
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <span className="inline-flex items-center px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700">
