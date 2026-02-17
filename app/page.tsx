@@ -103,11 +103,6 @@ export default function HomePage() {
   // Combine errors from different hooks
   const displayError = error || iconError;
 
-  console.log(
-    `🚀 ~ page.tsx:66 ~ HomePage ~ backgroundColor:`,
-    backgroundColor
-  );
-
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-sky-50">
       {/* Structured Data for SEO */}
