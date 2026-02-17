@@ -6,6 +6,7 @@ import {
   ImageIcon,
   AlertCircle,
   Pipette,
+  RotateCcw,
 } from "lucide-react";
 
 interface UploadedFile {
@@ -270,13 +271,33 @@ export default function FileUploadArea({
 
           {colorAnalysis && (
             <div className="mb-4 rounded-lg border bg-white p-3">
-              <p className="mb-2 text-xs text-gray-600">
-                <strong>Smart suggestion:</strong> {colorAnalysis.reasoning}
-              </p>
+              <div className="mb-2 flex items-center justify-between">
+                <p className="text-xs text-gray-600">
+                  <strong>Smart suggestion:</strong> {colorAnalysis.reasoning}
+                </p>
+                {backgroundColor !== colorAnalysis.suggestedBackgroundColor && (
+                  <button
+                    onClick={() =>
+                      onBackgroundColorChange(
+                        colorAnalysis.suggestedBackgroundColor
+                      )
+                    }
+                    className="flex shrink-0 items-center gap-1 rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-600 transition-colors hover:bg-gray-50"
+                    title="Reset to suggested color"
+                  >
+                    <RotateCcw className="h-3 w-3" />
+                    Reset to suggested
+                  </button>
+                )}
+              </div>
               <div className="flex flex-wrap gap-2">
-                {[...colorAnalysis.dominantColors, ...colorAnalysis.edgeColors]
+                {[
+                  "#ffffff",
+                  ...colorAnalysis.dominantColors,
+                  ...colorAnalysis.edgeColors,
+                ]
                   .filter((color, index, self) => self.indexOf(color) === index)
-                  .slice(0, 6)
+                  .slice(0, 7)
                   .map((color) => (
                     <button
                       key={color}
@@ -320,10 +341,34 @@ export default function FileUploadArea({
               <Pipette className="h-5 w-5" />
             </button>
           </div>
-          <p className="mt-2 text-xs text-gray-500">
-            This background color will be used for the main app icon (icon.png)
-            with your image centered and sized at 70%.
-          </p>
+          {/* Live Icon Preview */}
+          <div className="mt-4 flex flex-col items-center">
+            <p className="mb-2 text-xs font-medium text-gray-600">
+              Icon Preview{" "}
+              <span className="font-mono text-gray-400">
+                {backgroundColor}
+              </span>
+            </p>
+            <div
+              className="flex items-center justify-center rounded-2xl shadow-md"
+              style={{
+                backgroundColor,
+                width: 200,
+                height: 200,
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={uploadedFile.preview}
+                alt="Icon preview"
+                className="object-contain"
+                style={{ width: "70%", height: "70%" }}
+              />
+            </div>
+            <p className="mt-2 text-xs text-gray-400">
+              This is how your icon.png will look
+            </p>
+          </div>
         </div>
       )}
 
