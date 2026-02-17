@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from 'next/server'
  * 3. Canonical HTTP headers for SEO
  * 4. Security headers
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone()
   const { pathname } = url
 
