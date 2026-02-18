@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
+    "types": ["cypress"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts"]
+}

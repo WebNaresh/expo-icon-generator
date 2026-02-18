@@ -40,6 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# cypress
+cypress/screenshots
+cypress/videos
+cypress/downloads
+
 # auto-generated files (next-sitemap)
 public/robots.txt
 public/sitemap.xml
