@@ -35,7 +35,7 @@ export default function TextLogoCreator({
   };
 
   // Live SVG preview
-  const previewSize = 140;
+  const previewSize = 120;
   const fontWeight = options.bold ? "bold" : "normal";
   const fontStyle = options.italic ? "italic" : "normal";
   const scaledFontSize = (options.fontSize / 1024) * previewSize;
@@ -69,26 +69,29 @@ export default function TextLogoCreator({
   </svg>`;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Preview */}
-      <div className="flex justify-center">
-        <div
-          className="rounded-lg border border-gray-700 bg-gray-800 p-3"
-          dangerouslySetInnerHTML={{ __html: previewSvg }}
-        />
+    <form onSubmit={handleSubmit} className="flex h-full flex-col gap-3">
+      {/* Top row: Preview left, text input right */}
+      <div className="flex items-center gap-4">
+        <div className="shrink-0">
+          <div
+            className="rounded-lg"
+            dangerouslySetInnerHTML={{ __html: previewSvg }}
+          />
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <input
+            type="text"
+            value={options.text}
+            onChange={(e) => updateOption("text", e.target.value)}
+            placeholder="My App"
+            maxLength={50}
+            className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-gray-500 focus:outline-none"
+          />
+          <p className="text-xs text-gray-500">Enter your app name above</p>
+        </div>
       </div>
 
-      {/* Text Input */}
-      <input
-        type="text"
-        value={options.text}
-        onChange={(e) => updateOption("text", e.target.value)}
-        placeholder="My App"
-        maxLength={50}
-        className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-gray-500 focus:outline-none"
-      />
-
-      {/* Font, Shape, Toggles - compact row */}
+      {/* Font, Shape, Bold, Italic — full width row */}
       <div className="flex gap-2">
         <select
           value={options.fontFamily}
@@ -98,7 +101,7 @@ export default function TextLogoCreator({
               e.target.value as "sans-serif" | "serif" | "monospace"
             )
           }
-          className="flex-1 rounded-lg border border-gray-700 bg-gray-800 px-2 py-2 text-sm text-gray-300"
+          className="min-w-0 flex-1 rounded-lg border border-gray-700 bg-gray-800 px-2 py-2 text-sm text-gray-300"
         >
           {FONT_OPTIONS.map((f) => (
             <option key={f.value} value={f.value}>
@@ -106,6 +109,9 @@ export default function TextLogoCreator({
             </option>
           ))}
         </select>
+    
+      </div>
+  <div className="flex gap-2">
         <select
           value={options.shape}
           onChange={(e) =>
@@ -114,7 +120,7 @@ export default function TextLogoCreator({
               e.target.value as "square" | "rounded" | "circle"
             )
           }
-          className="flex-1 rounded-lg border border-gray-700 bg-gray-800 px-2 py-2 text-sm text-gray-300"
+          className="min-w-0 flex-1 rounded-lg border border-gray-700 bg-gray-800 px-2 py-2 text-sm text-gray-300"
         >
           {SHAPE_OPTIONS.map((s) => (
             <option key={s.value} value={s.value}>
@@ -144,9 +150,8 @@ export default function TextLogoCreator({
         >
           I
         </button>
-      </div>
-
-      {/* Size Slider */}
+  </div>
+      {/* Size Slider — full width */}
       <div>
         <div className="mb-1 flex items-center justify-between">
           <span className="text-xs text-gray-400">Size</span>
@@ -164,43 +169,45 @@ export default function TextLogoCreator({
         />
       </div>
 
-      {/* Colors */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="flex items-center gap-2">
-          <input
-            type="color"
-            value={options.textColor}
-            onChange={(e) => updateOption("textColor", e.target.value)}
-            className="h-8 w-8 cursor-pointer rounded border border-gray-700"
-          />
-          <input
-            type="text"
-            value={options.textColor}
-            onChange={(e) => updateOption("textColor", e.target.value)}
-            className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2 py-1.5 font-mono text-xs text-gray-300"
-            placeholder="Text"
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="color"
-            value={options.backgroundColor}
-            onChange={(e) => updateOption("backgroundColor", e.target.value)}
-            className="h-8 w-8 cursor-pointer rounded border border-gray-700"
-          />
-          <input
-            type="text"
-            value={options.backgroundColor}
-            onChange={(e) => updateOption("backgroundColor", e.target.value)}
-            className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2 py-1.5 font-mono text-xs text-gray-300"
-            placeholder="Background"
-          />
-        </div>
-      </div>
-
       {error && <p className="text-xs text-red-600">{error}</p>}
 
-      <button
+      <div className="flex-1" />
+
+      {/* Colors */}
+      <div className="grid grid-cols-2 gap-2">
+          <div className="flex items-center gap-2">
+            <input
+              type="color"
+              value={options.textColor}
+              onChange={(e) => updateOption("textColor", e.target.value)}
+              className="h-7 w-7 cursor-pointer rounded border border-gray-700"
+            />
+            <input
+              type="text"
+              value={options.textColor}
+              onChange={(e) => updateOption("textColor", e.target.value)}
+              className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2 py-1.5 font-mono text-xs text-gray-300"
+              placeholder="Text"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="color"
+              value={options.backgroundColor}
+              onChange={(e) => updateOption("backgroundColor", e.target.value)}
+              className="h-7 w-7 cursor-pointer rounded border border-gray-700"
+            />
+            <input
+              type="text"
+              value={options.backgroundColor}
+              onChange={(e) => updateOption("backgroundColor", e.target.value)}
+              className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2 py-1.5 font-mono text-xs text-gray-300"
+              placeholder="Background"
+            />
+          </div>
+        </div>
+
+        <button
         type="submit"
         disabled={isGenerating || !options.text.trim()}
         className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-200 disabled:bg-gray-700 disabled:text-gray-500"
@@ -216,7 +223,7 @@ export default function TextLogoCreator({
             Create Logo
           </>
         )}
-      </button>
+        </button>
     </form>
   );
 }
