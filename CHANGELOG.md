@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.0.0...v1.1.0) (2026-02-18)
+
+
+### Bug Fixes
+
+* filter bot contributors and update sitemap config ([0a1a0e0](https://github.com/WebNaresh/expo-icon-generator/commit/0a1a0e05fe10ab25ae8fa508941b24f65244992a))
+
+
+### Features
+
+* add splash screen, text logo, and app.json features ([aa56838](https://github.com/WebNaresh/expo-icon-generator/commit/aa56838b60f306aa0aa3a7165a7c8b56b0001c91))
+
 # 1.0.0 (2026-02-17)
 
 
