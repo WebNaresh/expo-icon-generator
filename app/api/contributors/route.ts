@@ -171,8 +171,13 @@ async function fetchContributors(): Promise<ProcessedContributor[]> {
 
   try {
     // Fetch contributors from GitHub API
-    const contributors: GitHubContributor[] = await fetchGitHubAPI(
+    const allContributors: GitHubContributor[] = await fetchGitHubAPI(
       `/repos/${REPO_OWNER}/${REPO_NAME}/contributors`
+    )
+
+    // Filter out bot accounts
+    const contributors = allContributors.filter(
+      (c) => c.type !== 'Bot' && !c.login.endsWith('[bot]')
     )
 
     // Fetch detailed user information for each contributor
