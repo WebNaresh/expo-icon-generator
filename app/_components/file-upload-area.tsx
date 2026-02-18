@@ -124,7 +124,7 @@ export default function FileUploadArea({
 
             {uploadedFile ? (
               <div className="space-y-3">
-                <div className="mx-auto h-24 w-24 overflow-hidden rounded-xl border border-gray-700 bg-gray-800 shadow-sm">
+                <div className="mx-auto h-24 w-24 overflow-hidden rounded-xl shadow-sm">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={uploadedFile.preview}
