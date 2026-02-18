@@ -29,6 +29,9 @@ export function useFileUpload() {
   const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
   const [colorAnalysis, setColorAnalysis] = useState<ColorAnalysis | null>(null);
   const [isAnalyzingColors, setIsAnalyzingColors] = useState(false);
+  const [splashEnabled, setSplashEnabled] = useState(true);
+  const [splashBackgroundColor, setSplashBackgroundColor] = useState<string>("#ffffff");
+  const [splashColorManuallySet, setSplashColorManuallySet] = useState(false);
 
   // File validation
   const validateFile = (file: File): string | null => {
@@ -60,6 +63,7 @@ export function useFileUpload() {
       const analysis: ColorAnalysis = await response.json();
       setColorAnalysis(analysis);
       setBackgroundColor(analysis.suggestedBackgroundColor);
+      setSplashBackgroundColor(analysis.suggestedBackgroundColor);
 
       console.log("Color analysis result:", analysis);
     } catch (err) {
@@ -84,6 +88,8 @@ export function useFileUpload() {
     setUploadedFile({ file, preview });
     setColorAnalysis(null); // Clear previous color analysis
     setBackgroundColor("#ffffff"); // Reset to default while analyzing
+    setSplashBackgroundColor("#ffffff");
+    setSplashColorManuallySet(false);
 
     // Analyze image colors to suggest background color
     analyzeImageColors(file);
@@ -225,6 +231,19 @@ export function useFileUpload() {
     setIsPasteReady(false);
   }, []);
 
+  // Wrapper that syncs splash color when not manually changed
+  const handleBackgroundColorChange = useCallback((color: string) => {
+    setBackgroundColor(color);
+    if (!splashColorManuallySet) {
+      setSplashBackgroundColor(color);
+    }
+  }, [splashColorManuallySet]);
+
+  const handleSplashBackgroundColorChange = useCallback((color: string) => {
+    setSplashBackgroundColor(color);
+    setSplashColorManuallySet(true);
+  }, []);
+
   return {
     uploadedFile,
     error,
@@ -233,7 +252,9 @@ export function useFileUpload() {
     backgroundColor,
     colorAnalysis,
     isAnalyzingColors,
-    setBackgroundColor,
+    splashEnabled,
+    splashBackgroundColor,
+    setBackgroundColor: handleBackgroundColorChange,
     setError,
     handleFileUpload,
     handleDragOver,
@@ -244,5 +265,7 @@ export function useFileUpload() {
     handleKeyDown,
     handleUploadAreaFocus,
     handleUploadAreaBlur,
+    setSplashEnabled,
+    setSplashBackgroundColor: handleSplashBackgroundColorChange,
   };
 }
