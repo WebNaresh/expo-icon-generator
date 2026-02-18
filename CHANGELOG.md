@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.1.0...v1.2.0) (2026-02-18)
+
+
+### Features
+
+* add NaviLens promo and fix banner width to match page layout ([4b32d38](https://github.com/WebNaresh/expo-icon-generator/commit/4b32d381534ab369bb5227ef1d074dfcc0f81244))
+* redesign feedback modal with emoji reaction buttons ([7b4b6f4](https://github.com/WebNaresh/expo-icon-generator/commit/7b4b6f4a21100607a3f975c82232973818a5abb4))
+* support emoji rating in feedback API ([479fa61](https://github.com/WebNaresh/expo-icon-generator/commit/479fa610919d62fdd3a3a8df8fd3ddba59605959))
+
 # [1.1.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.0.0...v1.1.0) (2026-02-18)
 
 
