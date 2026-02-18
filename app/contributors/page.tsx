@@ -45,7 +45,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
     }
   );
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+    <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Avatar and basic info */}
       <div className="mb-4 flex items-center gap-4">
         <Image
@@ -53,7 +53,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           alt={`${displayName} avatar`}
           width={80}
           height={80}
-          className="rounded-full border-2 border-sky-100"
+          className="rounded-full border-2 border-gray-700"
           priority
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -61,10 +61,10 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           }}
         />
         <div className="flex-1">
-          <h3 className="mb-1 text-xl font-bold text-gray-900">
+          <h3 className="mb-1 text-xl font-bold text-white">
             {displayName}
           </h3>
-          <p className="mb-1 font-medium text-sky-600">
+          <p className="mb-1 font-medium text-sky-400">
             {contributor.contributions} contribution
             {contributor.contributions !== 1 ? "s" : ""}
           </p>
@@ -74,21 +74,21 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
 
       {/* Bio */}
       {contributor.bio && (
-        <p className="mb-4 line-clamp-3 leading-relaxed text-gray-700">
+        <p className="mb-4 line-clamp-3 leading-relaxed text-gray-400">
           {contributor.bio}
         </p>
       )}
 
       {/* Stats */}
       <div className="mb-4 grid grid-cols-2 gap-4">
-        <div className="rounded-lg bg-gray-50 p-3 text-center">
-          <div className="text-lg font-bold text-gray-900">
+        <div className="rounded-lg bg-gray-800 p-3 text-center">
+          <div className="text-lg font-bold text-white">
             {contributor.public_repos}
           </div>
           <div className="text-xs text-gray-500">Repositories</div>
         </div>
-        <div className="rounded-lg bg-gray-50 p-3 text-center">
-          <div className="text-lg font-bold text-gray-900">
+        <div className="rounded-lg bg-gray-800 p-3 text-center">
+          <div className="text-lg font-bold text-white">
             {contributor.followers}
           </div>
           <div className="text-xs text-gray-500">Followers</div>
@@ -98,10 +98,10 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
       {/* Additional info */}
       <div className="mb-4 space-y-2">
         {contributor.location && (
-          <p className="text-sm text-gray-600">📍 {contributor.location}</p>
+          <p className="text-sm text-gray-400">📍 {contributor.location}</p>
         )}
         {contributor.company && (
-          <p className="text-sm text-gray-600">🏢 {contributor.company}</p>
+          <p className="text-sm text-gray-400">🏢 {contributor.company}</p>
         )}
         <p className="text-sm text-gray-500">📅 Joined {joinDate}</p>
       </div>
@@ -110,7 +110,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
       <div className="flex gap-2">
         <Link
           href={`/contributors/${contributor.username}`}
-          className="flex-1 rounded-lg bg-sky-100 px-3 py-2 text-center text-sm font-medium text-sky-700 transition-colors hover:bg-sky-200"
+          className="flex-1 rounded-lg bg-gray-800 px-3 py-2 text-center text-sm font-medium text-sky-400 transition-colors hover:bg-gray-700"
         >
           View Profile
         </Link>
@@ -118,7 +118,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           href={contributor.profile_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-lg bg-gray-100 px-3 py-2 text-gray-700 transition-colors hover:bg-gray-200"
+          className="rounded-lg bg-gray-800 px-3 py-2 text-gray-400 transition-colors hover:bg-gray-700"
           aria-label={`Visit ${contributor.username}'s GitHub profile`}
         >
           <ExternalLink className="h-4 w-4" />
@@ -162,14 +162,14 @@ export default function ContributorsPage() {
   }, [fetchContributors]);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gray-950">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
+          <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
             Contributors
           </h1>
-          <p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
+          <p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-400">
             Meet the amazing people who make Expo Icon Generator possible. Their
             dedication and expertise help developers worldwide create beautiful
             icons for their mobile applications.
@@ -179,7 +179,7 @@ export default function ContributorsPage() {
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-16">
-            <div className="flex items-center gap-3 text-gray-600">
+            <div className="flex items-center gap-3 text-gray-400">
               <Loader2 className="h-8 w-8 animate-spin" />
               <span className="text-lg">Loading contributors...</span>
             </div>
@@ -189,15 +189,15 @@ export default function ContributorsPage() {
         {/* Error State */}
         {error && (
           <div className="py-16 text-center">
-            <div className="mx-auto max-w-md rounded-lg border border-red-200 bg-red-50 p-8">
-              <AlertCircle className="mx-auto mb-4 h-12 w-12 text-red-500" />
-              <h3 className="mb-2 text-lg font-semibold text-red-700">
+            <div className="mx-auto max-w-md rounded-lg border border-red-800 bg-red-900/30 p-8">
+              <AlertCircle className="mx-auto mb-4 h-12 w-12 text-red-400" />
+              <h3 className="mb-2 text-lg font-semibold text-red-400">
                 Failed to load contributors
               </h3>
-              <p className="mb-4 text-red-600">{error}</p>
+              <p className="mb-4 text-red-300">{error}</p>
               <button
                 onClick={fetchContributors}
-                className="rounded-lg bg-red-100 px-6 py-2 font-medium text-red-700 transition-colors hover:bg-red-200"
+                className="rounded-lg bg-red-900/50 px-6 py-2 font-medium text-red-300 transition-colors hover:bg-red-900/70"
               >
                 Try Again
               </button>
@@ -220,8 +220,8 @@ export default function ContributorsPage() {
         {/* Empty State */}
         {!isLoading && !error && contributors.length === 0 && (
           <div className="py-16 text-center">
-            <Users className="mx-auto mb-4 h-16 w-16 text-gray-300" />
-            <h3 className="mb-2 text-xl font-semibold text-gray-700">
+            <Users className="mx-auto mb-4 h-16 w-16 text-gray-600" />
+            <h3 className="mb-2 text-xl font-semibold text-gray-400">
               No contributors found
             </h3>
             <p className="mb-6 text-gray-500">
@@ -229,7 +229,7 @@ export default function ContributorsPage() {
             </p>
             <button
               onClick={fetchContributors}
-              className="rounded-lg bg-sky-100 px-6 py-2 font-medium text-sky-700 transition-colors hover:bg-sky-200"
+              className="rounded-lg bg-gray-800 px-6 py-2 font-medium text-sky-400 transition-colors hover:bg-gray-700"
             >
               Refresh
             </button>
@@ -237,11 +237,11 @@ export default function ContributorsPage() {
         )}
 
         {/* Call to action */}
-        <div className="rounded-2xl bg-linear-to-r from-sky-500 to-blue-600 p-8 text-center text-white">
+        <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8 text-center">
           <div className="mx-auto max-w-2xl">
-            <GitFork className="mx-auto mb-4 h-12 w-12" />
-            <h2 className="mb-4 text-3xl font-bold">Want to Contribute?</h2>
-            <p className="mb-6 text-lg text-sky-100">
+            <GitFork className="mx-auto mb-4 h-12 w-12 text-sky-400" />
+            <h2 className="mb-4 text-3xl font-bold text-white">Want to Contribute?</h2>
+            <p className="mb-6 text-lg text-gray-400">
               We welcome contributions from developers of all skill levels!
               Whether it&apos;s bug fixes, new features, documentation, or
               design improvements, your help makes this project better for
@@ -253,7 +253,7 @@ export default function ContributorsPage() {
                 href="https://github.com/WebNaresh/expo-icon-generator"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 font-semibold text-sky-600 transition-colors duration-200 hover:bg-gray-50"
+                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 font-semibold text-gray-900 transition-colors duration-200 hover:bg-gray-200"
               >
                 <ExternalLink className="mr-2 h-5 w-5" />
                 View on GitHub
@@ -263,7 +263,7 @@ export default function ContributorsPage() {
                 href="https://github.com/WebNaresh/expo-icon-generator/issues"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-sky-700 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-sky-800"
+                className="inline-flex items-center justify-center rounded-lg border border-gray-700 px-6 py-3 font-semibold text-gray-300 transition-colors duration-200 hover:bg-gray-800"
               >
                 <ExternalLink className="mr-2 h-5 w-5" />
                 Report Issues
@@ -276,7 +276,7 @@ export default function ContributorsPage() {
         <div className="mt-12 text-center">
           <Link
             href="/"
-            className="inline-flex items-center font-medium text-sky-600 transition-colors duration-200 hover:text-sky-700"
+            className="inline-flex items-center font-medium text-sky-400 transition-colors duration-200 hover:text-sky-300"
           >
             ← Back to Icon Generator
           </Link>

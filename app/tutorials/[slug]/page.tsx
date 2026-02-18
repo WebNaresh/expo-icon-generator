@@ -31,6 +31,9 @@ export async function generateMetadata({
   }
 
   return {
+    alternates: {
+      canonical: `/tutorials/${slug}`,
+    },
     title: `${tutorial.title} | Expo Icon Generator Tutorials`,
     description: tutorial.description,
     keywords: tutorial.topics,
@@ -55,12 +58,12 @@ export default async function TutorialPage({
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-950">
       <div className="container mx-auto max-w-6xl px-4 py-12">
         {/* Back Navigation */}
         <Link
           href="/tutorials"
-          className="mb-8 inline-flex items-center gap-2 font-medium text-purple-600 hover:text-purple-700"
+          className="mb-8 inline-flex items-center gap-2 font-medium text-sky-400 hover:text-sky-300"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Tutorials
@@ -75,10 +78,10 @@ export default async function TutorialPage({
                 <span
                   className={`rounded-full px-3 py-1 text-sm font-medium ${
                     tutorial.difficulty === "Beginner"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-green-900/50 text-green-400"
                       : tutorial.difficulty === "Intermediate"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "bg-red-100 text-red-700"
+                      ? "bg-yellow-900/50 text-yellow-400"
+                      : "bg-red-900/50 text-red-400"
                   }`}
                 >
                   {tutorial.difficulty}
@@ -88,15 +91,15 @@ export default async function TutorialPage({
                 </span>
               </div>
 
-              <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">
                 {tutorial.title}
               </h1>
 
-              <p className="mb-6 text-lg text-gray-600">
+              <p className="mb-6 text-lg text-gray-400">
                 {tutorial.description}
               </p>
 
-              <div className="flex items-center gap-6 text-sm text-gray-600">
+              <div className="flex items-center gap-6 text-sm text-gray-400">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
                   <span>{tutorial.duration}</span>
@@ -113,7 +116,7 @@ export default async function TutorialPage({
             </header>
 
             {/* Tutorial Content */}
-            <article className="prose prose-lg max-w-none">
+            <article className="prose prose-lg prose-invert max-w-none">
               <div
                 className="leading-relaxed"
                 dangerouslySetInnerHTML={{
@@ -123,12 +126,12 @@ export default async function TutorialPage({
                       const level = match.trim().length;
                       return `<h${level} class="text-${
                         4 - level
-                      }xl font-bold text-gray-900 mt-8 mb-4">`;
+                      }xl font-bold text-white mt-8 mb-4">`;
                     })
                     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
                     .replace(
                       /`([^`]+)`/g,
-                      '<code class="bg-gray-100 px-2 py-1 rounded text-sm">$1</code>'
+                      '<code class="bg-gray-800 px-2 py-1 rounded text-sm">$1</code>'
                     ),
                 }}
               />
@@ -139,25 +142,25 @@ export default async function TutorialPage({
           <div className="lg:col-span-1">
             <div className="sticky top-8 space-y-6">
               {/* Course Progress */}
-              <div className="rounded-xl bg-gray-50 p-6">
-                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <div className="rounded-xl border border-gray-800 bg-gray-900 p-6">
+                <h3 className="mb-4 text-lg font-semibold text-white">
                   Course Content
                 </h3>
                 <div className="space-y-3">
                   {tutorial.chapters.map((chapter, index) => (
                     <div
                       key={chapter.id}
-                      className="flex items-center gap-3 rounded-lg bg-white p-3"
+                      className="flex items-center gap-3 rounded-lg bg-gray-800 p-3"
                     >
                       <div className="shrink-0">
                         {chapter.completed ? (
                           <CheckCircle className="h-5 w-5 text-green-500" />
                         ) : (
-                          <Play className="h-5 w-5 text-gray-400" />
+                          <Play className="h-5 w-5 text-gray-500" />
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900">
+                        <p className="truncate text-sm font-medium text-white">
                           {index + 1}. {chapter.title}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -170,15 +173,15 @@ export default async function TutorialPage({
               </div>
 
               {/* Topics Covered */}
-              <div className="rounded-xl bg-gray-50 p-6">
-                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <div className="rounded-xl border border-gray-800 bg-gray-900 p-6">
+                <h3 className="mb-4 text-lg font-semibold text-white">
                   Topics Covered
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {tutorial.topics.map((topic) => (
                     <span
                       key={topic}
-                      className="rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700"
+                      className="rounded-full bg-gray-800 px-3 py-1 text-sm text-sky-400"
                     >
                       {topic}
                     </span>
@@ -187,13 +190,13 @@ export default async function TutorialPage({
               </div>
 
               {/* Call to Action */}
-              <div className="rounded-xl bg-linear-to-r from-purple-600 to-pink-600 p-6 text-center text-white">
-                <BookOpen className="mx-auto mb-3 h-8 w-8" />
-                <h3 className="mb-2 text-lg font-semibold">Ready to Start?</h3>
-                <p className="mb-4 text-sm opacity-90">
+              <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 text-center">
+                <BookOpen className="mx-auto mb-3 h-8 w-8 text-sky-400" />
+                <h3 className="mb-2 text-lg font-semibold text-white">Ready to Start?</h3>
+                <p className="mb-4 text-sm text-gray-400">
                   Begin this tutorial and start building amazing apps today.
                 </p>
-                <button className="w-full rounded-lg bg-white py-2 font-medium text-purple-600 transition-colors hover:bg-gray-100">
+                <button className="w-full rounded-lg bg-white py-2 font-medium text-gray-900 transition-colors hover:bg-gray-200">
                   Start Tutorial
                 </button>
               </div>

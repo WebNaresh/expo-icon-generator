@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -10,10 +9,9 @@ import {
   Calendar,
   Users,
   BookOpen,
-  Download,
   Award,
 } from "lucide-react";
-import { downloadCertificate } from "@/lib/certificate-generator";
+import { ProfileAvatar, DownloadCertificateButton } from "./_components/profile-header-client";
 
 // TypeScript interfaces
 interface Contributor {
@@ -48,7 +46,7 @@ async function fetchContributors(): Promise<Contributor[]> {
   try {
     const baseUrl = process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+      : process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8888";
 
     const response = await fetch(`${baseUrl}/api/contributors`, {
       next: { revalidate: 3600 }, // Revalidate every hour
@@ -109,6 +107,9 @@ export async function generateMetadata({
   const displayName = contributor.name || contributor.username;
 
   return {
+    alternates: {
+      canonical: `/contributors/${username}`,
+    },
     title: `${displayName} - Contributor Profile | Expo Icon Generator`,
     description: `Learn about ${displayName}, a contributor to Expo Icon Generator with ${
       contributor.contributions
@@ -152,22 +153,6 @@ function formatDate(dateString: string): string {
   });
 }
 
-// Download certificate function
-function handleDownloadCertificate(contributor: Contributor) {
-  try {
-    const contributorData = {
-      username: contributor.username,
-      name: contributor.name,
-      contributions: contributor.contributions,
-      joinDate: formatDate(contributor.created_at),
-    };
-
-    downloadCertificate(contributorData);
-  } catch (error) {
-    console.error("Error downloading certificate:", error);
-    alert("Failed to generate certificate. Please try again.");
-  }
-}
 
 export default async function ContributorPage({
   params,
@@ -185,34 +170,26 @@ export default async function ContributorPage({
   const joinDate = formatDate(contributor.created_at);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-sky-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gray-950">
       <div className="container mx-auto px-4 py-12">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
             href="/contributors"
-            className="inline-flex items-center font-medium text-sky-600 transition-colors hover:text-sky-700"
+            className="inline-flex items-center font-medium text-sky-400 transition-colors hover:text-sky-300"
           >
             ← Back to Contributors
           </Link>
         </div>
 
         {/* Profile Header */}
-        <div className="mb-8 rounded-2xl bg-white p-8 shadow-xl">
+        <div className="mb-8 rounded-2xl border border-gray-800 bg-gray-900 p-8 shadow-xl">
           <div className="flex flex-col items-start gap-8 md:flex-row">
             {/* Avatar */}
             <div className="relative">
-              <Image
-                src={contributor.avatar_url}
-                alt={`${displayName} profile picture`}
-                width={150}
-                height={150}
-                className="rounded-full border-4 border-sky-100 shadow-lg"
-                priority
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "/default-avatar.png";
-                }}
+              <ProfileAvatar
+                avatarUrl={contributor.avatar_url}
+                displayName={displayName}
               />
               <div className="absolute -right-2 -bottom-2 rounded-full bg-sky-500 p-2 text-white">
                 <Award className="h-5 w-5" />
@@ -223,13 +200,13 @@ export default async function ContributorPage({
             <div className="flex-1">
               <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h1 className="mb-2 text-3xl font-bold text-gray-900">
+                  <h1 className="mb-2 text-3xl font-bold text-white">
                     {displayName}
                   </h1>
-                  <p className="mb-2 text-xl font-medium text-sky-600">
+                  <p className="mb-2 text-xl font-medium text-sky-400">
                     @{contributor.username}
                   </p>
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-4 text-sm text-gray-400">
                     <span className="flex items-center gap-1">
                       <Calendar className="h-4 w-4" />
                       Joined {joinDate}
@@ -246,29 +223,28 @@ export default async function ContributorPage({
                     href={contributor.profile_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-white transition-colors hover:bg-gray-800"
+                    className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-gray-900 transition-colors hover:bg-gray-200"
                   >
                     <Github className="h-4 w-4" />
                     GitHub Profile
                   </Link>
-                  <button
-                    onClick={() => handleDownloadCertificate(contributor)}
-                    className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-white transition-colors hover:bg-sky-700"
-                  >
-                    <Download className="h-4 w-4" />
-                    Certificate
-                  </button>
+                  <DownloadCertificateButton
+                    username={contributor.username}
+                    name={contributor.name}
+                    contributions={contributor.contributions}
+                    joinDate={joinDate}
+                  />
                 </div>
               </div>
 
               {contributor.bio && (
-                <p className="mb-4 leading-relaxed text-gray-700">
+                <p className="mb-4 leading-relaxed text-gray-400">
                   {contributor.bio}
                 </p>
               )}
 
               {/* Additional Info */}
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+              <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                 {contributor.location && (
                   <span className="flex items-center gap-1">
                     <MapPin className="h-4 w-4" />
@@ -290,7 +266,7 @@ export default async function ContributorPage({
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-sky-600 hover:text-sky-700"
+                    className="flex items-center gap-1 text-sky-400 hover:text-sky-300"
                   >
                     <ExternalLink className="h-4 w-4" />
                     Website
@@ -303,57 +279,57 @@ export default async function ContributorPage({
 
         {/* Stats Cards */}
         <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-              <Award className="h-6 w-6 text-green-600" />
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-800">
+              <Award className="h-6 w-6 text-green-400" />
             </div>
-            <h3 className="mb-1 text-2xl font-bold text-gray-900">
+            <h3 className="mb-1 text-2xl font-bold text-white">
               {contributor.contributions}
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               Contribution{contributor.contributions !== 1 ? "s" : ""}
             </p>
           </div>
 
-          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-              <BookOpen className="h-6 w-6 text-blue-600" />
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-800">
+              <BookOpen className="h-6 w-6 text-sky-400" />
             </div>
-            <h3 className="mb-1 text-2xl font-bold text-gray-900">
+            <h3 className="mb-1 text-2xl font-bold text-white">
               {contributor.public_repos}
             </h3>
-            <p className="text-gray-600">Public Repositories</p>
+            <p className="text-gray-400">Public Repositories</p>
           </div>
 
-          <div className="rounded-xl bg-white p-6 text-center shadow-lg">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
-              <Users className="h-6 w-6 text-purple-600" />
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 text-center shadow-lg">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-800">
+              <Users className="h-6 w-6 text-purple-400" />
             </div>
-            <h3 className="mb-1 text-2xl font-bold text-gray-900">
+            <h3 className="mb-1 text-2xl font-bold text-white">
               {contributor.followers}
             </h3>
-            <p className="text-gray-600">GitHub Followers</p>
+            <p className="text-gray-400">GitHub Followers</p>
           </div>
         </div>
 
         {/* Contribution Details */}
-        <div className="rounded-2xl bg-white p-8 shadow-xl">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
+        <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8 shadow-xl">
+          <h2 className="mb-6 text-2xl font-bold text-white">
             Contribution Details
           </h2>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between rounded-lg bg-gray-50 p-4">
+            <div className="flex items-center justify-between rounded-lg bg-gray-800 p-4">
               <div>
-                <h3 className="font-semibold text-gray-900">
+                <h3 className="font-semibold text-white">
                   Expo Icon Generator
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Main project contributions
                 </p>
               </div>
               <div className="text-right">
-                <span className="text-2xl font-bold text-sky-600">
+                <span className="text-2xl font-bold text-sky-400">
                   {contributor.contributions}
                 </span>
                 <p className="text-sm text-gray-500">commits</p>
@@ -373,7 +349,7 @@ export default async function ContributorPage({
         <div className="mt-12 text-center">
           <Link
             href="/contributors"
-            className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-sky-700"
+            className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-gray-900 transition-colors hover:bg-gray-200"
           >
             <Users className="h-5 w-5" />
             View All Contributors
