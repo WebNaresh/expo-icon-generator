@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MessageSquare, Check } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -20,11 +20,20 @@ interface FeedbackModalProps {
   downloadType: string;
 }
 
+type Rating = "love_it" | "good" | "okay" | "bad";
+
 interface FeedbackData {
   feedback: string;
-  userEmail: string;
   downloadType: string;
+  rating?: Rating;
 }
+
+const REACTIONS: { rating: Rating; emoji: string; label: string }[] = [
+  { rating: "love_it", emoji: "😍", label: "Love it!" },
+  { rating: "good", emoji: "👍", label: "Good" },
+  { rating: "okay", emoji: "😐", label: "Okay" },
+  { rating: "bad", emoji: "👎", label: "Bad" },
+];
 
 const submitFeedback = async (data: FeedbackData): Promise<void> => {
   const response = await fetch("/api/send-feedback", {
@@ -46,132 +55,141 @@ export default function FeedbackModal({
   downloadType,
 }: FeedbackModalProps) {
   const [feedback, setFeedback] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
+  const [showComment, setShowComment] = useState(false);
   const router = useRouter();
 
   const feedbackMutation = useMutation({
     mutationFn: submitFeedback,
     onSuccess: () => {
-      // Reset form
-      setFeedback("");
-      setUserEmail("");
-      onClose();
-
-      // Redirect to support page after 1 second
       setTimeout(() => {
+        resetAndClose();
         router.push("/thanks-gift");
-      }, 1000);
+      }, 1500);
     },
     onError: (error) => {
       console.error("Error submitting feedback:", error);
     },
   });
 
-  if (!isOpen) return null;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!feedback.trim()) {
-      alert("Please provide some feedback before submitting.");
-      return;
+  useEffect(() => {
+    if (!isOpen) {
+      setFeedback("");
+      setSelectedRating(null);
+      setShowComment(false);
+      feedbackMutation.reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  const resetAndClose = () => {
+    setFeedback("");
+    setSelectedRating(null);
+    setShowComment(false);
+    feedbackMutation.reset();
+    onClose();
+  };
+
+  const handleReactionClick = (rating: Rating) => {
+    if (feedbackMutation.isPending || feedbackMutation.isSuccess) return;
+
+    setSelectedRating(rating);
+
+    if (!showComment) {
+      feedbackMutation.mutate({
+        feedback: "",
+        downloadType,
+        rating,
+      });
+    }
+  };
+
+  const handleSubmitWithComment = () => {
+    if (!selectedRating || feedbackMutation.isPending) return;
 
     feedbackMutation.mutate({
       feedback: feedback.trim(),
-      userEmail: userEmail.trim(),
       downloadType,
+      rating: selectedRating,
     });
   };
 
   const handleClose = () => {
     if (!feedbackMutation.isPending) {
-      onClose();
-      setFeedback("");
-      setUserEmail("");
-      feedbackMutation.reset();
+      resetAndClose();
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Heart className="h-6 w-6 text-red-500" />
-            Help Us Improve!
-          </DialogTitle>
-          <DialogDescription>
-            Thanks for downloading {downloadType}! Your feedback helps us build
-            better features.
-          </DialogDescription>
-        </DialogHeader>
-
+      <DialogContent className="max-w-sm">
         {feedbackMutation.isSuccess ? (
-          <div className="py-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-800">
-              <Heart className="h-8 w-8 text-gray-400" />
+          <div className="flex flex-col items-center py-8">
+            <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-green-900/50">
+              <Check className="h-7 w-7 text-green-400" />
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-white">
-              Thank You!
-            </h3>
-            <p className="text-gray-400">
-              Your feedback has been sent successfully. We appreciate your
-              input!
+            <p className="text-lg font-semibold text-white">
+              Thanks for your feedback!
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Feedback Text Area */}
-            <div>
-              <label
-                htmlFor="feedback"
-                className="mb-2 block text-sm font-medium text-gray-300"
-              >
-                What features would you like to see next? Any suggestions?
-              </label>
-              <Textarea
-                id="feedback"
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                placeholder="Tell us what you'd like to see improved or added to Expo Icon Generator..."
-                rows={4}
-                required
-                disabled={feedbackMutation.isPending}
-              />
+          <>
+            <DialogHeader>
+              <DialogTitle>How was your experience?</DialogTitle>
+              <DialogDescription>
+                Thanks for downloading {downloadType}!
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="flex justify-center gap-4 py-2">
+              {REACTIONS.map(({ rating, emoji, label }) => (
+                <button
+                  key={rating}
+                  type="button"
+                  onClick={() => handleReactionClick(rating)}
+                  disabled={feedbackMutation.isPending}
+                  className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-transform hover:scale-110 ${
+                    selectedRating === rating
+                      ? "bg-gray-800 ring-2 ring-sky-400"
+                      : "hover:bg-gray-800/50"
+                  }`}
+                >
+                  <span className="text-3xl">{emoji}</span>
+                  <span className="text-xs text-gray-400">{label}</span>
+                </button>
+              ))}
             </div>
 
-            {/* Optional Email */}
-            <div>
-              <label
-                htmlFor="userEmail"
-                className="mb-2 block text-sm font-medium text-gray-300"
+            {!showComment ? (
+              <button
+                type="button"
+                onClick={() => setShowComment(true)}
+                className="mx-auto flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-300"
               >
-                Your Email (optional - for follow-up questions)
-              </label>
-              <input
-                id="userEmail"
-                type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="your.email@example.com"
-                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-white focus:border-transparent focus:ring-2 focus:ring-gray-400"
-                disabled={feedbackMutation.isPending}
-              />
-            </div>
+                <MessageSquare className="h-3.5 w-3.5" />
+                Add a comment (optional)
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <Textarea
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  placeholder="Any suggestions?"
+                  rows={2}
+                  disabled={feedbackMutation.isPending}
+                />
+              </div>
+            )}
 
-            {/* Error Message */}
             {feedbackMutation.isError && (
               <div className="rounded-lg border border-red-800 bg-red-950 p-3">
                 <p className="text-sm text-red-400">
-                  Failed to send feedback. Please try again or email us directly
-                  at bhosalenaresh73@gmail.com
+                  Failed to send feedback. Please try again.
                 </p>
               </div>
             )}
 
-            {/* Buttons */}
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-1">
               <Button
                 type="button"
                 variant="outline"
@@ -181,25 +199,20 @@ export default function FeedbackModal({
               >
                 Skip
               </Button>
-              <Button
-                type="submit"
-                disabled={feedbackMutation.isPending || !feedback.trim()}
-                className="flex-1"
-              >
-                {feedbackMutation.isPending ? (
-                  <>
-                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="mr-2 h-4 w-4" />
-                    Send Feedback
-                  </>
-                )}
-              </Button>
+              {showComment && (
+                <Button
+                  type="button"
+                  onClick={handleSubmitWithComment}
+                  disabled={
+                    feedbackMutation.isPending || !selectedRating
+                  }
+                  className="flex-1"
+                >
+                  {feedbackMutation.isPending ? "Sending..." : "Send"}
+                </Button>
+              )}
             </div>
-          </form>
+          </>
         )}
       </DialogContent>
     </Dialog>
