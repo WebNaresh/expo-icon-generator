@@ -36,11 +36,6 @@ export default function StructuredData() {
     ],
     screenshot: "https://expo-assets-generator.vercel.app/opengraph-image.png",
     softwareVersion: "1.0",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "150",
-    },
     keywords: [
       "expo assets generator",
       "expo icon generator",

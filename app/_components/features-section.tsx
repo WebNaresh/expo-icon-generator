@@ -1,60 +1,45 @@
-import { ImageIcon, CheckCircle, Loader2, Download } from "lucide-react";
+import { Layers, Zap, Download, Shield } from "lucide-react";
+
+const features = [
+  {
+    icon: Layers,
+    title: "All Platforms",
+    description: "iOS, Android, and web icons from one source image.",
+  },
+  {
+    icon: Zap,
+    title: "Instant Generation",
+    description: "Sharp-powered processing delivers crisp icons in seconds.",
+  },
+  {
+    icon: Download,
+    title: "One-Click Export",
+    description: "Download individually or grab everything as a ZIP.",
+  },
+  {
+    icon: Shield,
+    title: "Store Ready",
+    description: "Icons meet App Store and Google Play requirements.",
+  },
+];
 
 export default function FeaturesSection() {
   return (
-    <div className="mx-auto mt-16 max-w-6xl">
-      <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
-        Why Choose Expo Icon Generator?
-      </h2>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-100">
-            <ImageIcon className="h-8 w-8 text-sky-600" />
+    <div className="mx-auto max-w-5xl py-16">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+        {features.map((feature) => (
+          <div key={feature.title} className="text-center">
+            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800">
+              <feature.icon className="h-5 w-5 text-gray-400" />
+            </div>
+            <h3 className="mb-1 text-sm font-semibold text-white">
+              {feature.title}
+            </h3>
+            <p className="text-xs leading-relaxed text-gray-500">
+              {feature.description}
+            </p>
           </div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">
-            Multiple Formats
-          </h3>
-          <p className="text-gray-600">
-            Generate icons for iOS, Android, and web platforms with proper
-            sizing and optimization.
-          </p>
-        </div>
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <CheckCircle className="h-8 w-8 text-green-600" />
-          </div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">
-            Optimized Output
-          </h3>
-          <p className="text-gray-600">
-            Sharp scaling and image optimization ensure your icons look crisp on
-            all devices.
-          </p>
-        </div>
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-purple-100">
-            <Loader2 className="h-8 w-8 text-purple-600" />
-          </div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">
-            One Command
-          </h3>
-          <p className="text-gray-600">
-            Generate all required icon sizes with a single upload - no manual
-            resizing needed.
-          </p>
-        </div>
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-            <Download className="h-8 w-8 text-orange-600" />
-          </div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">
-            Ready to Use
-          </h3>
-          <p className="text-gray-600">
-            Download individual icons or get them all in a ZIP file, ready for
-            your Expo project.
-          </p>
-        </div>
+        ))}
       </div>
     </div>
   );

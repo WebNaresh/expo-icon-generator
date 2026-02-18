@@ -109,13 +109,13 @@ export default function FeedbackModal({
 
         {feedbackMutation.isSuccess ? (
           <div className="py-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-              <Heart className="h-8 w-8 text-green-600" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-800">
+              <Heart className="h-8 w-8 text-gray-400" />
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
+            <h3 className="mb-2 text-lg font-semibold text-white">
               Thank You!
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               Your feedback has been sent successfully. We appreciate your
               input!
             </p>
@@ -126,7 +126,7 @@ export default function FeedbackModal({
             <div>
               <label
                 htmlFor="feedback"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="mb-2 block text-sm font-medium text-gray-300"
               >
                 What features would you like to see next? Any suggestions?
               </label>
@@ -145,7 +145,7 @@ export default function FeedbackModal({
             <div>
               <label
                 htmlFor="userEmail"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="mb-2 block text-sm font-medium text-gray-300"
               >
                 Your Email (optional - for follow-up questions)
               </label>
@@ -155,15 +155,15 @@ export default function FeedbackModal({
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-sky-500"
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-white focus:border-transparent focus:ring-2 focus:ring-gray-400"
                 disabled={feedbackMutation.isPending}
               />
             </div>
 
             {/* Error Message */}
             {feedbackMutation.isError && (
-              <div className="rounded-lg border border-red-200 bg-red-50 p-3">
-                <p className="text-sm text-red-700">
+              <div className="rounded-lg border border-red-800 bg-red-950 p-3">
+                <p className="text-sm text-red-400">
                   Failed to send feedback. Please try again or email us directly
                   at bhosalenaresh73@gmail.com
                 </p>

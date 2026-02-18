@@ -44,12 +44,12 @@ export default function ContributorsSection({
     <div className="mx-auto mt-16 max-w-6xl">
       <div className="mb-12 text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
-          <Users className="h-8 w-8 text-sky-600" />
-          <h2 className="text-3xl font-bold text-gray-900">
+          <Users className="h-8 w-8 text-gray-500" />
+          <h2 className="text-3xl font-bold text-white">
             Meet Our Contributors
           </h2>
         </div>
-        <p className="mx-auto max-w-2xl text-xl text-gray-600">
+        <p className="mx-auto max-w-2xl text-xl text-gray-400">
           The amazing developers who make Expo Icon Generator possible through
           their contributions and dedication.
         </p>
@@ -57,20 +57,20 @@ export default function ContributorsSection({
 
       {isLoadingContributors ? (
         <div className="flex items-center justify-center py-12">
-          <div className="flex items-center gap-3 text-gray-600">
+          <div className="flex items-center gap-3 text-gray-400">
             <Loader2 className="h-6 w-6 animate-spin" />
             <span>Loading contributors...</span>
           </div>
         </div>
       ) : contributorsError ? (
         <div className="py-12 text-center">
-          <div className="mx-auto max-w-md rounded-lg border border-red-200 bg-red-50 p-6">
-            <AlertCircle className="mx-auto mb-3 h-8 w-8 text-red-500" />
-            <p className="mb-2 font-medium text-red-700">
+          <div className="mx-auto max-w-md rounded-lg border border-red-800 bg-red-950 p-6">
+            <AlertCircle className="mx-auto mb-3 h-8 w-8 text-red-400" />
+            <p className="mb-2 font-medium text-red-300">
               Failed to load contributors
             </p>
-            <p className="text-sm text-red-600">{contributorsError}</p>
-            <p className="mt-3 text-sm text-gray-600">
+            <p className="text-sm text-red-400">{contributorsError}</p>
+            <p className="mt-3 text-sm text-gray-400">
               Please try refreshing the page
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function ContributorsSection({
             {contributors.slice(0, 6).map((contributor) => (
               <div
                 key={contributor.username}
-                className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-200 hover:shadow-xl"
+                className="rounded-xl border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all duration-200 hover:border-gray-700"
               >
                 <div className="flex items-start gap-4">
                   <Image
@@ -89,22 +89,22 @@ export default function ContributorsSection({
                     alt={`${contributor.username}'s avatar`}
                     width={64}
                     height={64}
-                    className="h-16 w-16 rounded-full border-2 border-sky-100"
+                    className="h-16 w-16 rounded-full border-2 border-gray-700"
                   />
                   <div className="min-w-0 flex-1">
                     <div className="mb-1 flex items-center gap-2">
-                      <h3 className="truncate text-lg font-bold text-gray-900">
+                      <h3 className="truncate text-lg font-bold text-white">
                         {contributor.name || contributor.username}
                       </h3>
-                      <span className="rounded-full bg-sky-100 px-2 py-1 text-xs font-medium text-sky-700">
+                      <span className="rounded-full bg-gray-800 px-2 py-1 text-xs font-medium text-gray-300">
                         {contributor.contributions} commits
                       </span>
                     </div>
-                    <p className="mb-2 text-sm text-gray-600">
+                    <p className="mb-2 text-sm text-gray-500">
                       @{contributor.username}
                     </p>
                     {contributor.bio && (
-                      <p className="mb-3 line-clamp-2 text-sm text-gray-700">
+                      <p className="mb-3 line-clamp-2 text-sm text-gray-400">
                         {contributor.bio}
                       </p>
                     )}
@@ -137,7 +137,7 @@ export default function ContributorsSection({
                             }
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 transition-colors hover:text-sky-600"
+                            className="text-gray-400 transition-colors hover:text-gray-500"
                           >
                             <Globe className="h-4 w-4" />
                           </a>
@@ -147,7 +147,7 @@ export default function ContributorsSection({
                             href={`https://twitter.com/${contributor.twitter_username}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 transition-colors hover:text-sky-600"
+                            className="text-gray-400 transition-colors hover:text-gray-500"
                           >
                             <Twitter className="h-4 w-4" />
                           </a>
@@ -156,7 +156,7 @@ export default function ContributorsSection({
                           href={contributor.profile_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-400 transition-colors hover:text-sky-600"
+                          className="text-gray-400 transition-colors hover:text-gray-500"
                         >
                           <Github className="h-4 w-4" />
                         </a>
@@ -171,7 +171,7 @@ export default function ContributorsSection({
           <div className="text-center">
             <Link
               href="/contributors"
-              className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-medium text-white transition-colors hover:bg-sky-700"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-200"
             >
               View All Contributors
               <ExternalLink className="h-4 w-4" />
