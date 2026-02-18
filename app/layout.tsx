@@ -112,7 +112,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://expo-assets-generator.vercel.app"),
   alternates: {
-    canonical: "https://expo-assets-generator.vercel.app",
+    canonical: "/",
   },
   openGraph: {
     title:
@@ -160,13 +160,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  other: {
-    "google-site-verification": "P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM",
-    robots:
-      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-  },
   verification: {
-    google: "your-google-verification-code",
+    google: "P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM",
   },
 };
 
@@ -176,12 +171,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
-        <meta
-          name="google-site-verification"
-          content="P0DjQblaNVfwyIx_AsVX-z-NqfFD3d_R11IgkLtAsoM"
-        />
         <meta name="google-adsense-account" content="ca-pub-6220952943304269" />
         <Script
           async

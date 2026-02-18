@@ -3,6 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Github, Mail } from "lucide-react";
+
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/tutorials", label: "Tutorials" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contributors", label: "Contributors" },
+];
 
 export function Navbar() {
   const [isClient, setIsClient] = useState(false);
@@ -13,86 +22,66 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <nav className="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/80 backdrop-blur-lg">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo and Brand */}
+        <div className="flex h-14 items-center justify-between">
+          {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 transition-opacity hover:opacity-80"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
           >
             <Image
               src="/web-app-manifest-192x192.png"
               alt="Expo Icon Generator Logo"
-              width={32}
-              height={32}
+              width={28}
+              height={28}
               className="rounded-lg"
             />
-            <span className="text-xl font-bold text-gray-900">
+            <span className="text-sm font-bold text-white">
               Expo Icon Generator
             </span>
           </Link>
 
-          {/* Greeting Message */}
-          <div className="hidden items-center lg:flex">
-            <span className="rounded-full border border-sky-100 bg-sky-50 px-3 py-1 text-sm font-medium text-gray-600">
-              👋 Hello, Developer!
-            </span>
+          {/* Navigation Links */}
+          <div className="hidden items-center gap-1 md:flex">
+            {isClient
+              ? NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-md px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                ))
+              : NAV_LINKS.map((link) => (
+                  <span
+                    key={link.href}
+                    className="rounded-md px-3 py-1.5 text-sm text-gray-400"
+                  >
+                    {link.label}
+                  </span>
+                ))}
           </div>
 
-          {/* Navigation Links */}
-          <div className="hidden items-center gap-8 md:flex">
-            {isClient ? (
-              <>
-                <Link
-                  href="/"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/blog"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  Blog
-                </Link>
-                <Link
-                  href="/tutorials"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  Tutorials
-                </Link>
-                <Link
-                  href="/faq"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  FAQ
-                </Link>
-                <Link
-                  href="/contributors"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  Contributors
-                </Link>
-                <Link
-                  href="https://github.com/WebNaresh/expo-icon-generator"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-gray-600 transition-colors hover:text-sky-600"
-                >
-                  GitHub
-                </Link>
-              </>
-            ) : (
-              <>
-                <span className="font-medium text-gray-600">Home</span>
-                <span className="font-medium text-gray-600">Blog</span>
-                <span className="font-medium text-gray-600">Tutorials</span>
-                <span className="font-medium text-gray-600">FAQ</span>
-                <span className="font-medium text-gray-600">Contributors</span>
-                <span className="font-medium text-gray-600">GitHub</span>
-              </>
-            )}
+          {/* Right actions */}
+          <div className="flex items-center gap-2">
+            <Link
+              href="https://github.com/WebNaresh/expo-icon-generator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md p-2 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+              title="GitHub"
+            >
+              <Github className="h-4 w-4" />
+            </Link>
+            <a
+              href="mailto:bhosalenaresh73@gmail.com"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3.5 py-1.5 text-xs font-medium text-gray-900 transition-colors hover:bg-gray-200"
+            >
+              <Mail className="h-3 w-3" />
+              Hire Me
+            </a>
           </div>
         </div>
       </div>

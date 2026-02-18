@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/faq",
+  },
   title: "FAQ - Frequently Asked Questions | Expo Icon Generator",
   description: "Find answers to common questions about icon generation, Expo app development, platform requirements, and troubleshooting. Comprehensive FAQ for developers.",
   keywords: [

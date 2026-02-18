@@ -27,7 +27,7 @@ module.exports = {
   },
 
   // Exclude certain paths from sitemap
-  exclude: ["/api/*", "/_next/*", "/404", "/500"],
+  exclude: ["/api/*", "/_next/*", "/404", "/500", "/apple-icon.png", "/manifest.webmanifest", "/opengraph-image.png"],
 
   // Add back the important pages via additionalPaths but ensure single sitemap
   additionalPaths: async () => {

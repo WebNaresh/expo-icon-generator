@@ -181,25 +181,25 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gray-950">
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="mb-12 text-center">
           <div className="mb-6 flex justify-center">
-            <div className="rounded-full bg-blue-100 p-4">
-              <HelpCircle className="h-12 w-12 text-blue-600" />
+            <div className="rounded-full bg-gray-800 p-4">
+              <HelpCircle className="h-12 w-12 text-sky-400" />
             </div>
           </div>
-          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl">
             Frequently Asked Questions
           </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-gray-400">
             Find answers to common questions about icon generation, Expo
             development, and platform requirements. Can&apos;t find what
             you&apos;re looking for?
             <Link
               href="https://github.com/WebNaresh/expo-icon-generator/discussions"
-              className="font-medium text-blue-600 hover:text-blue-700"
+              className="font-medium text-sky-400 hover:text-sky-300"
             >
               {" "}
               Ask the community
@@ -210,23 +210,23 @@ export default function FAQPage() {
 
         {/* Search and Filter */}
         <div className="mx-auto mb-12 max-w-4xl">
-          <div className="rounded-xl bg-white p-6 shadow-lg">
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-6 shadow-lg">
             <div className="flex flex-col gap-4 lg:flex-row">
               <div className="relative flex-1">
-                <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+                <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search questions, answers, or topics..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 py-3 pr-4 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 py-3 pr-4 pl-10 text-white placeholder:text-gray-500 focus:border-transparent focus:ring-2 focus:ring-gray-500 focus:outline-none"
                 />
               </div>
               <div className="lg:w-64">
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white focus:border-transparent focus:ring-2 focus:ring-gray-500 focus:outline-none"
                 >
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -248,26 +248,26 @@ export default function FAQPage() {
                 return (
                   <div
                     key={faq.id}
-                    className="overflow-hidden rounded-xl bg-white shadow-md"
+                    className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900 shadow-md"
                   >
                     <button
                       onClick={() => toggleExpanded(faq.id)}
-                      className="w-full px-6 py-4 text-left transition-colors hover:bg-gray-50"
+                      className="w-full px-6 py-4 text-left transition-colors hover:bg-gray-800"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                          <h3 className="mb-2 text-lg font-semibold text-white">
                             {faq.question}
                           </h3>
                           <div className="flex items-center gap-2">
-                            <span className="rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
+                            <span className="rounded bg-gray-800 px-2 py-1 text-xs font-medium text-sky-400">
                               {faq.category}
                             </span>
                             <div className="flex gap-1">
                               {faq.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600"
+                                  className="rounded bg-gray-800 px-2 py-1 text-xs text-gray-400"
                                 >
                                   {tag}
                                 </span>
@@ -286,8 +286,8 @@ export default function FAQPage() {
                     </button>
                     {isExpanded && (
                       <div className="px-6 pb-6">
-                        <div className="border-t border-gray-200 pt-4">
-                          <p className="leading-relaxed text-gray-700">
+                        <div className="border-t border-gray-700 pt-4">
+                          <p className="leading-relaxed text-gray-400">
                             {faq.answer}
                           </p>
                         </div>
@@ -299,11 +299,11 @@ export default function FAQPage() {
             </div>
           ) : (
             <div className="py-12 text-center">
-              <Search className="mx-auto mb-4 h-12 w-12 text-gray-300" />
-              <h3 className="mb-2 text-xl font-semibold text-gray-900">
+              <Search className="mx-auto mb-4 h-12 w-12 text-gray-600" />
+              <h3 className="mb-2 text-xl font-semibold text-white">
                 No results found
               </h3>
-              <p className="mb-6 text-gray-600">
+              <p className="mb-6 text-gray-400">
                 Try adjusting your search terms or category filter.
               </p>
               <button
@@ -311,7 +311,7 @@ export default function FAQPage() {
                   setSearchTerm("");
                   setSelectedCategory("All");
                 }}
-                className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
+                className="rounded-lg bg-white px-6 py-2 text-gray-900 transition-colors hover:bg-gray-200"
               >
                 Clear Filters
               </button>
@@ -320,23 +320,23 @@ export default function FAQPage() {
         </div>
 
         {/* Help Section */}
-        <div className="mx-auto mt-16 max-w-4xl rounded-xl bg-linear-to-r from-blue-600 to-purple-600 p-8 text-center text-white">
-          <BookOpen className="mx-auto mb-4 h-12 w-12" />
-          <h2 className="mb-4 text-2xl font-bold">Still need help?</h2>
-          <p className="mb-6 text-lg opacity-90">
+        <div className="mx-auto mt-16 max-w-4xl rounded-xl border border-gray-800 bg-gray-900 p-8 text-center">
+          <BookOpen className="mx-auto mb-4 h-12 w-12 text-sky-400" />
+          <h2 className="mb-4 text-2xl font-bold text-white">Still need help?</h2>
+          <p className="mb-6 text-lg text-gray-400">
             Explore our comprehensive guides and tutorials, or join our
             community discussions.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/blog"
-              className="rounded-lg bg-white px-6 py-3 font-medium text-blue-600 transition-colors hover:bg-gray-100"
+              className="rounded-lg bg-white px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-200"
             >
               Read Our Blog
             </Link>
             <Link
               href="/tutorials"
-              className="rounded-lg bg-white/20 px-6 py-3 font-medium text-white transition-colors hover:bg-white/30"
+              className="rounded-lg border border-gray-700 px-6 py-3 font-medium text-gray-300 transition-colors hover:bg-gray-800"
             >
               View Tutorials
             </Link>
@@ -344,7 +344,7 @@ export default function FAQPage() {
               href="https://github.com/WebNaresh/expo-icon-generator/discussions"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg bg-white/20 px-6 py-3 font-medium text-white transition-colors hover:bg-white/30"
+              className="rounded-lg border border-gray-700 px-6 py-3 font-medium text-gray-300 transition-colors hover:bg-gray-800"
             >
               Community Support
             </Link>

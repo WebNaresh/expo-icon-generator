@@ -13,11 +13,16 @@ export { default as IconDetailModal } from './icon-detail-modal';
 export { default as StructuredData } from './structured-data';
 export { default as SEOContentSection } from './seo-content-section';
 export { default as CrossPromotionBanner } from './cross-promotion-banner';
+export { default as IconSettingsPanel } from './icon-settings-panel';
+export { default as TextLogoCreator } from './text-logo-creator';
+export { default as SplashSettings } from './splash-settings';
+export { default as AppJsonPreview } from './app-json-preview';
 
 // Custom hooks
 export { useFileUpload } from './use-file-upload';
 export { useContributors } from './use-contributors';
 export { useIconGeneration } from './use-icon-generation';
+export { useTextLogo } from './use-text-logo';
 
 // Types
 export type { GeneratedIcon, GeneratedIconData } from './types';

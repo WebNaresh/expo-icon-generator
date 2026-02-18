@@ -1,55 +1,44 @@
 export default function HowItWorksSection() {
+  const steps = [
+    {
+      number: "1",
+      title: "Upload or create",
+      description:
+        "Drop your logo or create a text-based icon. PNG, JPG, and SVG supported.",
+    },
+    {
+      number: "2",
+      title: "Customize",
+      description:
+        "Pick background colors, enable splash screen, and preview your icon.",
+    },
+    {
+      number: "3",
+      title: "Download",
+      description:
+        "Get all icons as a ZIP with app.json config, ready for your Expo project.",
+    },
+  ];
+
   return (
-    <div className="mx-auto mt-16 max-w-4xl rounded-2xl bg-white p-8 shadow-xl">
-      <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
-        How It Works
+    <div className="mx-auto max-w-4xl py-16">
+      <h2 className="mb-10 text-center text-2xl font-semibold text-white">
+        How it works
       </h2>
-      <div className="space-y-6">
-        <div className="flex items-start gap-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
-            1
-          </div>
-          <div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
-              Upload Your Source Image
+      <div className="grid gap-8 md:grid-cols-3">
+        {steps.map((step) => (
+          <div key={step.number} className="text-center">
+            <div className="mx-auto mb-4 flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-semibold text-gray-900">
+              {step.number}
+            </div>
+            <h3 className="mb-2 text-sm font-semibold text-white">
+              {step.title}
             </h3>
-            <p className="text-gray-600">
-              Drag and drop your logo or app icon (PNG, JPG, JPEG, or SVG) into
-              the upload area. Our smart color detection will suggest the best
-              background colors.
+            <p className="text-sm leading-relaxed text-gray-500">
+              {step.description}
             </p>
           </div>
-        </div>
-        <div className="flex items-start gap-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
-            2
-          </div>
-          <div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
-              Choose Background Color
-            </h3>
-            <p className="text-gray-600">
-              Select from our AI-suggested colors or pick your own. The
-              background color is applied to the main app icon (icon.png) with
-              your image centered at 70% size.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
-            3
-          </div>
-          <div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
-              Download Generated Icons
-            </h3>
-            <p className="text-gray-600">
-              Get all platform-specific icons instantly - iOS, Android, and web
-              formats, properly sized and optimized. Download individually or as
-              a ZIP file.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

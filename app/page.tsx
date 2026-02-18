@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   HeroSection,
   FileUploadArea,
+  IconSettingsPanel,
   GeneratedIconsDisplay,
   FeaturesSection,
   ContributorsSection,
@@ -20,6 +21,37 @@ import {
   useIconGeneration,
 } from "./_components";
 
+function buildAppJson(
+  backgroundColor: string,
+  splashBackgroundColor: string,
+  splashEnabled: boolean
+) {
+  const config: Record<string, unknown> = {
+    expo: {
+      icon: "./assets/icon.png",
+      ...(splashEnabled
+        ? {
+            splash: {
+              image: "./assets/splash.png",
+              resizeMode: "contain",
+              backgroundColor: splashBackgroundColor,
+            },
+          }
+        : {}),
+      android: {
+        adaptiveIcon: {
+          foregroundImage: "./assets/adaptive-icon.png",
+          backgroundColor: backgroundColor,
+        },
+      },
+      web: {
+        favicon: "./assets/favicon.png",
+      },
+    },
+  };
+  return JSON.stringify(config, null, 2);
+}
+
 export default function HomePage() {
   // Use custom hooks for separated concerns
   const {
@@ -30,7 +62,10 @@ export default function HomePage() {
     backgroundColor,
     colorAnalysis,
     isAnalyzingColors,
+    splashEnabled,
+    splashBackgroundColor,
     setBackgroundColor,
+    handleFileUpload,
     handleDragOver,
     handleDragLeave,
     handleDrop,
@@ -39,6 +74,8 @@ export default function HomePage() {
     handleKeyDown,
     handleUploadAreaFocus,
     handleUploadAreaBlur,
+    setSplashEnabled,
+    setSplashBackgroundColor,
   } = useFileUpload();
 
   const {
@@ -97,80 +134,113 @@ export default function HomePage() {
   // Handle icon generation
   const handleGenerateIcons = async () => {
     if (!uploadedFile) return;
-    await generateIcons(uploadedFile.file, backgroundColor);
+    await generateIcons(
+      uploadedFile.file,
+      backgroundColor,
+      splashEnabled,
+      splashBackgroundColor
+    );
   };
+
+  // Handle text logo created — feed into upload pipeline
+  const handleTextLogoCreated = useCallback(
+    (file: File) => {
+      handleFileUpload(file);
+    },
+    [handleFileUpload]
+  );
+
+  // Handle download all with app.json included
+  const handleDownloadAll = useCallback(() => {
+    const appJson = buildAppJson(
+      backgroundColor,
+      splashBackgroundColor,
+      splashEnabled
+    );
+    downloadAllIcons(appJson);
+  }, [backgroundColor, splashBackgroundColor, splashEnabled, downloadAllIcons]);
 
   // Combine errors from different hooks
   const displayError = error || iconError;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-sky-50">
-      {/* Structured Data for SEO */}
+    <div className="min-h-screen bg-gray-950">
       <StructuredData />
 
       <div className="container mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <HeroSection />
-
-        {/* Upload Section */}
-        <div className="mx-auto max-w-4xl">
+        {/* Hero: content left + upload right */}
+        <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2">
+          <HeroSection />
           <FileUploadArea
             uploadedFile={uploadedFile}
-            isGenerating={isGenerating}
             isDragOver={isDragOver}
             isPasteReady={isPasteReady}
-            error={displayError}
-            backgroundColor={backgroundColor}
-            colorAnalysis={colorAnalysis}
-            isAnalyzingColors={isAnalyzingColors}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             onFileInputChange={handleFileInputChange}
             onUploadAreaFocus={handleUploadAreaFocus}
             onUploadAreaBlur={handleUploadAreaBlur}
-            onBackgroundColorChange={setBackgroundColor}
-            onGenerateIcons={handleGenerateIcons}
-          />
-
-          {/* Generated Icons Section */}
-          <GeneratedIconsDisplay
-            generatedIcons={generatedIcons}
-            onDownloadIcon={downloadIcon}
-            onDownloadAllIcons={downloadAllIcons}
+            onTextLogoCreated={handleTextLogoCreated}
           />
         </div>
 
-        {/* Features Section */}
+        {/* Error display */}
+        {displayError && (
+          <div className="mx-auto mt-4 max-w-5xl">
+            <p className="rounded-lg border border-red-800 bg-red-950 px-4 py-2.5 text-sm text-red-400">
+              {displayError}
+            </p>
+          </div>
+        )}
+
+        {/* Settings panel — shown when file uploaded */}
+        {uploadedFile && (
+          <div className="mx-auto mt-10 max-w-5xl">
+            <IconSettingsPanel
+              uploadedFile={uploadedFile}
+              isGenerating={isGenerating}
+              backgroundColor={backgroundColor}
+              colorAnalysis={colorAnalysis}
+              isAnalyzingColors={isAnalyzingColors}
+              splashEnabled={splashEnabled}
+              splashBackgroundColor={splashBackgroundColor}
+              onBackgroundColorChange={setBackgroundColor}
+              onGenerateIcons={handleGenerateIcons}
+              onSplashEnabledChange={setSplashEnabled}
+              onSplashBackgroundColorChange={setSplashBackgroundColor}
+            />
+          </div>
+        )}
+
+        {/* Generated Icons */}
+        <div className="mx-auto mt-10 max-w-5xl">
+          <GeneratedIconsDisplay
+            generatedIcons={generatedIcons}
+            backgroundColor={backgroundColor}
+            splashBackgroundColor={splashBackgroundColor}
+            splashEnabled={splashEnabled}
+            onDownloadIcon={downloadIcon}
+            onDownloadAllIcons={handleDownloadAll}
+          />
+        </div>
+
         <FeaturesSection />
-
-        {/* Cross-promotion Banner */}
         <CrossPromotionBanner />
-
-        {/* SEO Content Section */}
         <SEOContentSection />
 
-        {/* Contributors Section */}
         <ContributorsSection
           contributors={contributors}
           isLoadingContributors={isLoadingContributors}
           contributorsError={contributorsError}
         />
 
-        {/* Instructions Section */}
         <HowItWorksSection />
-
-        {/* Comprehensive Guide Section */}
         <ComprehensiveGuideSection />
-
-        {/* Technical Specifications */}
         <TechnicalSpecificationsSection />
-
-        {/* App Store Optimization Section */}
         <AppStoreOptimizationSection />
       </div>
 
-      {/* Feedback Modal */}
       <FeedbackModal
         isOpen={showFeedbackModal}
         onClose={closeFeedbackModal}

@@ -23,13 +23,13 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
 
 // Icon specifications
 const ICON_SPECS = [
-  { name: 'adaptive-icon.png', width: 1024, height: 1024, description: '1024×1024px (Android adaptive icon)' },
-  { name: 'favicon.png', width: 48, height: 48, description: '48×48px (Web favicon)' },
-  { name: 'icon.png', width: 1024, height: 1024, description: '1024×1024px (Main app icon with background)' },
-  { name: 'react-logo.png', width: 100, height: 100, description: '100×100px (1x density)' },
-  { name: 'react-logo@2x.png', width: 200, height: 200, description: '200×200px (2x density)' },
-  { name: 'react-logo@3x.png', width: 300, height: 300, description: '300×300px (3x density)' },
-  { name: 'splash-icon.png', width: 1024, height: 1024, description: '1024×1024px (Splash screen icon)' },
+  { name: 'adaptive-icon.png', width: 1024, height: 1024, description: '1024x1024px (Android adaptive icon)' },
+  { name: 'favicon.png', width: 48, height: 48, description: '48x48px (Web favicon)' },
+  { name: 'icon.png', width: 1024, height: 1024, description: '1024x1024px (Main app icon with background)' },
+  { name: 'react-logo.png', width: 100, height: 100, description: '100x100px (1x density)' },
+  { name: 'react-logo@2x.png', width: 200, height: 200, description: '200x200px (2x density)' },
+  { name: 'react-logo@3x.png', width: 300, height: 300, description: '300x300px (3x density)' },
+  { name: 'splash-icon.png', width: 1024, height: 1024, description: '1024x1024px (Splash screen icon)' },
 ];
 
 // Special handling for partial-react-logo.png (crop top-right section)
@@ -37,7 +37,15 @@ const PARTIAL_LOGO_SPEC = {
   name: 'partial-react-logo.png',
   width: 518,
   height: 316,
-  description: '518×316px (Cropped top-right section)'
+  description: '518x316px (Cropped top-right section)'
+};
+
+// Splash screen spec (modern phone resolution)
+const SPLASH_SPEC = {
+  name: 'splash.png',
+  width: 1284,
+  height: 2778,
+  description: '1284x2778px (Splash screen)'
 };
 
 export async function POST(request: NextRequest) {
@@ -45,6 +53,8 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get('image') as File;
     const backgroundColor = formData.get('backgroundColor') as string || '#ffffff';
+    const generateSplash = formData.get('generateSplash') === 'true';
+    const splashBackgroundColor = formData.get('splashBackgroundColor') as string || backgroundColor;
 
     if (!file) {
       return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
@@ -157,10 +167,11 @@ export async function POST(request: NextRequest) {
             });
           }
         }
-        // For splash-icon, add padding/background
+        // For splash-icon, use splash background color if provided
         else if (spec.name === 'splash-icon.png') {
-          // Create a white background and composite the icon in the center
-          const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8)); // 80% of target size, rounded to integer
+          const splashBg = generateSplash ? hexToRgb(splashBackgroundColor) : { r: 255, g: 255, b: 255 };
+          // Create a background and composite the icon in the center
+          const iconSize = Math.round(Math.min(spec.width * 0.8, spec.height * 0.8));
           const topPadding = Math.floor((spec.height - iconSize) / 2);
           const bottomPadding = Math.ceil((spec.height - iconSize) / 2);
           const leftPadding = Math.floor((spec.width - iconSize) / 2);
@@ -173,7 +184,7 @@ export async function POST(request: NextRequest) {
               bottom: bottomPadding,
               left: leftPadding,
               right: rightPadding,
-              background: { r: 255, g: 255, b: 255, alpha: 0 }
+              background: { ...splashBg, alpha: 0 }
             });
         } else {
           // Standard resize with high-quality scaling
@@ -252,6 +263,60 @@ export async function POST(request: NextRequest) {
     } catch (error) {
       console.error('Error processing partial-react-logo.png:', error);
       throw new Error(`Failed to process partial-react-logo.png: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
+    // Generate splash.png if enabled
+    if (generateSplash) {
+      try {
+        const splashBg = hexToRgb(splashBackgroundColor);
+
+        // Create the splash background
+        const splashBackground = sharp({
+          create: {
+            width: SPLASH_SPEC.width,
+            height: SPLASH_SPEC.height,
+            channels: 4,
+            background: { r: splashBg.r, g: splashBg.g, b: splashBg.b, alpha: 1 }
+          }
+        });
+
+        // Resize logo to 35% of splash width, centered
+        const logoWidth = Math.round(SPLASH_SPEC.width * 0.35);
+        const resizedLogo = await originalImage.clone()
+          .resize(logoWidth, logoWidth, {
+            fit: 'contain',
+            background: { r: 255, g: 255, b: 255, alpha: 0 }
+          })
+          .png()
+          .toBuffer();
+
+        const resizedMeta = await sharp(resizedLogo).metadata();
+        const logoHeight = resizedMeta.height || logoWidth;
+
+        const splashBuffer = await splashBackground
+          .composite([{
+            input: resizedLogo,
+            top: Math.floor((SPLASH_SPEC.height - logoHeight) / 2),
+            left: Math.floor((SPLASH_SPEC.width - logoWidth) / 2),
+          }])
+          .png()
+          .toBuffer();
+
+        const splashBase64 = splashBuffer.toString('base64');
+        const splashDataUrl = `data:image/png;base64,${splashBase64}`;
+
+        generatedIcons.push({
+          name: SPLASH_SPEC.name,
+          size: SPLASH_SPEC.description,
+          url: splashDataUrl,
+          buffer: splashBuffer
+        });
+
+        console.log(`Generated splash.png: ${SPLASH_SPEC.width}x${SPLASH_SPEC.height}`);
+      } catch (error) {
+        console.error('Error generating splash.png:', error);
+        throw new Error(`Failed to generate splash.png: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
     }
 
     // Return the generated icons (without buffers for response size)

@@ -3,6 +3,9 @@ import Link from "next/link";
 import { Calendar, Clock, User, ArrowRight, Tag } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/blog",
+  },
   title: "Blog - Icon Generation Guides & Tutorials",
   description:
     "Comprehensive guides, tutorials, and best practices for icon generation, mobile app development, and Expo React Native apps. Learn from expert insights and real-world examples.",
@@ -41,21 +44,21 @@ export default function BlogPage() {
   const recentPosts = blogPosts.filter((post) => !post.featured);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-sky-50">
+    <div className="min-h-screen bg-gray-950">
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="mb-16 text-center">
-          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-6xl">
+          <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl">
             Icon Generation Blog
           </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-gray-400">
             Expert guides, tutorials, and insights for creating perfect icons
             for your mobile applications. Learn from real-world examples and
             industry best practices.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
             <span className="flex items-center gap-2">
-              <Tag className="h-4 w-4 text-blue-500" />
+              <Tag className="h-4 w-4 text-sky-400" />
               Expert Tutorials
             </span>
             <span className="flex items-center gap-2">
@@ -71,18 +74,18 @@ export default function BlogPage() {
 
         {/* Featured Posts */}
         <section className="mb-16">
-          <h2 className="mb-8 text-3xl font-bold text-gray-900">
+          <h2 className="mb-8 text-3xl font-bold text-white">
             Featured Articles
           </h2>
           <div className="grid gap-8 md:grid-cols-2">
             {featuredPosts.map((post) => (
               <article
                 key={post.slug}
-                className="overflow-hidden rounded-xl bg-white shadow-lg transition-shadow hover:shadow-xl"
+                className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900 shadow-lg transition-shadow hover:shadow-xl"
               >
                 <div className="p-8">
                   <div className="mb-4 flex items-center gap-4">
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+                    <span className="rounded-full bg-gray-800 px-3 py-1 text-sm font-medium text-sky-400">
                       {post.category}
                     </span>
                     <span className="flex items-center gap-1 text-sm text-gray-500">
@@ -90,10 +93,10 @@ export default function BlogPage() {
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="mb-4 text-2xl font-bold text-gray-900 transition-colors hover:text-blue-600">
+                  <h3 className="mb-4 text-2xl font-bold text-white transition-colors hover:text-sky-400">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h3>
-                  <p className="mb-6 leading-relaxed text-gray-600">
+                  <p className="mb-6 leading-relaxed text-gray-400">
                     {post.description}
                   </p>
                   <div className="flex items-center justify-between">
@@ -108,7 +111,7 @@ export default function BlogPage() {
                     </div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
+                      className="flex items-center gap-2 font-medium text-sky-400 hover:text-sky-300"
                     >
                       Read More
                       <ArrowRight className="h-4 w-4" />
@@ -126,7 +129,7 @@ export default function BlogPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                className="rounded-full border border-gray-300 px-6 py-2 text-gray-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                className="rounded-full border border-gray-700 px-6 py-2 text-gray-400 transition-colors hover:border-gray-600 hover:bg-gray-800 hover:text-white"
               >
                 {category}
               </button>
@@ -136,35 +139,35 @@ export default function BlogPage() {
 
         {/* Recent Posts */}
         <section>
-          <h2 className="mb-8 text-3xl font-bold text-gray-900">
+          <h2 className="mb-8 text-3xl font-bold text-white">
             Recent Articles
           </h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {recentPosts.map((post) => (
               <article
                 key={post.slug}
-                className="overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg"
+                className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900 shadow-md transition-shadow hover:shadow-lg"
               >
                 <div className="p-6">
                   <div className="mb-3 flex items-center gap-3">
-                    <span className="rounded bg-gray-100 px-2 py-1 text-sm text-gray-700">
+                    <span className="rounded bg-gray-800 px-2 py-1 text-sm text-gray-400">
                       {post.category}
                     </span>
                     <span className="text-sm text-gray-500">
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors hover:text-blue-600">
+                  <h3 className="mb-3 text-xl font-bold text-white transition-colors hover:text-sky-400">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h3>
-                  <p className="mb-4 text-sm leading-relaxed text-gray-600">
+                  <p className="mb-4 text-sm leading-relaxed text-gray-400">
                     {post.description}
                   </p>
                   <div className="mb-4 flex flex-wrap gap-2">
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded bg-blue-50 px-2 py-1 text-xs text-blue-600"
+                        className="rounded bg-gray-800 px-2 py-1 text-xs text-sky-400"
                       >
                         #{tag}
                       </span>
@@ -176,7 +179,7 @@ export default function BlogPage() {
                     </span>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="font-medium text-blue-600 hover:text-blue-700"
+                      className="font-medium text-sky-400 hover:text-sky-300"
                     >
                       Read →
                     </Link>
@@ -188,11 +191,11 @@ export default function BlogPage() {
         </section>
 
         {/* Newsletter Signup */}
-        <section className="mt-16 rounded-xl bg-white p-8 text-center shadow-lg">
-          <h3 className="mb-4 text-2xl font-bold text-gray-900">
+        <section className="mt-16 rounded-xl border border-gray-800 bg-gray-900 p-8 text-center shadow-lg">
+          <h3 className="mb-4 text-2xl font-bold text-white">
             Stay Updated with Icon Generation Tips
           </h3>
-          <p className="mx-auto mb-6 max-w-2xl text-gray-600">
+          <p className="mx-auto mb-6 max-w-2xl text-gray-400">
             Get the latest tutorials, best practices, and industry insights
             delivered to your inbox. Join thousands of developers improving
             their app icon game.
@@ -201,9 +204,9 @@ export default function BlogPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="flex-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-gray-500 focus:outline-none"
             />
-            <button className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700">
+            <button className="rounded-lg bg-white px-6 py-2 text-gray-900 transition-colors hover:bg-gray-200">
               Subscribe
             </button>
           </div>
