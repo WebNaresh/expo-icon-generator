@@ -1,0 +1,42 @@
+# Expo Assets Generator
+
+> Free online tool that generates all required Expo/React Native app icons from a single image upload.
+
+## What it does
+
+Upload one PNG/JPG/SVG and instantly receive:
+- icon.png (1024×1024) — main app icon
+- adaptive-icon.png (1024×1024) — Android adaptive icon foreground
+- splash-icon.png (1024×1024) — splash screen icon
+- splash.png (1284×2778) — full splash screen
+- favicon.png (48×48) — web favicon
+- react-logo.png / @2x / @3x — React Native logo assets
+- partial-react-logo.png — partial logo variant
+- app.json — ready-to-use Expo config snippet
+
+## Features
+
+- 100% free, no sign-up required
+- Client-side processing (images never leave your browser for icon generation)
+- Supports PNG, JPG, JPEG, SVG input
+- Background color picker with auto-detection from image
+- Text logo creator — generate an icon from text without any design tools
+- Instant ZIP download of all assets
+
+## Tech Stack
+
+Next.js 16, React 19, Tailwind CSS v4, Sharp (server-side image processing), TypeScript
+
+## Pages
+
+- / — Main icon generator tool
+- /blog — Articles about Expo icon requirements, design best practices, automation
+- /tutorials — Step-by-step guides for Expo app development and deployment
+- /faq — Answers to common questions about icon formats and generation
+- /contributors — GitHub contributors to the open-source project
+
+## Links
+
+- App: https://expo-assets-generator.vercel.app
+- GitHub: https://github.com/WebNaresh/expo-icon-generator
+- Blog: https://expo-assets-generator.vercel.app/blog
