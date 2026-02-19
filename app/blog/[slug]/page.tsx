@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, User, ArrowLeft, Tag, Share2 } from "lucide-react";
 
 import { blogPosts, type BlogPost } from "../../_data/blog-posts";
+
+function renderMarkdown(content: string): string {
+  return content
+    .replace(
+      /^(#{1,6})\s+(.+)$/gm,
+      (_, hashes: string, text: string) => {
+        const level = hashes.length;
+        const sizes = ["4xl", "3xl", "2xl", "xl", "lg", "base"];
+        const size = sizes[level - 1] ?? "base";
+        return `<h${level} class="text-${size} font-bold text-white mt-8 mb-4">${text.trim()}</h${level}>`;
+      }
+    )
+    .replace(/\n/g, "<br />")
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+}
 
 const getBlogPost = async (slug: string): Promise<BlogPost | null> => {
   return blogPosts.find((post) => post.slug === slug) || null;
@@ -58,8 +74,39 @@ export default async function BlogPostPage({
     notFound();
   }
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Expo Icon Generator",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://expo-assets-generator.vercel.app/web-app-manifest-512x512.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://expo-assets-generator.vercel.app/blog/${post.slug}`,
+    },
+    keywords: post.tags.join(", "),
+  };
+
   return (
     <div className="min-h-screen bg-gray-950">
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <div className="container mx-auto max-w-4xl px-4 py-12">
         {/* Back Navigation */}
         <Link
@@ -120,15 +167,7 @@ export default async function BlogPostPage({
           <div
             className="leading-relaxed"
             dangerouslySetInnerHTML={{
-              __html: post.content
-                .replace(/\n/g, "<br />")
-                .replace(/#{1,6}\s/g, (match) => {
-                  const level = match.trim().length;
-                  return `<h${level} class="text-${
-                    4 - level
-                  }xl font-bold text-white mt-8 mb-4">`;
-                })
-                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"),
+              __html: renderMarkdown(post.content),
             }}
           />
         </article>
