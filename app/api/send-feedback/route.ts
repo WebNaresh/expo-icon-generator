@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       ${feedbackSection}
       <hr>
       <p><em>Sent from Expo Icon Generator Feedback System</em></p>
-      <p><em>Timestamp: ${new Date().toISOString()}</em></p>
+      <p><em>Timestamp: ${new Date().toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short', timeZone: 'UTC' })} UTC</em></p>
     `;
 
         // Send email
