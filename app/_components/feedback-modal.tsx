@@ -28,11 +28,11 @@ interface FeedbackData {
   rating?: Rating;
 }
 
-const REACTIONS: { rating: Rating; emoji: string; label: string }[] = [
-  { rating: "love_it", emoji: "😍", label: "Love it!" },
-  { rating: "good", emoji: "👍", label: "Good" },
-  { rating: "okay", emoji: "😐", label: "Okay" },
-  { rating: "bad", emoji: "👎", label: "Bad" },
+const REACTIONS: { rating: Rating; emoji: string; label: string; placeholder: string }[] = [
+  { rating: "love_it", emoji: "😍", label: "Love it!", placeholder: "What did you love most? Any features you'd like to see next?" },
+  { rating: "good", emoji: "👍", label: "Good", placeholder: "What worked well? What could make it even better?" },
+  { rating: "okay", emoji: "😐", label: "Okay", placeholder: "What was missing or didn't work as expected?" },
+  { rating: "bad", emoji: "👎", label: "Bad", placeholder: "What went wrong? We'd love to fix it." },
 ];
 
 const submitFeedback = async (data: FeedbackData): Promise<void> => {
@@ -92,16 +92,8 @@ export default function FeedbackModal({
 
   const handleReactionClick = (rating: Rating) => {
     if (feedbackMutation.isPending || feedbackMutation.isSuccess) return;
-
     setSelectedRating(rating);
-
-    if (!showComment) {
-      feedbackMutation.mutate({
-        feedback: "",
-        downloadType,
-        rating,
-      });
-    }
+    setShowComment(true);
   };
 
   const handleSubmitWithComment = () => {
@@ -160,23 +152,22 @@ export default function FeedbackModal({
               ))}
             </div>
 
-            {!showComment ? (
-              <button
-                type="button"
-                onClick={() => setShowComment(true)}
-                className="mx-auto flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-300"
-              >
-                <MessageSquare className="h-3.5 w-3.5" />
-                Add a comment (optional)
-              </button>
-            ) : (
-              <div className="space-y-3">
+            {showComment && (
+              <div className="space-y-1.5">
+                <p className="flex items-center gap-1.5 text-xs text-gray-500">
+                  <MessageSquare className="h-3.5 w-3.5" />
+                  What&apos;s on your mind? (optional)
+                </p>
                 <Textarea
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
-                  placeholder="Any suggestions?"
+                  placeholder={
+                    REACTIONS.find((r) => r.rating === selectedRating)
+                      ?.placeholder ?? "Any suggestions?"
+                  }
                   rows={2}
                   disabled={feedbackMutation.isPending}
+                  autoFocus
                 />
               </div>
             )}
@@ -199,18 +190,14 @@ export default function FeedbackModal({
               >
                 Skip
               </Button>
-              {showComment && (
-                <Button
-                  type="button"
-                  onClick={handleSubmitWithComment}
-                  disabled={
-                    feedbackMutation.isPending || !selectedRating
-                  }
-                  className="flex-1"
-                >
-                  {feedbackMutation.isPending ? "Sending..." : "Send"}
-                </Button>
-              )}
+              <Button
+                type="button"
+                onClick={handleSubmitWithComment}
+                disabled={feedbackMutation.isPending || !selectedRating}
+                className="flex-1"
+              >
+                {feedbackMutation.isPending ? "Sending..." : "Send"}
+              </Button>
             </div>
           </>
         )}
