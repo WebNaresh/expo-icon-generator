@@ -1,0 +1,30 @@
+{
+  "dir": "./",
+  "ignore": {
+    "routes": [
+      "/api/auth/[...nextauth]",
+      "/api/auth"
+    ],
+    "folders": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/coverage/**"
+    ],
+    "files": [
+      "public/ads.txt",
+      "public/llms.txt"
+    ]
+  },
+  "extensions": [
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx"
+  ],
+  "nestGlobalPrefix": "",
+  "extraRoutePatterns": []
+}
