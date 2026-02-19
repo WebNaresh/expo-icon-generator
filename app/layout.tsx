@@ -19,12 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default:
-      "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
-    template: "%s | Expo Assets Generator",
+    default: "Expo Icon Generator — Free Expo & React Native Icons",
+    template: "%s | Expo Icon Generator",
   },
   description:
-    "Free Expo Assets Generator and Icon Generator for React Native apps. Generate iOS, Android, and web icons from one image. Create adaptive icons, app store icons, and all expo icon sizes automatically. Perfect for expo app icon generation, react native icon generator needs, and app development workflow.",
+    "Generate iOS, Android, and web icons for your Expo app from one image. Create adaptive icons, app store icons, and splash screens automatically. Free, no signup required.",
   keywords: [
     // High-performing keywords from Google Search Console (prioritized by CTR and impressions)
     "expo assets generator",
@@ -115,10 +114,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title:
-      "Expo Assets Generator - Free Icon Generator for React Native Apps | Expo Icons",
+    title: "Expo Icon Generator — Free Expo & React Native Icons",
     description:
-      "Free Expo Assets Generator and Icon Generator for React Native apps. Generate iOS, Android, and web icons from one image. Create adaptive icons, app store icons, and all expo icon sizes automatically.",
+      "Generate iOS, Android, and web icons for your Expo app from one image. Create adaptive icons, app store icons, and splash screens automatically. Free, no signup.",
     url: "https://expo-assets-generator.vercel.app",
     siteName: "Expo Assets Generator",
     images: [
@@ -142,12 +140,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Expo Assets Generator - Free Icon Generator for React Native Apps",
+    title: "Expo Icon Generator — Free Expo & React Native Icons",
     description:
-      "Free Expo Assets Generator and Icon Generator for React Native apps. Generate iOS, Android, and web icons from one image. Create adaptive icons automatically.",
+      "Generate iOS, Android, and web icons for your Expo app from one image. Free, no signup required.",
     images: ["https://expo-assets-generator.vercel.app/opengraph-image.png"],
-    creator: "@expo_icons",
-    site: "@expo_icons",
   },
   robots: {
     index: true,
