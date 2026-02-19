@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { SupportButton } from "./support-button";
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: "/thanks-gift",
+  robots: {
+    index: false,
+    follow: false,
   },
   title: "Support Our Work | Expo Icon Generator",
   description:
