@@ -68,15 +68,15 @@ export default function TutorialsPage() {
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <span className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-purple-500" />
-              <span className="font-medium">50+ Tutorials</span>
+              <span className="font-medium">6 In-depth Tutorials</span>
             </span>
             <span className="flex items-center gap-2">
               <Users className="h-5 w-5 text-sky-400" />
-              <span className="font-medium">25,000+ Students</span>
+              <span className="font-medium">Open Source</span>
             </span>
             <span className="flex items-center gap-2">
               <Star className="h-5 w-5 text-yellow-500" />
-              <span className="font-medium">4.8 Average Rating</span>
+              <span className="font-medium">Free Forever</span>
             </span>
           </div>
         </div>
