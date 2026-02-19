@@ -12,6 +12,25 @@ import {
 } from "lucide-react";
 import { tutorials, type Tutorial } from "../../_data/tutorials";
 
+function renderMarkdown(content: string): string {
+  return content
+    .replace(
+      /^(#{1,6})\s+(.+)$/gm,
+      (_, hashes: string, text: string) => {
+        const level = hashes.length;
+        const sizes = ["4xl", "3xl", "2xl", "xl", "lg", "base"];
+        const size = sizes[level - 1] ?? "base";
+        return `<h${level} class="text-${size} font-bold text-white mt-8 mb-4">${text.trim()}</h${level}>`;
+      }
+    )
+    .replace(/\n/g, "<br />")
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(
+      /`([^`]+)`/g,
+      '<code class="bg-gray-800 px-2 py-1 rounded text-sm">$1</code>'
+    );
+}
+
 const getTutorial = async (slug: string): Promise<Tutorial | null> => {
   return tutorials.find((tutorial) => tutorial.slug === slug) || null;
 };
@@ -120,19 +139,7 @@ export default async function TutorialPage({
               <div
                 className="leading-relaxed"
                 dangerouslySetInnerHTML={{
-                  __html: tutorial.content
-                    .replace(/\n/g, "<br />")
-                    .replace(/#{1,6}\s/g, (match) => {
-                      const level = match.trim().length;
-                      return `<h${level} class="text-${
-                        4 - level
-                      }xl font-bold text-white mt-8 mb-4">`;
-                    })
-                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-                    .replace(
-                      /`([^`]+)`/g,
-                      '<code class="bg-gray-800 px-2 py-1 rounded text-sm">$1</code>'
-                    ),
+                  __html: renderMarkdown(tutorial.content),
                 }}
               />
             </article>
