@@ -16,7 +16,8 @@
     ],
     "files": [
       "public/ads.txt",
-      "public/llms.txt"
+      "public/llms.txt",
+      "proxy.ts"
     ]
   },
   "extensions": [
