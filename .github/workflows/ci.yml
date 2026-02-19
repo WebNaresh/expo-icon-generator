@@ -22,6 +22,34 @@ jobs:
 
       - run: bun run build
 
+  cypress:
+    name: Cypress API Tests
+    runs-on: ubuntu-latest
+    needs: check
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: Start Next.js dev server
+        run: bun run dev &
+        env:
+          # Subscribe API falls back gracefully when token is not set
+          RELEASE_TOKEN: ""
+          NEXT_GMAIL_USER: ""
+          NEXT_GMAIL_PASSWORD: ""
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:8888 --timeout 60000
+
+      - name: Run Cypress API tests
+        run: bun run cypress:run --spec "cypress/e2e/api-*.cy.ts"
+
   commitlint:
     name: Commit Messages
     runs-on: ubuntu-latest
