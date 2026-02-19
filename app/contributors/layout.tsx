@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  title: "Contributors — Expo Icon Generator Open Source",
+  description:
+    "Meet the open source contributors who built and maintain the Expo Icon Generator. Their expertise helps developers worldwide generate app icons for iOS, Android, and web from a single image.",
   alternates: {
     canonical: "/contributors",
   },
-  title: "Contributors | Expo Icon Generator",
-  description:
-    "Meet the amazing developers who contribute to Expo Icon Generator. Open source contributors making icon generation easier for React Native developers.",
   openGraph: {
-    title: "Contributors | Expo Icon Generator",
+    title: "Contributors — Expo Icon Generator",
     description:
-      "Meet the developers behind Expo Icon Generator",
+      "Meet the open source contributors who built the Expo Icon Generator tool.",
     type: "website",
+    url: "https://expo-assets-generator.vercel.app/contributors",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -20,5 +25,5 @@ export default function ContributorsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <>{children}</>;
 }
