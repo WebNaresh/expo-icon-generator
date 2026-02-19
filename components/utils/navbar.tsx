@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Github, Mail } from "lucide-react";
+import { Github, Mail, LogIn, LogOut } from "lucide-react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [isClient, setIsClient] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -82,6 +84,40 @@ export function Navbar() {
               <Mail className="h-3 w-3" />
               Hire Me
             </a>
+            {isClient && (
+              session ? (
+                <div className="flex items-center gap-2">
+                  {session.user?.image && (
+                    <Image
+                      src={session.user.image}
+                      alt={session.user.name ?? "User"}
+                      width={28}
+                      height={28}
+                      className="rounded-full"
+                    />
+                  )}
+                  <span className="hidden max-w-24 truncate text-xs text-gray-400 sm:block">
+                    {session.user?.name}
+                  </span>
+                  <button
+                    onClick={() => signOut()}
+                    className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+                    title="Sign Out"
+                  >
+                    <LogOut className="h-3 w-3" />
+                    <span className="hidden sm:inline">Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => signIn()}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-sky-500 px-3 py-1.5 text-xs font-medium text-sky-400 transition-colors hover:bg-sky-500/10"
+                >
+                  <LogIn className="h-3 w-3" />
+                  Sign In
+                </button>
+              )
+            )}
           </div>
         </div>
       </div>
