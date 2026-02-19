@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 };
 
 import { blogPosts } from "../_data/blog-posts";
+import NewsletterForm from "./_components/newsletter-form";
 
 const categories = [
   "All",
@@ -190,27 +191,7 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Newsletter Signup */}
-        <section className="mt-16 rounded-xl border border-gray-800 bg-gray-900 p-8 text-center shadow-lg">
-          <h3 className="mb-4 text-2xl font-bold text-white">
-            Stay Updated with Icon Generation Tips
-          </h3>
-          <p className="mx-auto mb-6 max-w-2xl text-gray-400">
-            Get the latest tutorials, best practices, and industry insights
-            delivered to your inbox. Join thousands of developers improving
-            their app icon game.
-          </p>
-          <div className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-gray-500 focus:outline-none"
-            />
-            <button className="rounded-lg bg-white px-6 py-2 text-gray-900 transition-colors hover:bg-gray-200">
-              Subscribe
-            </button>
-          </div>
-        </section>
+        <NewsletterForm />
       </div>
     </div>
   );
