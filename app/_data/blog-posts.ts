@@ -14,11 +14,11 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
     {
         slug: "complete-guide-expo-icon-generation",
-        title: "The Complete Guide to Expo Icon Generation in 2024",
+        title: "The Complete Guide to Expo Icon Generation in 2026",
         description:
             "Master the art of creating perfect icons for your Expo React Native apps. Learn about sizing, formats, optimization techniques, and platform-specific requirements.",
         content: `
-# The Complete Guide to Expo Icon Generation in 2024
+# The Complete Guide to Expo Icon Generation in 2026
 
 Creating the perfect icon for your Expo React Native app is crucial for user engagement and app store success. This comprehensive guide covers everything you need to know about icon generation, from basic requirements to advanced optimization techniques.
 
@@ -179,7 +179,7 @@ Remember to always test your icons on real devices and gather user feedback to e
 Ready to generate perfect icons for your Expo app? Try our **Expo Icon Generator tool** to automate the entire process.
     `,
     author: "Naresh Bhosale",
-        publishedAt: "2024-01-15",
+        publishedAt: "2026-01-15",
             readTime: "12 min read",
                 category: "Tutorial",
                     tags: ["expo", "react-native", "icons", "mobile-development"],
@@ -374,7 +374,7 @@ The adaptive icon system consists of two layers:
 Ready to create compliant icons for both platforms ? Use our ** Expo Icon Generator ** to automatically generate all required sizes and formats.
     `,
         author: "Naresh Bhosale",
-        publishedAt: "2024-01-10",
+        publishedAt: "2026-01-10",
         readTime: "8 min read",
         category: "Guide",
         tags: ["ios", "android", "app-store", "guidelines"],
@@ -443,7 +443,7 @@ Great icon design is a blend of art and science.By focusing on simplicity, scala
 Ready to generate your optimized icons ? Use our ** Expo Icon Generator ** to ensure your designs meet all technical specifications automatically.
     `,
         author: "Naresh Bhosale",
-        publishedAt: "2024-01-05",
+        publishedAt: "2026-01-05",
         readTime: "10 min read",
         category: "Design",
         tags: ["design", "ui-ux", "accessibility", "branding"],
@@ -534,7 +534,7 @@ convert icon.png - resize 40x40 ios / AppIcon.appiconset / Icon - 40.png
 Automating your icon generation workflow allows you to focus on building features rather than resizing images. Whether using Expo's built-in tools or custom scripts, the investment in setup pays off in long-term stability and speed.
     `,
         author: "Naresh Bhosale",
-        publishedAt: "2023-12-28",
+        publishedAt: "2025-12-28",
         readTime: "15 min read",
         category: "Development",
         tags: ["automation", "ci-cd", "workflow", "productivity"],
@@ -592,7 +592,7 @@ Your app icon is your most hardworking marketing asset. It appears on the user's
 Don't settle for your first draft. Test, iterate, and optimize.
     `,
             author: "Naresh Bhosale",
-                publishedAt: "2023-12-20",
+                publishedAt: "2025-12-20",
                     readTime: "9 min read",
                         category: "Marketing",
                             tags: ["aso", "marketing", "conversion", "analytics"],
@@ -658,7 +658,7 @@ If your app has a heavy dashboard with 50+ icons (like a category picker), don't
 Performance is a feature. By choosing the right format (Vector/SVG), managing imports carefully, and utilizing efficient rendering lists, you can ensure your React Native app remains buttery smooth, even with a visual-heavy UI.
     `,
         author: "Naresh Bhosale",
-            publishedAt: "2023-12-15",
+            publishedAt: "2025-12-15",
                 readTime: "11 min read",
                     category: "Performance",
                         tags: ["performance", "optimization", "react-native", "bundle-size"],
