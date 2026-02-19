@@ -4,98 +4,93 @@ export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Expo Assets Generator",
+    name: "Expo Icon Generator",
     alternateName: [
-      "Expo Icon Generator",
+      "Expo Assets Generator",
       "React Native Icon Generator",
       "Expo App Icon Generator",
     ],
     url: "https://expo-assets-generator.vercel.app",
     description:
-      "Free Expo Assets Generator and Icon Generator for React Native apps. Generate iOS, Android, and web icons from one image. Create adaptive icons, app store icons, and all expo icon sizes automatically.",
+      "Free tool to generate iOS, Android, and web icons for Expo/React Native apps from a single source image. Creates adaptive icons, app store icons, and splash screens automatically.",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web Browser",
+    softwareVersion: "1.2.0",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
     },
     creator: {
+      "@type": "Person",
+      name: "Naresh Bhosale",
+      url: "https://github.com/WebNaresh",
+    },
+    publisher: {
       "@type": "Organization",
-      name: "Expo Assets Generator Team",
+      name: "Expo Icon Generator",
+      url: "https://expo-assets-generator.vercel.app",
     },
     featureList: [
-      "Generate expo app icons",
+      "Generate expo app icons from one image",
       "Create adaptive icons for Android",
       "iOS app icon generation",
-      "Web app icon creation",
-      "Multiple icon densities",
+      "Web app favicon creation",
+      "Splash screen generation",
       "Automatic app.json configuration",
       "React Native compatible",
       "Free and open source",
     ],
     screenshot: "https://expo-assets-generator.vercel.app/opengraph-image.png",
-    softwareVersion: "1.0",
-    keywords: [
-      "expo assets generator",
-      "expo icon generator",
-      "expo app icon generator",
-      "react native icon generator",
-      "adaptive icon generator",
-      "expo icons",
-      "react native app icon",
-      "expo android icon",
-      "expo ios icon",
-      "app store icons generator",
-    ],
   };
 
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Expo Assets Generator",
+    name: "Expo Icon Generator",
     url: "https://expo-assets-generator.vercel.app",
     logo: "https://expo-assets-generator.vercel.app/web-app-manifest-512x512.png",
     description:
-      "The ultimate expo icon generator and expo assets generator for React Native developers.",
+      "Free Expo icon generator for React Native developers. Generate all required platform icons from a single source image.",
+    founder: {
+      "@type": "Person",
+      name: "Naresh Bhosale",
+    },
     sameAs: ["https://github.com/WebNaresh/expo-icon-generator"],
   };
 
-  const faqData = {
+  const howToData = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
+    "@type": "HowTo",
+    name: "How to Generate Expo App Icons",
+    description:
+      "Generate all required iOS, Android, and web icons for your Expo React Native app from a single image in seconds.",
+    totalTime: "PT1M",
+    tool: [
       {
-        "@type": "Question",
-        name: "What is Expo Assets Generator?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Expo Assets Generator is a free tool that helps React Native developers generate platform-specific icons (iOS, Android, web) from a single source image. It creates all the required expo app icons, adaptive icons, and icon sizes needed for app store submission.",
-        },
+        "@type": "HowToTool",
+        name: "Expo Icon Generator",
+        url: "https://expo-assets-generator.vercel.app",
+      },
+    ],
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload your image",
+        text: "Upload a high-quality PNG, JPG, JPEG, or SVG image (1024×1024px recommended, max 10MB).",
       },
       {
-        "@type": "Question",
-        name: "How do I generate expo app icons?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Simply upload your source image (PNG, JPG, or SVG), select your background color, and click generate. Our expo icon generator will create all the necessary icon sizes and formats for iOS, Android, and web platforms automatically.",
-        },
+        "@type": "HowToStep",
+        position: 2,
+        name: "Configure settings",
+        text: "Choose a background color for your Android adaptive icon. The tool auto-detects the best color from your image.",
       },
       {
-        "@type": "Question",
-        name: "Does it support Android adaptive icons?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes! Our adaptive icon generator creates Android adaptive icons that follow Google's design guidelines. The tool generates both foreground and background layers required for adaptive icons.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is the expo icon generator free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, Expo Assets Generator is completely free and open source. You can generate unlimited expo icons, react native app icons, and use all features without any cost.",
-        },
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download your icons",
+        text: "Download individual icons or the complete ZIP with all icon sizes and a pre-configured app.json file.",
       },
     ],
   };
@@ -117,10 +112,10 @@ export default function StructuredData() {
         }}
       />
       <Script
-        id="faq-structured-data"
+        id="howto-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqData),
+          __html: JSON.stringify(howToData),
         }}
       />
     </>
