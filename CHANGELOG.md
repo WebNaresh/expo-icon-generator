@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.4.1...v1.5.0) (2026-03-06)
+
+
+### Features
+
+* **layout:** add Monetag tag.min.js ad script ([33667c0](https://github.com/WebNaresh/expo-icon-generator/commit/33667c0340ef3f6f3ba2e7ac3ca470c8fd4796a6))
+
 ## [1.4.1](https://github.com/WebNaresh/expo-icon-generator/compare/v1.4.0...v1.4.1) (2026-03-06)
 
 
