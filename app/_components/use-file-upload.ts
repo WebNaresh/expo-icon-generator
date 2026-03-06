@@ -133,6 +133,16 @@ export function useFileUpload() {
   // Handle clipboard paste
   const handlePaste = useCallback(
     async (e: ClipboardEvent) => {
+      // Allow normal text paste into input fields
+      const activeElement = document.activeElement;
+      const isInputFocused =
+        activeElement &&
+        (activeElement.tagName === "INPUT" ||
+          activeElement.tagName === "TEXTAREA" ||
+          (activeElement as HTMLElement).contentEditable === "true");
+
+      if (isInputFocused) return;
+
       e.preventDefault();
 
       if (!e.clipboardData) {
