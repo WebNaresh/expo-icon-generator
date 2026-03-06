@@ -174,9 +174,9 @@ export default function PrivacyPage() {
                 </div>
 
                 <div className="border-l-4 border-yellow-500 pl-4">
-                  <h3 className="mb-2 text-lg font-semibold text-white">Google AdSense</h3>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Monetag</h3>
                   <p className="text-gray-400">
-                    We use Google AdSense to display advertisements. Google may use cookies and other tracking technologies to serve personalized ads. You can manage your ad preferences through Google&apos;s Ad Settings.
+                    We use Monetag to display advertisements. Monetag may use cookies and other tracking technologies to serve ads. You can manage your preferences through your browser settings.
                   </p>
                 </div>
               </div>
