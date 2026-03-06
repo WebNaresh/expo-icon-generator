@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/WebNaresh/expo-icon-generator/compare/v1.4.0...v1.4.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **upload:** allow text paste into input fields by skipping image-paste handler ([63f275c](https://github.com/WebNaresh/expo-icon-generator/commit/63f275c8de1b2b6c045cee2f64f9b81f2dcecbd9))
+
 # [1.4.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.3.0...v1.4.0) (2026-03-06)
 
 
