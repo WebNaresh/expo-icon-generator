@@ -178,6 +178,12 @@ export default function RootLayout({
           src="https://pl28856777.effectivegatecpm.com/d9/c1/28/d9c1288e6bdd940440596c4aefab000c.js"
           strategy="afterInteractive"
         />
+        <Script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="217053"
+          async
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
