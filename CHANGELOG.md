@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.2.0...v1.3.0) (2026-03-06)
+
+
+### Features
+
+* add third-party script to root layout ([b27de60](https://github.com/WebNaresh/expo-icon-generator/commit/b27de60718964df98b8e1f00cba1a1547416900e))
+
 # [1.2.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.1.0...v1.2.0) (2026-02-18)
 
 
