@@ -175,8 +175,7 @@ export default function RootLayout({
       <head>
         <meta name="monetag" content="94afe05601231c149f8ab60d5c89111b" />
         <Script
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="217053"
+          src="https://5gvci.com/act/files/tag.min.js?z=10691555"
           async
           strategy="afterInteractive"
         />
