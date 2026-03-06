@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.5.0...v1.6.0) (2026-03-06)
+
+
+### Features
+
+* replace Google AdSense meta tag and script with Monetag verification ([7798c44](https://github.com/WebNaresh/expo-icon-generator/commit/7798c44207703727ade299e87774fa34600e43f4))
+
 # [1.5.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.4.1...v1.5.0) (2026-03-06)
 
 
