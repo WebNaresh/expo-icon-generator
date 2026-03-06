@@ -44,11 +44,10 @@ describe("SEO - Homepage", () => {
       .and("contain", "index");
   });
 
-  it("should have google-site-verification (single, no placeholder)", () => {
-    cy.get('meta[name="google-site-verification"]').should("have.length", 1);
-    cy.get('meta[name="google-site-verification"]')
-      .should("have.attr", "content")
-      .and("not.equal", "your-google-verification-code");
+  it("should have monetag meta tag", () => {
+    cy.get('meta[name="monetag"]').should("have.length", 1);
+    cy.get('meta[name="monetag"]')
+      .should("have.attr", "content", "94afe05601231c149f8ab60d5c89111b");
   });
 
   it("should have structured data scripts", () => {
