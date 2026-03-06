@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.3.0...v1.4.0) (2026-03-06)
+
+
+### Features
+
+* **layout:** replace Google AdSense with Monetag meta tag ([807cf95](https://github.com/WebNaresh/expo-icon-generator/commit/807cf952dd6538b2e385740084a0615cbd26fc03))
+
 # [1.3.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.2.0...v1.3.0) (2026-03-06)
 
 
