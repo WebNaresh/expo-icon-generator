@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.6.0...v1.7.0) (2026-03-06)
+
+
+### Features
+
+* **layout:** replace old push script with Monetag push notifications and vignette banner ([f852ddd](https://github.com/WebNaresh/expo-icon-generator/commit/f852ddd7522ef35f1dfe42c8c7128dfa1c21d3a6))
+
 # [1.6.0](https://github.com/WebNaresh/expo-icon-generator/compare/v1.5.0...v1.6.0) (2026-03-06)
 
 
