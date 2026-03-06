@@ -180,6 +180,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        <Script
+          src="https://pl28856777.effectivegatecpm.com/d9/c1/28/d9c1288e6bdd940440596c4aefab000c.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
