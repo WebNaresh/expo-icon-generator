@@ -135,8 +135,8 @@ async function fetchGitHubAPI<T>(endpoint: string): Promise<T> {
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'Expo-Icon-Generator/1.0',
         // Add GitHub token if available for higher rate limits
-        ...(process.env.GITHUB_TOKEN && {
-          'Authorization': `token ${process.env.GITHUB_TOKEN}`
+        ...(process.env.GH_TOKEN && {
+          'Authorization': `token ${process.env.GH_TOKEN}`
         })
       },
       next: { revalidate: CACHE_DURATION }
