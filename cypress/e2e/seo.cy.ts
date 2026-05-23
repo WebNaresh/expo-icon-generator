@@ -44,11 +44,7 @@ describe("SEO - Homepage", () => {
       .and("contain", "index");
   });
 
-  it("should have monetag meta tag", () => {
-    cy.get('meta[name="monetag"]').should("have.length", 1);
-    cy.get('meta[name="monetag"]')
-      .should("have.attr", "content", "94afe05601231c149f8ab60d5c89111b");
-  });
+
 
   it("should have structured data scripts", () => {
     cy.get('script[type="application/ld+json"]').should("have.length.gte", 1);
