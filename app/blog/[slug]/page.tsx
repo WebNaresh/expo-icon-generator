@@ -5,6 +5,12 @@ import { Calendar, Clock, User, ArrowLeft, Tag, Share2 } from "lucide-react";
 
 import { blogPosts, type BlogPost } from "../../_data/blog-posts";
 
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 const getBlogPost = async (slug: string): Promise<BlogPost | null> => {
   return blogPosts.find((post) => post.slug === slug) || null;
 };

@@ -4,6 +4,7 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   trailingSlash: false,
+  autoLastmod: false, // Prevents using current build date for lastmod
 
   // Force single sitemap with very large size limit to prevent splitting
   sitemapSize: 100000,
@@ -32,79 +33,79 @@ module.exports = {
   // Add back the important pages via additionalPaths but ensure single sitemap
   additionalPaths: async () => {
     return [
-      // Blog pages
+      // Blog pages (using stable 2026 dates)
       {
         loc: "/blog/complete-guide-expo-icon-generation",
         changefreq: "monthly",
         priority: 0.9,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-15",
       },
       {
         loc: "/blog/ios-android-icon-requirements-2024",
         changefreq: "monthly",
         priority: 0.9,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-10",
       },
       {
         loc: "/blog/icon-design-best-practices",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-05",
       },
       {
         loc: "/blog/automated-icon-generation-workflow",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-02",
       },
       {
         loc: "/blog/app-store-optimization-icons",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-01",
       },
       {
         loc: "/blog/react-native-icon-performance",
         changefreq: "monthly",
         priority: 0.7,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-01-01",
       },
-      // Tutorial pages
+      // Tutorial pages (using stable 2026 update dates)
       {
         loc: "/tutorials/expo-app-development-complete-guide",
         changefreq: "monthly",
         priority: 0.9,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
       {
         loc: "/tutorials/professional-icon-design-masterclass",
         changefreq: "monthly",
         priority: 0.9,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
       {
         loc: "/tutorials/react-native-performance-optimization",
         changefreq: "monthly",
         priority: 0.9,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
       {
         loc: "/tutorials/app-store-submission-guide",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
       {
         loc: "/tutorials/adaptive-icons-android-tutorial",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
       {
         loc: "/tutorials/expo-eas-build-deployment",
         changefreq: "monthly",
         priority: 0.8,
-        lastmod: new Date().toISOString(),
+        lastmod: "2026-05-23",
       },
     ];
   },
@@ -141,7 +142,7 @@ module.exports = {
       loc: path,
       changefreq,
       priority,
-      lastmod: new Date().toISOString(),
+      // lastmod is intentionally omitted for dynamic/general pages to prevent unnecessary re-crawling
     };
   },
 };

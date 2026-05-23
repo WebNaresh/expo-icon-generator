@@ -12,6 +12,12 @@ import {
 } from "lucide-react";
 import { tutorials, type Tutorial } from "../../_data/tutorials";
 
+export async function generateStaticParams() {
+  return tutorials.map((tutorial) => ({
+    slug: tutorial.slug,
+  }));
+}
+
 const getTutorial = async (slug: string): Promise<Tutorial | null> => {
   return tutorials.find((tutorial) => tutorial.slug === slug) || null;
 };

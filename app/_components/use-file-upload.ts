@@ -32,6 +32,8 @@ export function useFileUpload() {
   const [splashEnabled, setSplashEnabled] = useState(true);
   const [splashBackgroundColor, setSplashBackgroundColor] = useState<string>("#ffffff");
   const [splashColorManuallySet, setSplashColorManuallySet] = useState(false);
+  const [splashIconScale, setSplashIconScale] = useState<number>(35);
+  const [splashResizeMode, setSplashResizeMode] = useState<"contain" | "cover">("contain");
 
   // File validation
   const validateFile = (file: File): string | null => {
@@ -90,6 +92,8 @@ export function useFileUpload() {
     setBackgroundColor("#ffffff"); // Reset to default while analyzing
     setSplashBackgroundColor("#ffffff");
     setSplashColorManuallySet(false);
+    setSplashIconScale(35);
+    setSplashResizeMode("contain");
 
     // Analyze image colors to suggest background color
     analyzeImageColors(file);
@@ -277,5 +281,9 @@ export function useFileUpload() {
     handleUploadAreaBlur,
     setSplashEnabled,
     setSplashBackgroundColor: handleSplashBackgroundColorChange,
+    splashIconScale,
+    splashResizeMode,
+    setSplashIconScale,
+    setSplashResizeMode,
   };
 }

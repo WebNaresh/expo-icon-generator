@@ -7,12 +7,16 @@ interface AppJsonPreviewProps {
   backgroundColor: string;
   splashBackgroundColor: string;
   splashEnabled: boolean;
+  splashIconScale: number;
+  splashResizeMode: "contain" | "cover";
 }
 
 function buildAppJson(
   backgroundColor: string,
   splashBackgroundColor: string,
-  splashEnabled: boolean
+  splashEnabled: boolean,
+  splashIconScale: number,
+  splashResizeMode: "contain" | "cover"
 ) {
   const config: Record<string, unknown> = {
     expo: {
@@ -21,8 +25,9 @@ function buildAppJson(
         ? {
             splash: {
               image: "./assets/splash.png",
-              resizeMode: "contain",
+              resizeMode: splashResizeMode,
               backgroundColor: splashBackgroundColor,
+              imageWidth: Math.round(1284 * (splashIconScale / 100)),
             },
           }
         : {}),
@@ -45,13 +50,17 @@ export default function AppJsonPreview({
   backgroundColor,
   splashBackgroundColor,
   splashEnabled,
+  splashIconScale,
+  splashResizeMode,
 }: AppJsonPreviewProps) {
   const [copied, setCopied] = useState(false);
 
   const jsonContent = buildAppJson(
     backgroundColor,
     splashBackgroundColor,
-    splashEnabled
+    splashEnabled,
+    splashIconScale,
+    splashResizeMode
   );
 
   const handleCopy = async () => {

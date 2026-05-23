@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: "/tutorials", label: "Tutorials" },
   { href: "/faq", label: "FAQ" },
   { href: "/contributors", label: "Contributors" },
+  { href: "/thanks-gift", label: "Support Us" },
 ];
 
 const RESOURCE_LINKS = [

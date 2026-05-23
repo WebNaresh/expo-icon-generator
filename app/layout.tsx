@@ -5,7 +5,6 @@ import "./globals.css";
 import { Navbar } from "@/components/utils/navbar";
 import { Footer } from "@/components/utils/footer";
 import { Providers } from "./providers";
-import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -184,23 +183,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <meta name="monetag" content="94afe05601231c149f8ab60d5c89111b" />
-        <Script
-          id="monetag-push"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(s){s.dataset.zone='10691583',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`,
-          }}
-        />
-        <Script
-          id="monetag-vignette"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(s){s.dataset.zone='10691584',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`,
-          }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >

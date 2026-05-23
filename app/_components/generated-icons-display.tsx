@@ -9,6 +9,8 @@ interface GeneratedIconsDisplayProps {
   backgroundColor: string;
   splashBackgroundColor: string;
   splashEnabled: boolean;
+  splashIconScale: number;
+  splashResizeMode: "contain" | "cover";
   onDownloadIcon: (icon: GeneratedIcon) => void;
   onDownloadAllIcons: () => void;
 }
@@ -46,6 +48,8 @@ export default function GeneratedIconsDisplay({
   backgroundColor,
   splashBackgroundColor,
   splashEnabled,
+  splashIconScale,
+  splashResizeMode,
   onDownloadIcon,
   onDownloadAllIcons,
 }: GeneratedIconsDisplayProps) {
@@ -158,6 +162,8 @@ export default function GeneratedIconsDisplay({
         backgroundColor={backgroundColor}
         splashBackgroundColor={splashBackgroundColor}
         splashEnabled={splashEnabled}
+        splashIconScale={splashIconScale}
+        splashResizeMode={splashResizeMode}
       />
 
       {/* Icon Detail Modal */}
