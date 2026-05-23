@@ -296,7 +296,7 @@ export default function IconSettingsPanel({
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-[10px] text-gray-400">
                   <span>Icon Scale</span>
-                  <span className="font-mono text-white font-medium">
+                  <span className="font-mono font-medium text-white">
                     {splashIconScale}% ({Math.round(1284 * (splashIconScale / 100))}px)
                   </span>
                 </div>
@@ -306,7 +306,7 @@ export default function IconSettingsPanel({
                   max="50"
                   value={splashIconScale}
                   onChange={(e) => onSplashIconScaleChange(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-800 rounded-lg cursor-pointer appearance-none accent-white"
+                  className="h-1 w-full cursor-pointer appearance-none rounded-lg bg-gray-800 accent-white"
                 />
                 <div className="flex gap-1">
                   {[
@@ -318,10 +318,10 @@ export default function IconSettingsPanel({
                       key={preset.val}
                       type="button"
                       onClick={() => onSplashIconScaleChange(preset.val)}
-                      className={`flex-1 rounded px-1 py-0.5 text-[9px] border transition-colors ${
+                      className={`flex-1 rounded border px-1 py-0.5 text-[9px] transition-colors ${
                         splashIconScale === preset.val
-                          ? "bg-white text-gray-900 border-white font-medium"
-                          : "bg-gray-800 text-gray-400 border-gray-700 hover:text-gray-300 hover:border-gray-600"
+                          ? "border-white bg-white font-medium text-gray-900"
+                          : "border-gray-700 bg-gray-800 text-gray-400 hover:border-gray-600 hover:text-gray-300"
                       }`}
                     >
                       {preset.label}
@@ -332,16 +332,16 @@ export default function IconSettingsPanel({
 
               {/* Resize Mode Selector */}
               <div className="space-y-1.5">
-                <span className="text-[10px] text-gray-400 block">Resize Mode</span>
-                <div className="flex rounded-md bg-gray-950 p-0.5 border border-gray-800">
+                <span className="block text-[10px] text-gray-400">Resize Mode</span>
+                <div className="flex rounded-md border border-gray-800 bg-gray-950 p-0.5">
                   {(["contain", "cover"] as const).map((mode) => (
                     <button
                       key={mode}
                       type="button"
                       onClick={() => onSplashResizeModeChange(mode)}
-                      className={`flex-1 rounded py-1 text-[10px] transition-all capitalize ${
+                      className={`flex-1 rounded py-1 text-[10px] capitalize transition-all ${
                         splashResizeMode === mode
-                          ? "bg-gray-800 text-white font-medium"
+                          ? "bg-gray-800 font-medium text-white"
                           : "text-gray-400 hover:text-gray-300"
                       }`}
                     >
@@ -354,7 +354,7 @@ export default function IconSettingsPanel({
               {/* Phone mockup preview */}
               <div className="flex justify-center pt-2">
                 <div
-                  className="flex items-center justify-center rounded-[24px] border-[6px] border-gray-950 shadow-2xl relative overflow-hidden ring-1 ring-gray-800"
+                  className="relative flex items-center justify-center overflow-hidden rounded-3xl border-[6px] border-gray-950 shadow-2xl ring-1 ring-gray-800"
                   style={{
                     backgroundColor: splashBackgroundColor,
                     width: 120,
