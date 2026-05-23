@@ -22,10 +22,14 @@ interface IconSettingsPanelProps {
   isAnalyzingColors: boolean;
   splashEnabled: boolean;
   splashBackgroundColor: string;
+  splashIconScale: number;
+  splashResizeMode: "contain" | "cover";
   onBackgroundColorChange: (color: string) => void;
   onGenerateIcons: () => void;
   onSplashEnabledChange: (enabled: boolean) => void;
   onSplashBackgroundColorChange: (color: string) => void;
+  onSplashIconScaleChange: (scale: number) => void;
+  onSplashResizeModeChange: (mode: "contain" | "cover") => void;
 }
 
 export default function IconSettingsPanel({
@@ -36,10 +40,14 @@ export default function IconSettingsPanel({
   isAnalyzingColors,
   splashEnabled,
   splashBackgroundColor,
+  splashIconScale,
+  splashResizeMode,
   onBackgroundColorChange,
   onGenerateIcons,
   onSplashEnabledChange,
   onSplashBackgroundColorChange,
+  onSplashIconScaleChange,
+  onSplashResizeModeChange,
 }: IconSettingsPanelProps) {
   const [isEyedropperActive, setIsEyedropperActive] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -262,44 +270,106 @@ export default function IconSettingsPanel({
           {splashEnabled ? (
             <>
               {/* Splash color picker */}
-              <div className="flex items-center gap-1.5">
+              <div className="space-y-1">
+                <span className="text-[10px] text-gray-400">Background Color</span>
+                <div className="flex items-center gap-1.5">
+                  <input
+                    type="color"
+                    value={splashBackgroundColor}
+                    onChange={(e) =>
+                      onSplashBackgroundColorChange(e.target.value)
+                    }
+                    className="h-8 w-8 cursor-pointer rounded-md border border-gray-700 bg-transparent"
+                  />
+                  <input
+                    type="text"
+                    value={splashBackgroundColor}
+                    onChange={(e) =>
+                      onSplashBackgroundColorChange(e.target.value)
+                    }
+                    className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2.5 py-1.5 font-mono text-xs text-gray-300"
+                  />
+                </div>
+              </div>
+
+              {/* Splash Icon Scale Slider */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[10px] text-gray-400">
+                  <span>Icon Scale</span>
+                  <span className="font-mono text-white font-medium">
+                    {splashIconScale}% ({Math.round(1284 * (splashIconScale / 100))}px)
+                  </span>
+                </div>
                 <input
-                  type="color"
-                  value={splashBackgroundColor}
-                  onChange={(e) =>
-                    onSplashBackgroundColorChange(e.target.value)
-                  }
-                  className="h-8 w-8 cursor-pointer rounded-md border border-gray-700"
+                  type="range"
+                  min="15"
+                  max="50"
+                  value={splashIconScale}
+                  onChange={(e) => onSplashIconScaleChange(Number(e.target.value))}
+                  className="w-full h-1 bg-gray-800 rounded-lg cursor-pointer appearance-none accent-white"
                 />
-                <input
-                  type="text"
-                  value={splashBackgroundColor}
-                  onChange={(e) =>
-                    onSplashBackgroundColorChange(e.target.value)
-                  }
-                  className="min-w-0 flex-1 rounded-md border border-gray-700 bg-gray-800 px-2.5 py-1.5 font-mono text-xs text-gray-300"
-                />
+                <div className="flex gap-1">
+                  {[
+                    { label: "Small (20%)", val: 20 },
+                    { label: "Med (35%)", val: 35 },
+                    { label: "Large (45%)", val: 45 },
+                  ].map((preset) => (
+                    <button
+                      key={preset.val}
+                      type="button"
+                      onClick={() => onSplashIconScaleChange(preset.val)}
+                      className={`flex-1 rounded px-1 py-0.5 text-[9px] border transition-colors ${
+                        splashIconScale === preset.val
+                          ? "bg-white text-gray-900 border-white font-medium"
+                          : "bg-gray-800 text-gray-400 border-gray-700 hover:text-gray-300 hover:border-gray-600"
+                      }`}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Resize Mode Selector */}
+              <div className="space-y-1.5">
+                <span className="text-[10px] text-gray-400 block">Resize Mode</span>
+                <div className="flex rounded-md bg-gray-950 p-0.5 border border-gray-800">
+                  {(["contain", "cover"] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      onClick={() => onSplashResizeModeChange(mode)}
+                      className={`flex-1 rounded py-1 text-[10px] transition-all capitalize ${
+                        splashResizeMode === mode
+                          ? "bg-gray-800 text-white font-medium"
+                          : "text-gray-400 hover:text-gray-300"
+                      }`}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Phone mockup preview */}
-              <div className="flex justify-center">
+              <div className="flex justify-center pt-2">
                 <div
-                  className="flex items-center justify-center rounded-xl border border-gray-700 shadow-sm"
+                  className="flex items-center justify-center rounded-[24px] border-[6px] border-gray-950 shadow-2xl relative overflow-hidden ring-1 ring-gray-800"
                   style={{
                     backgroundColor: splashBackgroundColor,
-                    width: 56,
-                    height: 100,
+                    width: 120,
+                    height: 213,
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={uploadedFile.preview}
                     alt="Splash preview"
-                    className="object-contain"
+                    className={splashResizeMode === "contain" ? "object-contain" : "object-cover"}
                     style={{
-                      width: "50%",
-                      height: "auto",
-                      maxHeight: "30%",
+                      width: splashResizeMode === "contain" ? `${splashIconScale}%` : "100%",
+                      height: splashResizeMode === "contain" ? "auto" : "100%",
+                      maxHeight: splashResizeMode === "contain" ? "100%" : "none",
                     }}
                   />
                 </div>
