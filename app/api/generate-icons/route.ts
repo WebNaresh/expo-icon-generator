@@ -55,6 +55,8 @@ export async function POST(request: NextRequest) {
     const backgroundColor = formData.get('backgroundColor') as string || '#ffffff';
     const generateSplash = formData.get('generateSplash') === 'true';
     const splashBackgroundColor = formData.get('splashBackgroundColor') as string || backgroundColor;
+    const splashIconScaleStr = formData.get('splashIconScale') as string;
+    const splashIconScale = splashIconScaleStr ? parseInt(splashIconScaleStr, 10) : 35;
 
     if (!file) {
       return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
@@ -280,8 +282,8 @@ export async function POST(request: NextRequest) {
           }
         });
 
-        // Resize logo to 35% of splash width, centered
-        const logoWidth = Math.round(SPLASH_SPEC.width * 0.35);
+        // Resize logo dynamically based on splashIconScale, centered
+        const logoWidth = Math.round(SPLASH_SPEC.width * (splashIconScale / 100));
         const resizedLogo = await originalImage.clone()
           .resize(logoWidth, logoWidth, {
             fit: 'contain',
