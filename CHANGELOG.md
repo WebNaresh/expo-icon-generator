@@ -1,3 +1,39 @@
+# [1.11.0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.10.1...v1.11.0) (2026-05-23)
+
+
+### Bug Fixes
+
+* **.github/workflows/release.yml:** update GH_TOKEN environment variable ([0fd2656](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/0fd265671f641c6baba1ebc63cf675486fd44148))
+* **app/_components/icon-settings-panel.tsx:** update icon settings panel with new features ([736226a](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/736226a66d06e5479600f28da47efd7d982eb8ab))
+* **app/_components/use-file-upload.ts:** update splash icon scale and resizeMode ([248dfd4](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/248dfd4013ff0435e306784f86bdaf4b7439dd53))
+* **app/_components/use-icon-generation.ts:** add splash icon scale parameter ([8de100b](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/8de100bbc447f2c7105b00ac2b0f672ff1865489))
+* **app/tutorials/[slug]/page.tsx:** update page to use generateStaticParams ([372dd1b](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/372dd1b1ee039329a244b795bfd864c1e745f1c3))
+* **blog/[slug]:** add generateStaticParams and getBlogPost for blog routes ([f5a033a](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/f5a033a01437bd41a4934c3018cdff510d6e61ac))
+* **commitlint-config:** update to latest version ([310f089](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/310f089e47fb05b0c069d957da1991961b825dd8))
+* **feedback:** remove navigation to thanks-gift page after feedback submission ([a1c64ac](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/a1c64ac6d54ccdeb3336be2c2fdf04104f94ef6a))
+* **navbar:** remove client-side state and dependencies ([702f698](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/702f6982efb6d3d6011d924789ecb7460ab99fe2))
+* **package.json:** add validate script to run type checks and unused modules ([40868ea](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/40868ea06e111049c8ab707f92f07a88938f3eb5))
+* **package.json:** update dependencies to fix bugs and improve performance ([8a7c4d0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/8a7c4d0a53e8c201ea904108d5ae1c9cca1a60c8))
+* **public/ads.txt:** update ads.txt with new ad provider ([e2959e7](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/e2959e7343dbe25a42c31c6681b5a9bb2794fc4d))
+* **README.md:** update generated icon description ([ae75309](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/ae753093544590f3b8167e6d6bb507860c258a5c))
+* **seo:** add monetag meta tag verification ([c95f312](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/c95f312bd62e28fe25beb1595c9eaa11a7b78658))
+
+
+### Features
+
+* **_components/app-json-preview.tsx:** add splash icon scale and resizeMode options ([4a8aa14](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/4a8aa14231e9b186f0b90a325401878b5b880722))
+* **api/generate-icons:** add dynamic splash icon scaling ([fe8543b](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/fe8543b3bb2d5ee4e9d380bdbc23c21d5bf170d8))
+* **app/_components/generated-icons-display.tsx:** add splash icon scale and resizeMode props ([c5fc7a3](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/c5fc7a3e531cb24a04964899b9053c507c431b04))
+* **app/_components/icon-settings-panel:** improve icon and resize mode settings ([89dfca4](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/89dfca44d3b2526be05dc0938113f3c7e0e7be1a))
+* **app/layout.tsx:** add script tags to load monetag and vignette scripts ([180b007](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/180b0074860f57c715babf8a6f9daf62d3e1e74d))
+* **app/page.tsx:** add splash icon scale and resizeMode support ([0b96b40](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/0b96b40ca7f408ce940a3819f090175208685384))
+* **components/utils:** add support us link ([cc088f2](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/cc088f2f246d7ddc97378d01359c890e742c4460))
+* **home:** add ReportBugSection at bottom of page ([4b24dfa](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/4b24dfa0ef56963ed325368de0b0b85c2aab47ba))
+* **next-sitemap.config.js:** fix autoLastmod and clean sitemap ([b6d26a4](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/b6d26a4411d1dce0b23bbec0e39916bd5a422fb1))
+* **package.json:** add validation and check-unused scripts ([962a137](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/962a137e220ba5cd4cdc3dbc7d23c4a3733a142b))
+* **privacy:** update privacy page to include Monetag ad banner ([aa94274](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/aa94274aaf1114362c754ce913fc1d2770b25ee3))
+* **providers:** integrate GlitchgrabProvider and floating report button ([fa57dd1](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/fa57dd1b00b2368aab60347073f2e669a555c30a))
+
 ## [1.10.1](https://github.com/WebNaresh/expo-icon-generator/compare/v1.10.0...v1.10.1) (2026-04-14)
 
 
