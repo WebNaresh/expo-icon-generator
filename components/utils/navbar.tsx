@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { Github, Mail } from "lucide-react";
 
 const NAV_LINKS = [
@@ -14,13 +13,6 @@ const NAV_LINKS = [
 ];
 
 export function Navbar() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsClient(true);
-  }, []);
-
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/80 backdrop-blur-lg">
       <div className="container mx-auto px-4">
@@ -44,24 +36,15 @@ export function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden items-center gap-1 md:flex">
-            {isClient
-              ? NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-md px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))
-              : NAV_LINKS.map((link) => (
-                  <span
-                    key={link.href}
-                    className="rounded-md px-3 py-1.5 text-sm text-gray-400"
-                  >
-                    {link.label}
-                  </span>
-                ))}
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-md px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           {/* Right actions */}
