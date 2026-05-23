@@ -14,7 +14,8 @@ export function useIconGeneration() {
     file: File,
     backgroundColor: string,
     splashEnabled: boolean = false,
-    splashBackgroundColor: string = "#ffffff"
+    splashBackgroundColor: string = "#ffffff",
+    splashIconScale: number = 35
   ) => {
     setIsGenerating(true);
     setError(null);
@@ -25,6 +26,7 @@ export function useIconGeneration() {
       formData.append("backgroundColor", backgroundColor);
       formData.append("generateSplash", String(splashEnabled));
       formData.append("splashBackgroundColor", splashBackgroundColor);
+      formData.append("splashIconScale", String(splashIconScale));
 
       const response = await fetch("/api/generate-icons", {
         method: "POST",
