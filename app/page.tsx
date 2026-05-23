@@ -25,7 +25,9 @@ import {
 function buildAppJson(
   backgroundColor: string,
   splashBackgroundColor: string,
-  splashEnabled: boolean
+  splashEnabled: boolean,
+  splashIconScale: number,
+  splashResizeMode: "contain" | "cover"
 ) {
   const config: Record<string, unknown> = {
     expo: {
@@ -34,8 +36,9 @@ function buildAppJson(
         ? {
             splash: {
               image: "./assets/splash.png",
-              resizeMode: "contain",
+              resizeMode: splashResizeMode,
               backgroundColor: splashBackgroundColor,
+              imageWidth: Math.round(1284 * (splashIconScale / 100)),
             },
           }
         : {}),
@@ -98,6 +101,10 @@ export default function HomePage() {
     handleUploadAreaBlur,
     setSplashEnabled,
     setSplashBackgroundColor,
+    splashIconScale,
+    splashResizeMode,
+    setSplashIconScale,
+    setSplashResizeMode,
   } = useFileUpload();
 
   const {
@@ -160,7 +167,8 @@ export default function HomePage() {
       uploadedFile.file,
       backgroundColor,
       splashEnabled,
-      splashBackgroundColor
+      splashBackgroundColor,
+      splashIconScale
     );
   };
 
@@ -177,10 +185,12 @@ export default function HomePage() {
     const appJson = buildAppJson(
       backgroundColor,
       splashBackgroundColor,
-      splashEnabled
+      splashEnabled,
+      splashIconScale,
+      splashResizeMode
     );
     downloadAllIcons(appJson);
-  }, [backgroundColor, splashBackgroundColor, splashEnabled, downloadAllIcons]);
+  }, [backgroundColor, splashBackgroundColor, splashEnabled, splashIconScale, splashResizeMode, downloadAllIcons]);
 
   // Combine errors from different hooks
   const displayError = error || iconError;
@@ -227,10 +237,14 @@ export default function HomePage() {
               isAnalyzingColors={isAnalyzingColors}
               splashEnabled={splashEnabled}
               splashBackgroundColor={splashBackgroundColor}
+              splashIconScale={splashIconScale}
+              splashResizeMode={splashResizeMode}
               onBackgroundColorChange={setBackgroundColor}
               onGenerateIcons={handleGenerateIcons}
               onSplashEnabledChange={setSplashEnabled}
               onSplashBackgroundColorChange={setSplashBackgroundColor}
+              onSplashIconScaleChange={setSplashIconScale}
+              onSplashResizeModeChange={setSplashResizeMode}
             />
           </div>
         )}
@@ -242,6 +256,8 @@ export default function HomePage() {
             backgroundColor={backgroundColor}
             splashBackgroundColor={splashBackgroundColor}
             splashEnabled={splashEnabled}
+            splashIconScale={splashIconScale}
+            splashResizeMode={splashResizeMode}
             onDownloadIcon={downloadIcon}
             onDownloadAllIcons={handleDownloadAll}
           />
