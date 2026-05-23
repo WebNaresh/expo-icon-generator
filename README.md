@@ -313,7 +313,7 @@ const response = await fetch('/api/generate-icons', {
 });
 
 const result = await response.json();
-console.log('Generated icons:', result.icons);
+console.log('Generated idcons:', result.icons);
 ```
 
 ## 📁 Project Structure
