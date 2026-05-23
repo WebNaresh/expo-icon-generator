@@ -40,12 +40,12 @@ Route-specific components go in `app/<route>/_components/`. Global shared compon
 
 All use `NextRequest`/`NextResponse`:
 
-| Route | Method | Purpose |
-|-------|--------|---------|
-| `/api/generate-icons` | POST | Sharp-based image processing, returns base64 icons |
-| `/api/analyze-image-colors` | POST | Sharp color analysis for background suggestions |
-| `/api/contributors` | GET | GitHub API with in-memory caching + rate limiting |
-| `/api/send-feedback` | POST | Nodemailer email via Gmail |
+| Route                       | Method | Purpose                                            |
+| --------------------------- | ------ | -------------------------------------------------- |
+| `/api/generate-icons`       | POST   | Sharp-based image processing, returns base64 icons |
+| `/api/analyze-image-colors` | POST   | Sharp color analysis for background suggestions    |
+| `/api/contributors`         | GET    | GitHub API with in-memory caching + rate limiting  |
+| `/api/send-feedback`        | POST   | Nodemailer email via Gmail                         |
 
 ### Proxy (formerly Middleware)
 
@@ -63,6 +63,7 @@ All use `NextRequest`/`NextResponse`:
 ## ESLint
 
 Flat config in `eslint.config.mjs`:
+
 - `eslint-config-next/core-web-vitals` + `/typescript`
 - `eslint-plugin-tailwindcss` (validates class names against `globals.css`)
 - `eslint-plugin-unused-imports` (errors on unused imports)
@@ -75,7 +76,7 @@ Tailwind ESLint settings whitelist all shadcn semantic classes (`bg-primary`, `t
 ```
 NEXT_GMAIL_USER          # Gmail address for feedback emails
 NEXT_GMAIL_PASSWORD      # Gmail app password
-GITHUB_TOKEN             # Optional: higher GitHub API rate limits
+GH_TOKEN             # Optional: higher GitHub API rate limits
 NEXT_PUBLIC_BASE_URL     # Optional: base URL override (defaults to vercel URL)
 ```
 
