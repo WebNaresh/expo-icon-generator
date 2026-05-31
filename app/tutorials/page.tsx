@@ -3,8 +3,6 @@ import Link from "next/link";
 import {
   BookOpen,
   Clock,
-  Users,
-  Star,
   ArrowRight,
   Code,
   Smartphone,
@@ -68,15 +66,7 @@ export default function TutorialsPage() {
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <span className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-purple-500" />
-              <span className="font-medium">50+ Tutorials</span>
-            </span>
-            <span className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-sky-400" />
-              <span className="font-medium">25,000+ Students</span>
-            </span>
-            <span className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-yellow-500" />
-              <span className="font-medium">4.8 Average Rating</span>
+              <span className="font-medium">{tutorials.length} Tutorials</span>
             </span>
           </div>
         </div>
@@ -105,12 +95,6 @@ export default function TutorialsPage() {
                     >
                       {tutorial.difficulty}
                     </span>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-current text-yellow-500" />
-                      <span className="text-sm font-medium text-gray-400">
-                        {tutorial.rating}
-                      </span>
-                    </div>
                   </div>
 
                   <h3 className="mb-3 text-xl font-bold text-white transition-colors hover:text-sky-400">
@@ -134,14 +118,10 @@ export default function TutorialsPage() {
                     ))}
                   </div>
 
-                  <div className="mb-4 flex items-center justify-between text-sm text-gray-500">
+                  <div className="mb-4 flex items-center text-sm text-gray-500">
                     <span className="flex items-center gap-1">
                       <Clock className="h-4 w-4" />
                       {tutorial.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Users className="h-4 w-4" />
-                      {tutorial.students.toLocaleString()} students
                     </span>
                   </div>
 
@@ -307,10 +287,6 @@ export default function TutorialsPage() {
                   >
                     {tutorial.difficulty}
                   </span>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-current text-yellow-500" />
-                    <span className="text-sm text-gray-400">{tutorial.rating}</span>
-                  </div>
                 </div>
 
                 <h3 className="mb-2 text-lg font-bold text-white transition-colors hover:text-sky-400">
@@ -323,9 +299,8 @@ export default function TutorialsPage() {
                   {tutorial.description}
                 </p>
 
-                <div className="mb-3 flex items-center justify-between text-xs text-gray-500">
+                <div className="mb-3 text-xs text-gray-500">
                   <span>{tutorial.duration}</span>
-                  <span>{tutorial.students.toLocaleString()} students</span>
                 </div>
 
                 <div className="flex items-center justify-between">
