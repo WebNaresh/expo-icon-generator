@@ -1,3 +1,38 @@
+# [1.12.0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.11.0...v1.12.0) (2026-05-31)
+
+
+### Bug Fixes
+
+* **_components/profile-header-client.tsx:** update avatar URL to SVG ([43f26dd](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/43f26dd1d25c8af88909d680c92f719c55520342))
+* **app/_components/use-file-upload.ts:** add error handling for aborted requests ([c33e984](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/c33e984b113c9b301ad2404e2cfc140d3554e6d8))
+* **app/_components/use-text-logo.ts:** update index watching logic ([845529f](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/845529f63ceef9ec3051cc2ccdc9680b466b5c0c))
+* **app/_data/tutorials.ts:** update index watching logic ([4cf0260](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/4cf0260f8d796eaa83ca9f1e4f84c97c1884e5fb))
+* **app/_data/tutorials.ts:** update index watching logic ([fbcf7be](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/fbcf7beb2c2456a95209f438840d8f97f84aab28))
+* **app/_data/tutorials.ts:** update router.push calls ([27824ef](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/27824ef5fec22bf343aee32681edfdad910af442))
+* **app/contact/page.tsx:** add form and API endpoint for sending feedback ([444d2d0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/444d2d0b51d8af0df4f96e60c722c6a45af1864d))
+* **app/tutorials/[slug]/page.tsx:** update page layout to include duration, students, and rating ([80898f1](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/80898f1b3201a636877cf6dc821846eec6072e76))
+* **app/tutorials/page.tsx:** update tutorial list and stats display ([5ad2195](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/5ad219504a8881babd50ad3caf8e987577c56c04))
+* **certificate-generator:** update index watching logic ([ee7d854](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/ee7d854d0faa48217e2a300d2c6e4fc0f852ac93))
+* **components/ui/badge:** update to use new index watching logic ([ee11592](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/ee11592167fe0525cdff5a7886358dd19aac99fb))
+* **components/ui/button:** remove `buttonVariants` and update props ([1c1837a](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/1c1837a4b280f7d94f3f84054df3b85250450af1))
+* **components/utils/footer.tsx:** add about and contact links ([e871cc2](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/e871cc2e5a9e5cc49068cb41fbec06f87bc02ec1))
+* **components/utils/navbar.tsx:** add about and contact links ([6d635f1](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/6d635f135b110ff86d5a565ad74da7ccd171dc1e))
+* **comprehensive-guide-section:** update title to complete guide ([a4bc78d](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/a4bc78dc302864fc0750b5b5730b029b9701463d))
+* **contact/layout:** add contact layout to app ([5577df5](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/5577df5ca45292ea6b0de419b6daf8a87b8adb70))
+* **contributors/page.tsx:** update default avatar SVG to match new design ([41bfc16](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/41bfc16414b07743ec25eabefcb92dd7b4637e15))
+* **package.json:** add typecheck script ([ffadce9](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/ffadce9e0a4434c92522396ec9062a33a9212b4c))
+* **pruny.config.json:** add /ads.txt to the ignore list ([cd6e732](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/cd6e7329a81f19b1525b46cf6a8d463ad950239b))
+* **pruny.config.json:** add pruney config for development environment ([d5626fa](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/d5626fabd6736b77c4610884e38002e49be9288d))
+* **pruny.config.json:** update index watching logic ([86f027e](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/86f027e56bb42d3f520b8ba527016430911ff4ad))
+* **public/ads.txt:** update index watching logic ([4fa3ae2](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/4fa3ae28af9c5564c7c9e25f31303efe14e67e60))
+* **splash-settings:** remove unused SplashSettings component ([e3835cf](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/e3835cf575c459ba0476eb62f61c7531196fd29c))
+
+
+### Features
+
+* add default avatar SVG asset ([198bfd2](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/198bfd2c9cbe346a51ac80ba547ca3714f159971))
+* **tutorials:** add React Native Developer Masterclass ([f6ba474](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/f6ba474fb166c4b0a9f87633cbf3723b3b3f8d8b))
+
 # [1.11.0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.10.1...v1.11.0) (2026-05-23)
 
 
