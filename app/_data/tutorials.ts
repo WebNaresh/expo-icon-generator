@@ -178,12 +178,12 @@ import { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext({ user: null, setUser: (_: any) => {} });
 
-export function AppProvider({ children }: { children: React.ReactNode }) {
+function AppProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null);
   return <AppContext.Provider value={{ user, setUser }}>{children}</AppContext.Provider>;
 }
 
-export const useApp = () => useContext(AppContext);
+const useApp = () => useContext(AppContext);
 \`\`\`
 
 Wrap your root layout in \`app/_layout.tsx\`:
@@ -201,7 +201,7 @@ Use the native \`fetch\` API or a library like \`axios\`. Always handle loading 
 \`\`\`tsx
 import { useEffect, useState } from 'react';
 
-export function useData(url: string) {
+function useData(url: string) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
