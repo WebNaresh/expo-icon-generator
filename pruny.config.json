@@ -1,9 +1,7 @@
 {
   "dir": "./",
   "ignore": {
-    "routes": [
-      "/ads.txt"
-    ],
+    "routes": [],
     "folders": [
       "**/node_modules/**",
       "**/dist/**",
@@ -22,7 +20,9 @@
       "**/ios/**",
       "**/android/**"
     ],
-    "files": [],
+    "files": [
+      "public/ads.txt"
+    ],
     "links": []
   },
   "extensions": [
