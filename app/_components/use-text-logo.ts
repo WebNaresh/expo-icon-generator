@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
-export interface TextLogoOptions {
+interface TextLogoOptions {
   text: string;
   fontFamily: "sans-serif" | "serif" | "monospace";
   fontSize: number;
