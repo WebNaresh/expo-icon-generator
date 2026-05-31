@@ -185,29 +185,3 @@ export function downloadCertificate(contributor: ContributorData) {
     throw new Error('Failed to generate certificate')
   }
 }
-
-/**
- * Get certificate as blob for further processing
- */
-function getCertificateBlob(contributor: ContributorData): Blob {
-  try {
-    const doc = generateContributorCertificate(contributor)
-    return doc.output('blob')
-  } catch (error) {
-    console.error('Error generating certificate blob:', error)
-    throw new Error('Failed to generate certificate')
-  }
-}
-
-/**
- * Preview certificate (returns base64 data URL)
- */
-function getCertificatePreview(contributor: ContributorData): string {
-  try {
-    const doc = generateContributorCertificate(contributor)
-    return doc.output('datauristring')
-  } catch (error) {
-    console.error('Error generating certificate preview:', error)
-    throw new Error('Failed to generate certificate preview')
-  }
-}
