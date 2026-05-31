@@ -153,10 +153,10 @@ Navigate programmatically with the \`router\` object:
 import { router } from 'expo-router';
 
 // Push a new screen
-router.push('/profile');
+router.push('/contributors');
 
 // Replace current screen (no back)
-router.replace('/login');
+router.replace('/');
 
 // Go back
 router.back();
@@ -164,8 +164,8 @@ router.back();
 
 Pass parameters via the URL:
 \`\`\`tsx
-router.push('/user/123');
-// In app/user/[id].tsx, read it with useLocalSearchParams()
+router.push('/contributors/username');
+// In app/contributors/[username].tsx, read it with useLocalSearchParams()
 \`\`\`
 
 ## Chapter 5: State Management with Context API
