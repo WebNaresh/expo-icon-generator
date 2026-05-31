@@ -32,7 +32,7 @@ const guides = [
       "Use the generated app.json",
       "Build and deploy",
     ],
-    href: "/tutorials/expo-icon-setup",
+    href: "/tutorials/expo-app-development-complete-guide",
     linkText: "Setup guide",
   },
 ];

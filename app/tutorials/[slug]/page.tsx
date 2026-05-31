@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   Clock,
-  Users,
-  Star,
   BookOpen,
   CheckCircle,
   Play,
@@ -109,14 +107,6 @@ export default async function TutorialPage({
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
                   <span>{tutorial.duration}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  <span>{tutorial.students.toLocaleString()} students</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="h-4 w-4 fill-current text-yellow-500" />
-                  <span>{tutorial.rating} rating</span>
                 </div>
               </div>
             </header>

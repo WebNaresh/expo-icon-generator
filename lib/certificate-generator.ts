@@ -32,7 +32,7 @@ const CERTIFICATE_CONFIG = {
 /**
  * Generate a PDF certificate for a contributor
  */
-export function generateContributorCertificate(contributor: ContributorData): jsPDF {
+function generateContributorCertificate(contributor: ContributorData): jsPDF {
   const doc = new jsPDF({
     orientation: 'landscape',
     unit: 'mm',
@@ -183,31 +183,5 @@ export function downloadCertificate(contributor: ContributorData) {
   } catch (error) {
     console.error('Error generating certificate:', error)
     throw new Error('Failed to generate certificate')
-  }
-}
-
-/**
- * Get certificate as blob for further processing
- */
-export function getCertificateBlob(contributor: ContributorData): Blob {
-  try {
-    const doc = generateContributorCertificate(contributor)
-    return doc.output('blob')
-  } catch (error) {
-    console.error('Error generating certificate blob:', error)
-    throw new Error('Failed to generate certificate')
-  }
-}
-
-/**
- * Preview certificate (returns base64 data URL)
- */
-export function getCertificatePreview(contributor: ContributorData): string {
-  try {
-    const doc = generateContributorCertificate(contributor)
-    return doc.output('datauristring')
-  } catch (error) {
-    console.error('Error generating certificate preview:', error)
-    throw new Error('Failed to generate certificate preview')
   }
 }

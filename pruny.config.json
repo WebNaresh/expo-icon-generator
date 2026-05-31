@@ -1,0 +1,36 @@
+{
+  "dir": "./",
+  "ignore": {
+    "routes": [],
+    "folders": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/.turbo/**",
+      "**/.cache/**",
+      "**/.vercel/**",
+      "**/.husky/**",
+      "**/.swc/**",
+      "**/generated/**",
+      "**/storybook-static/**",
+      "**/ios/**",
+      "**/android/**"
+    ],
+    "files": [
+      "public/ads.txt"
+    ],
+    "links": []
+  },
+  "extensions": [
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx"
+  ],
+  "nestGlobalPrefix": "",
+  "extraRoutePatterns": []
+}

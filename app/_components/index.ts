@@ -15,7 +15,6 @@ export { default as SEOContentSection } from './seo-content-section';
 export { default as CrossPromotionBanner } from './cross-promotion-banner';
 export { default as IconSettingsPanel } from './icon-settings-panel';
 export { default as TextLogoCreator } from './text-logo-creator';
-export { default as SplashSettings } from './splash-settings';
 export { default as AppJsonPreview } from './app-json-preview';
 
 // Custom hooks

@@ -20,7 +20,7 @@ export function ProfileAvatar({ avatarUrl, displayName }: ProfileAvatarProps) {
       priority
       onError={(e) => {
         const target = e.target as HTMLImageElement;
-        target.src = "/default-avatar.png";
+        target.src = "/default-avatar.svg";
       }}
     />
   );

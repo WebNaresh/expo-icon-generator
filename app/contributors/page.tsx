@@ -57,7 +57,7 @@ function ContributorCard({ contributor }: { contributor: APIContributor }) {
           priority
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = "/default-avatar.png";
+            target.src = "/default-avatar.svg";
           }}
         />
         <div className="flex-1">

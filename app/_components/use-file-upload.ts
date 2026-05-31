@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 interface UploadedFile {
   file: File;
@@ -24,6 +24,7 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 export function useFileUpload() {
   const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const analyzeAbortRef = useRef<AbortController | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isPasteReady, setIsPasteReady] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
@@ -48,6 +49,11 @@ export function useFileUpload() {
 
   // Analyze image colors to suggest background color
   const analyzeImageColors = async (file: File) => {
+    // Cancel any in-flight request so a slow response can't overwrite a newer result
+    analyzeAbortRef.current?.abort();
+    const controller = new AbortController();
+    analyzeAbortRef.current = controller;
+
     setIsAnalyzingColors(true);
     try {
       const formData = new FormData();
@@ -56,6 +62,7 @@ export function useFileUpload() {
       const response = await fetch("/api/analyze-image-colors", {
         method: "POST",
         body: formData,
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -69,6 +76,7 @@ export function useFileUpload() {
 
       console.log("Color analysis result:", analysis);
     } catch (err) {
+      if (err instanceof Error && err.name === "AbortError") return;
       console.warn("Failed to analyze image colors:", err);
       // Keep default white background if analysis fails
       setColorAnalysis(null);
