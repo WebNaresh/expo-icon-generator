@@ -1,7 +1,9 @@
 {
   "dir": "./",
   "ignore": {
-    "routes": [],
+    "routes": [
+      "/ads.txt"
+    ],
     "folders": [
       "**/node_modules/**",
       "**/dist/**",
