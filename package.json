@@ -9,6 +9,7 @@
     "validate": "bun run lint && bun run typecheck && bun run check-unused",
     "check-unused": "pruny",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "sitemap": "next-sitemap",
     "cypress:open": "cypress open",
