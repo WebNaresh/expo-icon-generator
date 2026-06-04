@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.12.0...v1.12.1) (2026-06-04)
+
+
+### Bug Fixes
+
+* **app/layout.tsx:** update index watching logic ([2e41797](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/2e41797bc1cbb904aeb9f85d6d61011937c4d5db))
+
 # [1.12.0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.11.0...v1.12.0) (2026-05-31)
 
 
