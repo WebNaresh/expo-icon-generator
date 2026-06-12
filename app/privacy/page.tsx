@@ -173,6 +173,30 @@ export default function PrivacyPage() {
                   </p>
                 </div>
 
+                <div className="border-l-4 border-yellow-500 pl-4">
+                  <h3 className="mb-2 text-lg font-semibold text-white">Google AdSense</h3>
+                  <p className="text-gray-400">
+                    We use Google AdSense to display advertisements on our site. Google AdSense uses cookies and web beacons to serve ads based on your prior visits to this website or other websites. Google&apos;s use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the internet. You may opt out of personalized advertising by visiting{" "}
+                    <a
+                      href="https://www.google.com/settings/ads"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sky-400 hover:text-sky-300"
+                    >
+                      Google Ads Settings
+                    </a>
+                    . For more information on how Google uses data from sites that use its advertising services, visit{" "}
+                    <a
+                      href="https://policies.google.com/technologies/partner-sites"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sky-400 hover:text-sky-300"
+                    >
+                      Google&apos;s Privacy &amp; Terms
+                    </a>
+                    .
+                  </p>
+                </div>
 
               </div>
             </section>
@@ -230,7 +254,7 @@ export default function PrivacyPage() {
                 </div>
                 <div className="rounded-lg bg-gray-800 p-4">
                   <h3 className="mb-2 font-semibold text-white">Advertising Cookies</h3>
-                  <p className="text-sm text-gray-400">Used to display relevant advertisements</p>
+                  <p className="text-sm text-gray-400">Used by Google AdSense to display relevant advertisements based on your interests. Google may use these cookies to personalize ads across websites.</p>
                 </div>
               </div>
             </section>
