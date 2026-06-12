@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.12.1...v1.13.0) (2026-06-12)
+
+
+### Features
+
+* **app/layout.tsx:** add Google AdSense auto-ads script ([7fc6816](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/commit/7fc6816e23c4867ccb00d0a73262d18d72ad6c7f))
+
 ## [1.12.1](https://github.com/Navibyte-Innovations-Pvt-Ltd/expo-icon-generator/compare/v1.12.0...v1.12.1) (2026-06-04)
 
 
